@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		EFF89B922452D47400A9276F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89B912452D47400A9276F /* main.cpp */; };
-		EFF89B9E2452D4DF00A9276F /* function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89B9D2452D4DF00A9276F /* function.cpp */; };
+		EFF89BA62452DF8B00A9276F /* semester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89BA52452DF8B00A9276F /* semester.cpp */; };
+		EFF89BA8245331DA00A9276F /* class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89BA7245331DA00A9276F /* class.cpp */; };
+		EFF89BAA2453325A00A9276F /* student.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89BA92453325A00A9276F /* student.cpp */; };
+		EFF89BAC245333C100A9276F /* course.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89BAB245333C100A9276F /* course.cpp */; };
+		EFF89BAE245335A200A9276F /* lecturer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89BAD245335A200A9276F /* lecturer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,7 +35,12 @@
 		EFF89B9A2452D4A300A9276F /* course.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = course.h; sourceTree = "<group>"; };
 		EFF89B9B2452D4AF00A9276F /* lecturer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lecturer.h; sourceTree = "<group>"; };
 		EFF89B9C2452D4CB00A9276F /* include.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = include.h; sourceTree = "<group>"; };
-		EFF89B9D2452D4DF00A9276F /* function.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = function.cpp; sourceTree = "<group>"; };
+		EFF89BA42452DAB600A9276F /* semester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = semester.h; sourceTree = "<group>"; };
+		EFF89BA52452DF8B00A9276F /* semester.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = semester.cpp; sourceTree = "<group>"; };
+		EFF89BA7245331DA00A9276F /* class.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = class.cpp; sourceTree = "<group>"; };
+		EFF89BA92453325A00A9276F /* student.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = student.cpp; sourceTree = "<group>"; };
+		EFF89BAB245333C100A9276F /* course.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = course.cpp; sourceTree = "<group>"; };
+		EFF89BAD245335A200A9276F /* lecturer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lecturer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +79,12 @@
 				EFF89B9A2452D4A300A9276F /* course.h */,
 				EFF89B9B2452D4AF00A9276F /* lecturer.h */,
 				EFF89B9C2452D4CB00A9276F /* include.h */,
-				EFF89B9D2452D4DF00A9276F /* function.cpp */,
+				EFF89BA42452DAB600A9276F /* semester.h */,
+				EFF89BA52452DF8B00A9276F /* semester.cpp */,
+				EFF89BA7245331DA00A9276F /* class.cpp */,
+				EFF89BA92453325A00A9276F /* student.cpp */,
+				EFF89BAB245333C100A9276F /* course.cpp */,
+				EFF89BAD245335A200A9276F /* lecturer.cpp */,
 			);
 			path = ProjectCs162;
 			sourceTree = "<group>";
@@ -132,8 +146,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFF89BA8245331DA00A9276F /* class.cpp in Sources */,
+				EFF89BA62452DF8B00A9276F /* semester.cpp in Sources */,
 				EFF89B922452D47400A9276F /* main.cpp in Sources */,
-				EFF89B9E2452D4DF00A9276F /* function.cpp in Sources */,
+				EFF89BAE245335A200A9276F /* lecturer.cpp in Sources */,
+				EFF89BAA2453325A00A9276F /* student.cpp in Sources */,
+				EFF89BAC245333C100A9276F /* course.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
