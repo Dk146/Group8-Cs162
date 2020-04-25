@@ -179,7 +179,49 @@ void Semester::ManuallyAddNewCourse(){
     cin >> _LGender;
     a.setLGender(_LGender);
     a.setStatus(1);
-    
-    
 }
 
+// 8
+void Semester::editAnExistingStudent(int _ID)
+{
+    for (int i = 0; i < total_class; ++i)
+    {
+        for (int j = 0; j < arrClass[i].totalStudent; ++i)
+        {
+            if (arrClass[i].student[j].getID() == _ID)
+            {
+                string _firstname, _lastname, _doB, _nclass;
+                int choose;
+                do
+                {
+                    cout << "Which do you want to perform?\n "
+                        << "1. Change student's first name.\n"
+                        << "2. Change student's last name.\n"
+                        << "3. Change student's date of birth. \n"                       
+                        << "4. Exit. \n";
+                    cin >> choose;
+                    switch (choose)
+                    {
+                    case 1: 
+                        cout << "Input student's new first name: ";
+                        getline(cin, _firstname);
+                        arrClass[i].student[j].setFirstName(_firstname);
+                        break;
+                    case 2:                       
+                        cout << "Input student's new last name: ";
+                        getline(cin, _lastname);
+                        arrClass[i].student[j].setLastName(_lastname);
+                        break;
+                    case 3:
+                        cout << "Input student's new date of birth: ";
+                        getline(cin, _doB);
+                        arrClass[i].student[j].setDoB(_doB);
+                        break;
+                    case 4:
+                        break;
+                    }
+                } while (choose != 4);
+            }
+        }
+    }
+}
