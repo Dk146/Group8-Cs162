@@ -28,11 +28,12 @@ public:
     int getTotalClass();
     int getTotalCourse();
     int getTotalLecturer();
-    void addStudentToCourse(int _studentID, string _courseID, string class_name);
+    void addStudentToCourse(int _studentID, string _courseID, string class_name); //19
     void addCourseToClass(string _courseID, string class_name);
-    void ManuallyAddNewCourse();
+    void ManuallyAddNewCourse(); //15
     void addStudentToClass(); // 7
     void editAnExistingStudent(int _ID); //8
+    void removeACourse(string _courseID); //17
 };
 
 #endif

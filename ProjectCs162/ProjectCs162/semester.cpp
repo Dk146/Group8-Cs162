@@ -179,8 +179,8 @@ void Semester::ManuallyAddNewCourse(){
     new_course.setLDegree(_LDegree);
     cout << "Lecturer Gender: ";
     cin >> _LGender;
-    a.setLGender(_LGender);
-    a.setStatus(1);
+    new_course.setLGender(_LGender);
+    new_course.setStatus(1);
     new_course.setLGender(_LGender);
     _status = 1;
     new_course.setStatus(_status);
@@ -252,6 +252,15 @@ void Semester::editAnExistingStudent(int _ID)
                     }
                 } while (choose != 4);
             }
+        }
+    }
+}
+
+//17
+void Semester::removeACourse(string _courseID){
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID){
+            arrCourse[i].setStatus(0);
         }
     }
 }
