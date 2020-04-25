@@ -87,6 +87,64 @@ void Semester::addCourseToClass(string _courseID, string class_name){
     }
 }
 
+
+//void Semester::ManuallyAddNewCourse(){
+//    Course a;
+//    int _No;
+//    string _ID, _CName, _Room, _LUsername, _LName, _LDegree, _Class;
+//    bool c_LGender, c_status; // 1 is active, 0 is inactive
+//    int _year, _month, _day, _sHour, _sMin, _eHour, _eMin;
+//    string _DoW;
+//    
+//    cout << "No: ";
+//    cin >> _No;
+//    a.setNo(_No);
+//    cout << "ID:";
+//    cin >> _ID;
+//    a.setID(_ID);
+//    cout << "Course's name: ";
+//    cin >> _CName;
+//    a.setNam
+//}
+
+// 7
+void Semester::addStudentToClass()
+{
+    int No, ID;
+    string lastname, firstname, doB;
+    string username, password;
+    bool gender;
+    string class_name;
+
+    Student a;
+    cout << "No: ";
+    cin >> No;
+    a.setNo(No);
+    cout << "ID: ";
+    cin >> ID;
+    a.setID(ID);
+    cout << "Last name: ";
+    getline(cin, lastname);
+    a.setLastName(lastname);
+    cout << "First name: ";
+    getline(cin, firstname);
+    a.setFirstName(firstname);
+    cout << "Date of birth: ";
+    getline(cin, doB);
+    a.setDoB(doB);
+    a.createAccount();
+    cout << "Which class does this student enroll in? ";
+    getline(cin, class_name);
+
+    for (int i = 0; i < total_class; ++i)
+    {
+        if (arrClass[i].getClassName() == class_name)
+        {
+            arrClass[i].addStudent(a);
+        }
+    }
+}
+
 //15
 void Semester::ManuallyAddNewCourse(){
     Course a;
@@ -124,3 +182,4 @@ void Semester::ManuallyAddNewCourse(){
     
     
 }
+
