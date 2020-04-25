@@ -31,6 +31,7 @@ public:
     void addStudentToCourse(int _studentID, string _courseID, string class_name);
     void addCourseToClass(string _courseID, string class_name);
     void ManuallyAddNewCourse();
+    void addStudentToClass(); // 7
 };
 
 #endif

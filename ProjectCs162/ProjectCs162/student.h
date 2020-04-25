@@ -35,10 +35,6 @@ public:
     int getNumberofCourse();
     void createAccount();
     
-    Student();
-
-    Student(int _No, int _ID, string _lastname, string _firstname, string _doB, bool _gender);
-    
 };
 
 
