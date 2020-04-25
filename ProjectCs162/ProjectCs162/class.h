@@ -6,25 +6,19 @@
 
 class Class{
     private:
-        Student student[50];
+    
         string ClassName;
-        int totalStudent;
+    
     public:
-    void settotalStudent(int _totalStudent){
-        totalStudent = _totalStudent;
-    }
-    void setClassName(string _className){
-        ClassName = _className;
-    }
-    string getClassName(){
-        return ClassName;
-    }
-    Student getStudent(int index){
-        return student[index];
-    }
-    int gettotalStudent(){
-        return totalStudent;
-    }
+    
+    int totalStudent;
+    Student student[50];
+
+    void settotalStudent(int _totalStudent);
+    void setClassName(string _className);
+    string getClassName();
+    void addStudent(Student new_student);
+    
     Class(){
         totalStudent = 0;
     }
