@@ -4,11 +4,11 @@
 #include "course.h"
 #include "lecturer.h"
 #include "class.h"
-#include "function.cpp"
+
 using namespace std;
 
 int main(){
-    
+    cout << "Hello World";
     return 0;
 }
 
