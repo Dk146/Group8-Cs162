@@ -87,6 +87,7 @@ void Semester::addCourseToClass(string _courseID, string class_name){
     }
 }
 
+
 //void Semester::ManuallyAddNewCourse(){
 //    Course a;
 //    int _No;
@@ -143,3 +144,42 @@ void Semester::addStudentToClass()
         }
     }
 }
+
+//15
+void Semester::ManuallyAddNewCourse(){
+    Course a;
+    int _No;
+    string _ID, _CourseName, _Room, _LUsername, _LName, _LDegree, _Class;
+    bool _LGender, _status; // 1 is active, 0 is inactive
+    int _year, _month, _day, _sHour, _sMin, _eHour, _eMin;
+    string _DoW;
+
+    cout << "No: ";
+    cin >> _No;
+    a.setNo(_No);
+    cout << "ID:";
+    cin >> _ID;
+    a.setID(_ID);
+    cout << "Course name: ";
+    cin >> _CourseName;
+    a.setCourseName(_CourseName);
+    cout << "Class name: ";
+    cin >> _Class;
+    a.setClass(_Class);
+    cout << "Lecturer Username:";
+    cin >> _LUsername;
+    a.setLUsername(_LUsername);
+    cout << "Lecturer Name :";
+    cin >> _LName;
+    a.setLDegree(_LName);
+    cout << "Lecturer Degree's: ";
+    cin >> _LDegree;
+    a.setLDegree(_LDegree);
+    cout << "Lecturer Gender: ";
+    cin >> _LGender;
+    a.setLGender(_LGender);
+    a.setStatus(1);
+    
+    
+}
+

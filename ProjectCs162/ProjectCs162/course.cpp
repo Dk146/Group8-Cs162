@@ -30,14 +30,11 @@ void Course::setRoom(string _Room){
 void Course::setLGender(bool _LGender){
     c_LGender = _LGender;
 }
-void Course::setYear(int _year){
-    c_year = _year;
+void Course::setStartDate(string _startDate){
+    c_startDate = _startDate;
 }
-void Course::setMonth(int _month){
-    c_month = _month;
-}
-void Course::setday(int _day){
-    c_day = _day;
+void Course::setEndDate(string _endDate){
+    c_endDate = _endDate;
 }
 void Course::setsHour(int _sHour){
     c_sHour = _sHour;
@@ -54,10 +51,9 @@ void Course::seteMin(int _eMin){
 void Course::sedDoW(string _DoW){
     c_DoW = _DoW;
 }
-void Course::setTime(int _year, int _month, int _day, int _sHour, int _sMin, int _eHour, int _eMin, string _DoW){
-    c_year = _year;
-    c_month = _month;
-    c_day = _day;
+void Course::setTime(string _startDate, string _endDate, int _sHour, int _sMin, int _eHour, int _eMin, string _DoW){
+    c_startDate = _startDate;
+    c_endDate = _endDate;
     c_DoW = _DoW;
     c_sHour = _sHour;
     c_sMin = _sMin;
@@ -94,14 +90,11 @@ string Course::getLDegree(){
 bool Course::getLGender(){
     return c_LGender;
 }
-int Course::getYear(){
-    return c_year;
+string Course::getStartDate(){
+    return c_startDate;
 }
-int Course::getMonth(){
-    return c_month;
-}
-int Course::getDay(){
-    return c_day;
+string Course::getEndDate(){
+    return c_endDate;
 }
 int Course::getsHour(){
     return c_sHour;
