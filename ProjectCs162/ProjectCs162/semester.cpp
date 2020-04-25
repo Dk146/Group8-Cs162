@@ -32,6 +32,7 @@ int Semester::getTotalLecturer(){
     return total_lecturer;
 }
 
+//19
 void Semester::addStudentToCourse(int _studentID, string _courseID, string class_name){
     for (int i = 0; i < total_class; ++i){
         if(arrClass[i].getClassName() == class_name){
@@ -147,38 +148,67 @@ void Semester::addStudentToClass()
 
 //15
 void Semester::ManuallyAddNewCourse(){
-    Course a;
+    Course new_course;
     int _No;
     string _ID, _CourseName, _Room, _LUsername, _LName, _LDegree, _Class;
     bool _LGender, _status; // 1 is active, 0 is inactive
-    int _year, _month, _day, _sHour, _sMin, _eHour, _eMin;
+    string _startDate, _endDate;
+    int _sHour, _sMin, _eHour, _eMin;
     string _DoW;
 
     cout << "No: ";
     cin >> _No;
-    a.setNo(_No);
+    new_course.setNo(_No);
     cout << "ID:";
     cin >> _ID;
-    a.setID(_ID);
+    new_course.setID(_ID);
     cout << "Course name: ";
     cin >> _CourseName;
-    a.setCourseName(_CourseName);
+    new_course.setCourseName(_CourseName);
     cout << "Class name: ";
     cin >> _Class;
-    a.setClass(_Class);
+    new_course.setClass(_Class);
     cout << "Lecturer Username:";
     cin >> _LUsername;
-    a.setLUsername(_LUsername);
+    new_course.setLUsername(_LUsername);
     cout << "Lecturer Name :";
     cin >> _LName;
-    a.setLDegree(_LName);
+    new_course.setLDegree(_LName);
     cout << "Lecturer Degree's: ";
     cin >> _LDegree;
-    a.setLDegree(_LDegree);
+    new_course.setLDegree(_LDegree);
     cout << "Lecturer Gender: ";
     cin >> _LGender;
     a.setLGender(_LGender);
     a.setStatus(1);
+    new_course.setLGender(_LGender);
+    _status = 1;
+    new_course.setStatus(_status);
+    cout << "Start Date: ";
+    cin >> _startDate;
+    new_course.setStartDate(_startDate);
+    cout << "End Date: ";
+    cin >> _endDate;
+    new_course.setEndDate(_endDate);
+    cout << "Start Hour: ";
+    cin >> _sHour;
+    new_course.setsHour(_sHour);
+    cout << "Start Minute: ";
+    cin >> _sMin;
+    new_course.setsMin(_sMin);
+    cout << "End Hour: ";
+    cin >> _eHour;
+    new_course.seteHour(_eHour);
+    cout << "End Minute: ";
+    cin >> _eMin;
+    new_course.seteMin(_eMin);
+    cout << "Day of week: ";
+    cin >> _DoW;
+    new_course.setDoW(_DoW);
+    int k = total_course;
+    arrCourse[k] = new_course;
+    k++;
+    total_course = k;
 }
 
 // 8

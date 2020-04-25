@@ -11,6 +11,7 @@ private:
     string c_startDate, c_endDate;
     int c_sHour, c_sMin, c_eHour, c_eMin;
     string c_DoW;
+    
 public:
     
     int c_totalStudent;
@@ -32,7 +33,7 @@ public:
     void setsMin(int _sMin);
     void seteHour(int _eHour);
     void seteMin(int _eMin);
-    void sedDoW(string _DoW);
+    void setDoW(string _DoW);
     void setTime(string _startDate, string _endDate, int _sHour, int _sMin, int _eHour, int _eMin, string _DoW);
     void setTotalStudent(int _totalStudent);
     bool getStatus();
