@@ -28,12 +28,16 @@ public:
     int getTotalClass();
     int getTotalCourse();
     int getTotalLecturer();
-    void addStudentToCourse(int _studentID, string _courseID, string class_name);
+    void addStudentToCourse(int _studentID, string _courseID, string class_name); //19
     void addCourseToClass(string _courseID, string class_name);
-    void ManuallyAddNewCourse();
+    void ManuallyAddNewCourse(); //15
     void addStudentToClass(); // 7
     void editAnExistingStudent(int _ID); //8
+<<<<<<< HEAD
     void changeClass(int _ID); // 10
+=======
+    void removeACourse(string _courseID); //17
+>>>>>>> 325c7ff4866303e9aa1fda113e8735b7caba7f91
 };
 
 #endif

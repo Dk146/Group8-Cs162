@@ -48,7 +48,7 @@ void Course::seteHour(int _eHour){
 void Course::seteMin(int _eMin){
     c_eMin = _eMin;
 }
-void Course::sedDoW(string _DoW){
+void Course::setDoW(string _DoW){
     c_DoW = _DoW;
 }
 void Course::setTime(string _startDate, string _endDate, int _sHour, int _sMin, int _eHour, int _eMin, string _DoW){
