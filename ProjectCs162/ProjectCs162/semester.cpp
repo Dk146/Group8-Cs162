@@ -225,3 +225,39 @@ void Semester::editAnExistingStudent(int _ID)
         }
     }
 }
+ 
+// 10
+void Semester::changeClass(int _ID)
+{
+    string _newclass;
+    int x, y;
+    cout << "Which class does this student move to? ";
+    getline(cin, _newclass);
+    for (int i = 0; i < total_class; ++i)
+    {
+        for (int j = 0; j < arrClass[i].totalStudent; ++j)
+        {
+            if (arrClass[i].student[j].getID() == _ID)
+            {
+                x = i;
+                y = j;
+                for (int z = 0; z < total_class; ++z)
+                {
+                    if (arrClass[z].getClassName() == _newclass)
+                    {
+                        arrClass[z].addStudent(arrClass[i].student[j]);
+                    }
+                }
+            }
+        }
+    }
+    
+    arrClass[x].totalStudent -= 1;
+    int index = y + 1;
+    while (index < arrClass[x].totalStudent)
+    {
+        arrClass[x].student[y] = arrClass[x].student[index];
+        ++y;
+        ++index;
+    }
+}

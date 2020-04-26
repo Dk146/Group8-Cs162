@@ -33,6 +33,7 @@ public:
     void ManuallyAddNewCourse();
     void addStudentToClass(); // 7
     void editAnExistingStudent(int _ID); //8
+    void changeClass(int _ID); // 10
 };
 
 #endif
