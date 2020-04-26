@@ -88,26 +88,6 @@ void Semester::addCourseToClass(string _courseID, string class_name){
     }
 }
 
-
-//void Semester::ManuallyAddNewCourse(){
-//    Course a;
-//    int _No;
-//    string _ID, _CName, _Room, _LUsername, _LName, _LDegree, _Class;
-//    bool c_LGender, c_status; // 1 is active, 0 is inactive
-//    int _year, _month, _day, _sHour, _sMin, _eHour, _eMin;
-//    string _DoW;
-//    
-//    cout << "No: ";
-//    cin >> _No;
-//    a.setNo(_No);
-//    cout << "ID:";
-//    cin >> _ID;
-//    a.setID(_ID);
-//    cout << "Course's name: ";
-//    cin >> _CName;
-//    a.setNam
-//}
-
 // 7
 void Semester::addStudentToClass()
 {
@@ -255,7 +235,6 @@ void Semester::editAnExistingStudent(int _ID)
         }
     }
 }
-<<<<<<< HEAD
  
 // 10
 void Semester::changeClass(int _ID)
@@ -292,7 +271,6 @@ void Semester::changeClass(int _ID)
         ++index;
     }
 }
-=======
 
 //17
 void Semester::removeACourse(string _courseID){
@@ -302,4 +280,3 @@ void Semester::removeACourse(string _courseID){
         }
     }
 }
->>>>>>> 325c7ff4866303e9aa1fda113e8735b7caba7f91
