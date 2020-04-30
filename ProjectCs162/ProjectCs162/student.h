@@ -5,7 +5,6 @@
 
 class Student{
 private:
-    
     int No, ID;
     string lastname, firstname, doB;
     string username, password;

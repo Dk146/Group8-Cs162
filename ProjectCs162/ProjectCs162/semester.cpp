@@ -280,3 +280,46 @@ void Semester::removeACourse(string _courseID){
         }
     }
 }
+
+//18
+void Semester::removeAStudentFromACourse(int _studentID, string _courseID, string _className){
+    int pos_c = 0;
+    int pos_s = 0;
+    int k = 0;
+    for (int i = 0; i < total_class; ++i){
+        if (arrClass[i].getClassName() == _className){
+            pos_c = i;
+            for (int j = 0; j < arrClass[i].totalStudent; ++j){
+                if (arrClass[i].student[j].getID() == _studentID){
+                    pos_s = j;
+                    k = arrClass[i].student[j].getNumberofCourse();
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    for (int i = 0; i < k; ++i){
+        if (arrClass[pos_c].student[pos_s].s_ListCourse[i] == _courseID){
+            for (int j = i; j < k-1; ++j){
+                arrClass[pos_c].student[pos_s].s_ListCourse[j] = arrClass[pos_c].student[pos_s].s_ListCourse[j+1];
+            }
+            --k;
+            arrClass[pos_c].student[pos_s].numberofCourse = k;
+        }
+    }
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID){
+            for (int j = 0; j < arrCourse[i].c_totalStudent; ++j){
+                if (arrCourse[i].c_ListStudent[j] == _studentID){
+                    for (int z = j; z < arrCourse[i].c_totalStudent-1; ++z){
+                        arrCourse[i].c_ListStudent[z] = arrCourse[i].c_ListStudent[z+1];
+                    }
+                    --arrCourse[i].c_totalStudent;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
