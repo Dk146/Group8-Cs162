@@ -15,7 +15,7 @@ private:
 public:
     
     int c_totalStudent;
-    string c_ListStudent[100];
+    int c_ListStudent[100];
     
     void setStatus(bool _status);
     void setNo(int _No);

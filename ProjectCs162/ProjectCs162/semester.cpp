@@ -88,26 +88,6 @@ void Semester::addCourseToClass(string _courseID, string class_name){
     }
 }
 
-
-//void Semester::ManuallyAddNewCourse(){
-//    Course a;
-//    int _No;
-//    string _ID, _CName, _Room, _LUsername, _LName, _LDegree, _Class;
-//    bool c_LGender, c_status; // 1 is active, 0 is inactive
-//    int _year, _month, _day, _sHour, _sMin, _eHour, _eMin;
-//    string _DoW;
-//    
-//    cout << "No: ";
-//    cin >> _No;
-//    a.setNo(_No);
-//    cout << "ID:";
-//    cin >> _ID;
-//    a.setID(_ID);
-//    cout << "Course's name: ";
-//    cin >> _CName;
-//    a.setNam
-//}
-
 // 7
 void Semester::addStudentToClass()
 {
@@ -301,3 +281,48 @@ void Semester::removeACourse(string _courseID){
     }
 }
 
+<<<<<<< HEAD
+=======
+//18
+void Semester::removeAStudentFromACourse(int _studentID, string _courseID, string _className){
+    int pos_c = 0;
+    int pos_s = 0;
+    int k = 0;
+    for (int i = 0; i < total_class; ++i){
+        if (arrClass[i].getClassName() == _className){
+            pos_c = i;
+            for (int j = 0; j < arrClass[i].totalStudent; ++j){
+                if (arrClass[i].student[j].getID() == _studentID){
+                    pos_s = j;
+                    k = arrClass[i].student[j].getNumberofCourse();
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    for (int i = 0; i < k; ++i){
+        if (arrClass[pos_c].student[pos_s].s_ListCourse[i] == _courseID){
+            for (int j = i; j < k-1; ++j){
+                arrClass[pos_c].student[pos_s].s_ListCourse[j] = arrClass[pos_c].student[pos_s].s_ListCourse[j+1];
+            }
+            --k;
+            arrClass[pos_c].student[pos_s].numberofCourse = k;
+        }
+    }
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID){
+            for (int j = 0; j < arrCourse[i].c_totalStudent; ++j){
+                if (arrCourse[i].c_ListStudent[j] == _studentID){
+                    for (int z = j; z < arrCourse[i].c_totalStudent-1; ++z){
+                        arrCourse[i].c_ListStudent[z] = arrCourse[i].c_ListStudent[z+1];
+                    }
+                    --arrCourse[i].c_totalStudent;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
+>>>>>>> e4295aa0e87933f62a81768c60747fa74a0d9cb0
