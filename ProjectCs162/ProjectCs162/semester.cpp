@@ -255,7 +255,6 @@ void Semester::editAnExistingStudent(int _ID)
         }
     }
 }
-<<<<<<< HEAD
  
 // 10
 void Semester::changeClass(int _ID)
@@ -292,7 +291,6 @@ void Semester::changeClass(int _ID)
         ++index;
     }
 }
-=======
 
 //17
 void Semester::removeACourse(string _courseID){
@@ -302,4 +300,4 @@ void Semester::removeACourse(string _courseID){
         }
     }
 }
->>>>>>> 325c7ff4866303e9aa1fda113e8735b7caba7f91
+
