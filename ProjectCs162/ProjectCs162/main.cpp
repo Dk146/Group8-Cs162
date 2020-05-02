@@ -21,8 +21,19 @@ int main(){
     if (fin.is_open()) fin >> x;
     else cout << "Cannot open file check! ";
 
-    if (x == 0) 
-    
+    if (x == 0)
+    {
+        // loadStudentsFromCsv (fin);
+        // loadLecturersFromCsv (fin);
+        // loadStaffFromCsv (fin);
+    }
+    else if (x == 1)
+    {
+        // loadStudentsFromTxt (fin);
+        // loadLecturersFromTxt (fin);
+        // loadStaffFromCsv (fin);
+    }
+
     return 0;
 }
 

@@ -318,13 +318,18 @@ void Semester::removeAStudentFromACourse(string _studentID, string _courseID, st
     }
 }
 
-<<<<<<< HEAD
+
+
 void Semester::loadStudentsFromCSV(ifstream& fin)
 {
-    fin.open("Students.csv");
+    string link;
+    cout << "Please input the link to csv file: ";
+    getline(cin, link);
+    
+    fin.open(link + "Students.csv"); // cai nay sua tuy theo hoan canh, t de dang khai quat cho de hieu
+    
     string skipfirstline;
-    string No, ID, gen;
-    int _No, _ID, _gen;
+    string _No, _ID, _gen;
     string _fullname, _class, _doB;
     bool _gender;
     for (int i = 0; i < 6; ++i)
@@ -332,14 +337,49 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
 
     while (fin.good())
     {
-        getline(fin, No, ',');
-        getline(fin, ID, ',');
-        getline(fin, gen, ',');
+        getline(fin, _No, ',');
+        getline(fin, _ID, ',');
+        getline(fin, _fullname, ',');
+        getline(fin, _class, ',');
+        getline(fin, _doB, ',');
+        getline(fin, _gen, ',');
+        
+        if (_gen == "Male") _gender = true;
+        else _gender = false;
 
+        Student A;
+        A.setID(_ID);
+        A.setFullName(_fullname);
+        A.setDoB(_doB);
+        A.setGender(_gender);
+        A.setStatus(true);
 
+        A.createAccount();
+
+        int exist = 0;
+        for (int i = 0; i < total_class; ++i)
+        {
+            if (arrClass[i].getClassName() == _class)
+            {
+                arrClass[i].student[arrClass[i].totalStudent] = A;
+                exist = 1;
+                ++arrClass[i].totalStudent;
+            }
+        }
+
+        if (exist == 0)
+        {
+            arrClass[total_class].setClassName(_class);
+            arrClass[total_class].addStudent(A);
+            ++total_class;
+        }
     }
+    fin.close();
+
 }
-=======
+
+
+
 bool Semester::isCourseActive(string _courseID){
     for (int i = 0; i < total_course; ++i){
         if (arrCourse[i].getID() == _courseID){
@@ -364,4 +404,4 @@ bool Semester::isStudentActive(string _studentID){
     }
     return false;
 }
->>>>>>> 722c006b27f11dbbb9d935d205a7fd55dfd26add
+

@@ -38,15 +38,12 @@ public:
     void editAnExistingStudent(string _ID); //8
     void changeClass(string _ID); // 10
     void removeACourse(string _courseID); //17
-<<<<<<< HEAD
     void removeAStudentFromACourse(int _studentID, string _courseID, string _className); //18
     void loadStudentsFromCSV(ifstream& fin); // beginning of the program
-=======
     void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     
->>>>>>> 722c006b27f11dbbb9d935d205a7fd55dfd26add
 };
 
 #endif
