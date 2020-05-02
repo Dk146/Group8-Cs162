@@ -11,6 +11,18 @@
 using namespace std;
 
 int main(){
+    
+    
+    ifstream fin;
+    ofstream fout;
+    int x;
+
+    fin.open("D:\Check.txt");
+    if (fin.is_open()) fin >> x;
+    else cout << "Cannot open file check! ";
+
+    if (x == 0) 
+    
     return 0;
 }
 

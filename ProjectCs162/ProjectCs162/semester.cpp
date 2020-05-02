@@ -315,3 +315,24 @@ void Semester::removeAStudentFromACourse(int _studentID, string _courseID, strin
         }
     }
 }
+
+void Semester::loadStudentsFromCSV(ifstream& fin)
+{
+    fin.open("Students.csv");
+    string skipfirstline;
+    string No, ID, gen;
+    int _No, _ID, _gen;
+    string _fullname, _class, _doB;
+    bool _gender;
+    for (int i = 0; i < 6; ++i)
+        getline(fin, skipfirstline, ',');
+
+    while (fin.good())
+    {
+        getline(fin, No, ',');
+        getline(fin, ID, ',');
+        getline(fin, gen, ',');
+
+
+    }
+}

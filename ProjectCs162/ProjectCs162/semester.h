@@ -36,6 +36,7 @@ public:
     void changeClass(int _ID); // 10
     void removeACourse(string _courseID); //17
     void removeAStudentFromACourse(int _studentID, string _courseID, string _className); //18
+    void loadStudentsFromCSV(ifstream& fin); // beginning of the program
 };
 
 #endif
