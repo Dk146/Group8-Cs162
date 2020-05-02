@@ -4,9 +4,7 @@
 #include "course.h"
 #include "lecturer.h"
 #include "class.h"
-
 #include "semester.h"
-
 
 using namespace std;
 
