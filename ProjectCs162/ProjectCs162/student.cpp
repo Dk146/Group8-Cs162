@@ -1,6 +1,6 @@
 #include "student.h"
 
-    void Student::setID(int _ID){
+    void Student::setID(string _ID){
         ID = _ID;
     }
     void Student::setNo(int _No){
@@ -14,6 +14,9 @@
     }
     void Student::setGender(bool _gender){
         gender = _gender;
+    }
+    void Student::setStatus(bool _status){
+        status = _status;
     }
     void Student::setNumberofCourse(int _number){
         numberofCourse = _number;
@@ -30,7 +33,7 @@
     string Student::getPass(){
         return password;
     }
-    int Student::getID(){
+    string Student::getID(){
         return ID;
     }
     int Student::getNo(){
@@ -42,8 +45,11 @@
     string Student::getDoB(){
         return doB;
     }
-    bool Student::getGender(bool _gender){
+    bool Student::getGender(){
         return gender;
+    }
+    bool Student::getStatus(){
+        return status;
     }
     int Student::getNumberofCourse(){
         return numberofCourse;

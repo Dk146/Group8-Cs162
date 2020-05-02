@@ -33,7 +33,7 @@ int Semester::getTotalLecturer(){
 }
 
 //19
-void Semester::addStudentToCourse(int _studentID, string _courseID, string class_name){
+void Semester::addStudentToCourse(string _studentID, string _courseID, string class_name){
     for (int i = 0; i < total_class; ++i){
         if(arrClass[i].getClassName() == class_name){
             for (int j = 0; j < arrClass[i].totalStudent; ++j){
@@ -89,39 +89,41 @@ void Semester::addCourseToClass(string _courseID, string class_name){
 }
 
 // 7
-void Semester::addStudentToClass()
+void Semester::ManuallyaddStudentToClass()
 {
-    int No, ID;
-    string fullname, doB;
-    string username, password;
-    bool gender;
-    string class_name;
+    int _No;
+    string _ID, _fullname, _DoB;
+    string _userName, _password;
+    bool _gender;
+    string _className;
 
     Student a;
     cout << "No: ";
-    cin >> No;
-    a.setNo(No);
+    cin >> _No;
+    a.setNo(_No);
     cout << "ID: ";
-    cin >> ID;
-    a.setID(ID);
+    cin >> _ID;
+    a.setID(_ID);
     cout << "Fullname: ";
-    getline(cin, fullname);
-    a.setFullName(fullname);
+    getline(cin, _fullname);
+    a.setFullName(_fullname);
     cout << "Date of birth: ";
-    getline(cin, doB);
-    a.setDoB(doB);
+    getline(cin, _DoB);
+    a.setDoB(_DoB);
+    cout << "Gender: ";
+    cin >> _gender;
+    a.setGender(_gender);
     a.createAccount();
     cout << "Which class does this student enroll in? ";
-    getline(cin, class_name);
+    getline(cin, _className);
 
     for (int i = 0; i < total_class; ++i)
     {
-        if (arrClass[i].getClassName() == class_name)
+        if (arrClass[i].getClassName() == _className)
         {
             arrClass[i].addStudent(a);
         }
     }
-    
     // Missing the output to txt file, saved for later.
 }
 
@@ -191,7 +193,7 @@ void Semester::ManuallyAddNewCourse(){
 }
 
 // 8
-void Semester::editAnExistingStudent(int _ID)
+void Semester::editAnExistingStudent(string _ID)
 {
     for (int i = 0; i < total_class; ++i)
     {
@@ -229,10 +231,10 @@ void Semester::editAnExistingStudent(int _ID)
 }
  
 // 10
-void Semester::changeClass(int _ID)
+void Semester::changeClass(string _ID)
 {
     string _newclass;
-    int x, y;
+    int x = 0, y = 0;
     cout << "Which class does this student move to? ";
     getline(cin, _newclass);
     for (int i = 0; i < total_class; ++i)
@@ -274,7 +276,7 @@ void Semester::removeACourse(string _courseID){
 }
 
 //18
-void Semester::removeAStudentFromACourse(int _studentID, string _courseID, string _className){
+void Semester::removeAStudentFromACourse(string _studentID, string _courseID, string _className){
     int pos_c = 0;
     int pos_s = 0;
     int k = 0;
@@ -316,6 +318,7 @@ void Semester::removeAStudentFromACourse(int _studentID, string _courseID, strin
     }
 }
 
+<<<<<<< HEAD
 void Semester::loadStudentsFromCSV(ifstream& fin)
 {
     fin.open("Students.csv");
@@ -336,3 +339,29 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
 
     }
 }
+=======
+bool Semester::isCourseActive(string _courseID){
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID){
+            if (arrCourse[i].getStatus() == true)
+                return true;
+            return false;
+        }
+    }
+    return false;
+}
+
+bool Semester::isStudentActive(string _studentID){
+    for (int i = 0; i < total_class; ++i){
+        for (int j = 0; j < arrClass[i].totalStudent; ++j){
+            if (arrClass[i].student[j].getID() == _studentID){
+                if (arrClass[i].student[j].getStatus() == 1)
+                    return true;
+                else
+                    return false;
+            }
+        }
+    }
+    return false;
+}
+>>>>>>> 722c006b27f11dbbb9d935d205a7fd55dfd26add
