@@ -34,7 +34,7 @@ public:
     void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
     void addCourseToClass(string _courseID, string class_name); // For loading file (Ton)
     void ManuallyAddNewCourse(); //15
-    void addStudentToClass(); // 7
+    void ManuallyaddStudentToClass(); // 7
     void editAnExistingStudent(string _ID); //8
     void changeClass(string _ID); // 10
     void removeACourse(string _courseID); //17

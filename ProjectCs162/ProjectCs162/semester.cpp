@@ -89,39 +89,41 @@ void Semester::addCourseToClass(string _courseID, string class_name){
 }
 
 // 7
-void Semester::addStudentToClass()
+void Semester::ManuallyaddStudentToClass()
 {
-    int No;
-    string ID, fullname, doB;
-    string username, password;
-    bool gender;
-    string class_name;
+    int _No;
+    string _ID, _fullname, _DoB;
+    string _userName, _password;
+    bool _gender;
+    string _className;
 
     Student a;
     cout << "No: ";
-    cin >> No;
-    a.setNo(No);
+    cin >> _No;
+    a.setNo(_No);
     cout << "ID: ";
-    cin >> ID;
-    a.setID(ID);
+    cin >> _ID;
+    a.setID(_ID);
     cout << "Fullname: ";
-    getline(cin, fullname);
-    a.setFullName(fullname);
+    getline(cin, _fullname);
+    a.setFullName(_fullname);
     cout << "Date of birth: ";
-    getline(cin, doB);
-    a.setDoB(doB);
+    getline(cin, _DoB);
+    a.setDoB(_DoB);
+    cout << "Gender: ";
+    cin >> _gender;
+    a.setGender(_gender);
     a.createAccount();
     cout << "Which class does this student enroll in? ";
-    getline(cin, class_name);
+    getline(cin, _className);
 
     for (int i = 0; i < total_class; ++i)
     {
-        if (arrClass[i].getClassName() == class_name)
+        if (arrClass[i].getClassName() == _className)
         {
             arrClass[i].addStudent(a);
         }
     }
-    
     // Missing the output to txt file, saved for later.
 }
 
