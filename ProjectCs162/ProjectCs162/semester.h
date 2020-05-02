@@ -20,6 +20,7 @@ class Semester{
     Lecturer arrLecturer[50];
     
 public:
+    
     void setSemesterName(string _semesterName);
     void setTotalClass(int _totalClass);
     void setTotalCourse(int _totalCourse);
@@ -30,15 +31,17 @@ public:
     int getTotalCourse();
     int getTotalLecturer();
     
-    void addStudentToCourse(int _studentID, string _courseID, string class_name); //19
+    void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
     void addCourseToClass(string _courseID, string class_name); // For loading file (Ton)
     void ManuallyAddNewCourse(); //15
     void addStudentToClass(); // 7
-    void editAnExistingStudent(int _ID); //8
-    void changeClass(int _ID); // 10
+    void editAnExistingStudent(string _ID); //8
+    void changeClass(string _ID); // 10
     void removeACourse(string _courseID); //17
-    void removeAStudentFromACourse(int _studentID, string _courseID, string _className); //18
+    void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
     bool isCourseActive(string _courseID); // check Course's status
+    bool isStudentActive(string _studentID); // check Student's status
+    
 };
 
 #endif

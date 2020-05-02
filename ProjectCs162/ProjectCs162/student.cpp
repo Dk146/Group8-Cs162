@@ -1,6 +1,6 @@
 #include "student.h"
 
-    void Student::setID(int _ID){
+    void Student::setID(string _ID){
         ID = _ID;
     }
     void Student::setNo(int _No){
@@ -33,7 +33,7 @@
     string Student::getPass(){
         return password;
     }
-    int Student::getID(){
+    string Student::getID(){
         return ID;
     }
     int Student::getNo(){

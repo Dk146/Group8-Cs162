@@ -33,7 +33,7 @@ int Semester::getTotalLecturer(){
 }
 
 //19
-void Semester::addStudentToCourse(int _studentID, string _courseID, string class_name){
+void Semester::addStudentToCourse(string _studentID, string _courseID, string class_name){
     for (int i = 0; i < total_class; ++i){
         if(arrClass[i].getClassName() == class_name){
             for (int j = 0; j < arrClass[i].totalStudent; ++j){
@@ -91,8 +91,8 @@ void Semester::addCourseToClass(string _courseID, string class_name){
 // 7
 void Semester::addStudentToClass()
 {
-    int No, ID;
-    string fullname, doB;
+    int No;
+    string ID, fullname, doB;
     string username, password;
     bool gender;
     string class_name;
@@ -191,7 +191,7 @@ void Semester::ManuallyAddNewCourse(){
 }
 
 // 8
-void Semester::editAnExistingStudent(int _ID)
+void Semester::editAnExistingStudent(string _ID)
 {
     for (int i = 0; i < total_class; ++i)
     {
@@ -229,10 +229,10 @@ void Semester::editAnExistingStudent(int _ID)
 }
  
 // 10
-void Semester::changeClass(int _ID)
+void Semester::changeClass(string _ID)
 {
     string _newclass;
-    int x, y;
+    int x = 0, y = 0;
     cout << "Which class does this student move to? ";
     getline(cin, _newclass);
     for (int i = 0; i < total_class; ++i)
@@ -274,7 +274,7 @@ void Semester::removeACourse(string _courseID){
 }
 
 //18
-void Semester::removeAStudentFromACourse(int _studentID, string _courseID, string _className){
+void Semester::removeAStudentFromACourse(string _studentID, string _courseID, string _className){
     int pos_c = 0;
     int pos_s = 0;
     int k = 0;
@@ -322,6 +322,20 @@ bool Semester::isCourseActive(string _courseID){
             if (arrCourse[i].getStatus() == true)
                 return true;
             return false;
+        }
+    }
+    return false;
+}
+
+bool Semester::isStudentActive(string _studentID){
+    for (int i = 0; i < total_class; ++i){
+        for (int j = 0; j < arrClass[i].totalStudent; ++j){
+            if (arrClass[i].student[j].getID() == _studentID){
+                if (arrClass[i].student[j].getStatus() == 1)
+                    return true;
+                else
+                    return false;
+            }
         }
     }
     return false;
