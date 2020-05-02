@@ -6,11 +6,8 @@
     void Student::setNo(int _No){
         No = _No;
     }
-    void Student::setLastName(string _lastname){
-        lastname = _lastname;
-    }
-    void Student::setFirstName(string _firstname){
-        firstname = _firstname;
+    void Student::setFullName(string _fullname){
+        fullname = _fullname;
     }
     void Student::setDoB(string _doB){
         doB = _doB;
@@ -39,11 +36,8 @@
     int Student::getNo(){
         return No;
     }
-    string Student::getLastName(){
-        return lastname;
-    }
-    string Student::getFirstName(){
-        return firstname;
+    string Student::getFullName(){
+        return fullname;
     }
     string Student::getDoB(){
         return doB;

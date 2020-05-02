@@ -92,7 +92,7 @@ void Semester::addCourseToClass(string _courseID, string class_name){
 void Semester::addStudentToClass()
 {
     int No, ID;
-    string lastname, firstname, doB;
+    string fullname, doB;
     string username, password;
     bool gender;
     string class_name;
@@ -104,12 +104,9 @@ void Semester::addStudentToClass()
     cout << "ID: ";
     cin >> ID;
     a.setID(ID);
-    cout << "Last name: ";
-    getline(cin, lastname);
-    a.setLastName(lastname);
-    cout << "First name: ";
-    getline(cin, firstname);
-    a.setFirstName(firstname);
+    cout << "Fullname: ";
+    getline(cin, fullname);
+    a.setFullName(fullname);
     cout << "Date of birth: ";
     getline(cin, doB);
     a.setDoB(doB);
@@ -124,6 +121,8 @@ void Semester::addStudentToClass()
             arrClass[i].addStudent(a);
         }
     }
+    
+    // Missing the output to txt file, saved for later.
 }
 
 //15
@@ -200,34 +199,27 @@ void Semester::editAnExistingStudent(int _ID)
         {
             if (arrClass[i].student[j].getID() == _ID)
             {
-                string _firstname, _lastname, _doB, _nclass;
+                string _fullname, _doB, _nclass;
                 int choose;
                 do
                 {
                     cout << "Which do you want to perform?\n "
-                        << "1. Change student's first name.\n"
-                        << "2. Change student's last name.\n"
-                        << "3. Change student's date of birth. \n"                       
-                        << "4. Exit. \n";
+                        << "1. Change student's name. \n"
+                        << "2. Change student's date of birth. \n"                       
+                        << "3. Exit. \n";
                     cin >> choose;
                     switch (choose)
                     {
-                    case 1: 
-                        cout << "Input student's new first name: ";
-                        getline(cin, _firstname);
-                        arrClass[i].student[j].setFirstName(_firstname);
-                        break;
-                    case 2:                       
-                        cout << "Input student's new last name: ";
-                        getline(cin, _lastname);
-                        arrClass[i].student[j].setLastName(_lastname);
-                        break;
-                    case 3:
+                    case 1:
+                        cout << "Input student's new full name: ";
+                        getline(cin, _fullname);
+                        arrClass[i].student[j].setFullName(_fullname);
+                    case 2:
                         cout << "Input student's new date of birth: ";
                         getline(cin, _doB);
                         arrClass[i].student[j].setDoB(_doB);
                         break;
-                    case 4:
+                    case 3:
                         break;
                     }
                 } while (choose != 4);
@@ -281,8 +273,6 @@ void Semester::removeACourse(string _courseID){
     }
 }
 
-<<<<<<< HEAD
-=======
 //18
 void Semester::removeAStudentFromACourse(int _studentID, string _courseID, string _className){
     int pos_c = 0;
@@ -325,4 +315,3 @@ void Semester::removeAStudentFromACourse(int _studentID, string _courseID, strin
         }
     }
 }
->>>>>>> e4295aa0e87933f62a81768c60747fa74a0d9cb0

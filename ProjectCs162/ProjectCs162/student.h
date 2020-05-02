@@ -6,7 +6,7 @@
 class Student{
 private:
     int No, ID;
-    string lastname, firstname, doB;
+    string fullname, doB;
     string username, password;
     bool gender; //1 is male; 0 is female
     
@@ -16,8 +16,7 @@ public:
     string s_ListCourse[10];
     void setID(int _ID);
     void setNo(int _No);
-    void setLastName(string _lastname);
-    void setFirstName(string _firstname);
+    void setFullName(string _fullname);
     void setDoB(string _doB);
     void setGender(bool _gender);
     void setNumberofCourse(int _number);
@@ -27,8 +26,7 @@ public:
     string getPass();
     int getID();
     int getNo();
-    string getLastName();
-    string getFirstName();
+    string getFullName();
     string getDoB();
     bool getGender(bool _gender);
     int getNumberofCourse();

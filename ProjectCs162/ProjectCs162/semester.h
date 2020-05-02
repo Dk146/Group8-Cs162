@@ -35,10 +35,7 @@ public:
     void editAnExistingStudent(int _ID); //8
     void changeClass(int _ID); // 10
     void removeACourse(string _courseID); //17
-<<<<<<< HEAD
-=======
     void removeAStudentFromACourse(int _studentID, string _courseID, string _className); //18
->>>>>>> e4295aa0e87933f62a81768c60747fa74a0d9cb0
 };
 
 #endif
