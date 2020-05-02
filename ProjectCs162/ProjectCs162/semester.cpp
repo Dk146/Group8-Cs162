@@ -315,3 +315,11 @@ void Semester::removeAStudentFromACourse(int _studentID, string _courseID, strin
         }
     }
 }
+
+bool Semester::isCourseActive(string _courseID){
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID){
+            arrCourse[i].setStatus(0);
+        }
+    }
+}
