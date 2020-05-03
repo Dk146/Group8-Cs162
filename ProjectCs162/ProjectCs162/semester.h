@@ -42,7 +42,7 @@ public:
     void loadStudentsFromCSV(ifstream& fin); // beginning of the program
     void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
     void viewListOfClasses(string _className); //11
-    void viewListOfStudent(string _fullname); //12
+    void viewListOfStudent(string _ClassName); //12
 
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
