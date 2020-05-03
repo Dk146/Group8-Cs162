@@ -414,21 +414,25 @@ void Semester::viewListOfClasses(string _className)
 
 }
 //12
-void Semester::viewListOfStudent(string _studentID)
+void Semester::viewListOfStudent(string _ClassName)       
 {
     int x;
     cout << "choose a number of class u want to view: ";
     cin >> x;
     cout << "List of student class " << x << " is: " << endl;
-    for (int i = 0; i < total_class; ++i) 
+
+    for (int i = 0; i < total_class; ++i)
     {
-        if (arrClass[x].student[i].getID() == _studentID) 
+        if (arrClass[x].getClassName()==arrClass[i].getClassName())
         {
-            if (arrClass[x].student[i].getStatus() == 1)
+            for (int j = 0; j < arrClass[x].totalStudent; j++)
+            {
+                if (arrClass[x].student[j].getStatus() == 1)
                 {
-                cout << "Full name of student " << i + 1 << " : " << arrClass[x].student[i].getFullName();
+                    cout << "Full name of student " << i + 1 << " : " << arrClass[x].student[i].getFullName();
                 }
+            }
         }
-        
     }
+    
 }
