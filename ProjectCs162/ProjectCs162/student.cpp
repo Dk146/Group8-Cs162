@@ -1,22 +1,22 @@
 #include "student.h"
 
-    void Student::setID(int _ID){
+    void Student::setID(string _ID){
         ID = _ID;
     }
     void Student::setNo(int _No){
         No = _No;
     }
-    void Student::setLastName(string _lastname){
-        lastname = _lastname;
-    }
-    void Student::setFirstName(string _firstname){
-        firstname = _firstname;
+    void Student::setFullName(string _fullname){
+        fullname = _fullname;
     }
     void Student::setDoB(string _doB){
         doB = _doB;
     }
     void Student::setGender(bool _gender){
         gender = _gender;
+    }
+    void Student::setStatus(bool _status){
+        status = _status;
     }
     void Student::setNumberofCourse(int _number){
         numberofCourse = _number;
@@ -33,23 +33,23 @@
     string Student::getPass(){
         return password;
     }
-    int Student::getID(){
+    string Student::getID(){
         return ID;
     }
     int Student::getNo(){
         return No;
     }
-    string Student::getLastName(){
-        return lastname;
-    }
-    string Student::getFirstName(){
-        return firstname;
+    string Student::getFullName(){
+        return fullname;
     }
     string Student::getDoB(){
         return doB;
     }
-    bool Student::getGender(bool _gender){
+    bool Student::getGender(){
         return gender;
+    }
+    bool Student::getStatus(){
+        return status;
     }
     int Student::getNumberofCourse(){
         return numberofCourse;

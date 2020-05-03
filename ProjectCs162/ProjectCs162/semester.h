@@ -20,23 +20,34 @@ class Semester{
     Lecturer arrLecturer[50];
     
 public:
+    
     void setSemesterName(string _semesterName);
     void setTotalClass(int _totalClass);
     void setTotalCourse(int _totalCourse);
     void setTotalLecturer(int _totalLecturer);
+    
     string getSemesterName();
     int getTotalClass();
     int getTotalCourse();
     int getTotalLecturer();
+    
+    void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
     void addCourseToClass(string _courseID, string class_name); // For loading file (Ton)
-
-    void addStudentToClass(); // 7
-    void editAnExistingStudent(int _ID); //8
-    void changeClass(int _ID); // 10
     void ManuallyAddNewCourse(); //15
+    void ManuallyaddStudentToClass(); // 7
+    void editAnExistingStudent(string _ID); //8
+    void changeClass(string _ID); // 10
     void removeACourse(string _courseID); //17
     void removeAStudentFromACourse(int _studentID, string _courseID, string _className); //18
-    void addStudentToCourse(int _studentID, string _courseID, string class_name); //19
+    void loadStudentsFromCSV(ifstream& fin); // beginning of the program
+    void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
+    void viewListOfClasses(string _className); //11
+    void viewListOfStudent(string _fullname); //12
+
+    bool isCourseActive(string _courseID); // check Course's status
+    bool isStudentActive(string _studentID); // check Student's status
+    
+
 };
 
 #endif
