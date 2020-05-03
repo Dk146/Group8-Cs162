@@ -281,8 +281,7 @@ void Semester::removeACourse(string _courseID){
     }
 }
 
-<<<<<<< HEAD
-=======
+
 //18
 void Semester::removeAStudentFromACourse(int _studentID, string _courseID, string _className){
     int pos_c = 0;
@@ -325,4 +324,5 @@ void Semester::removeAStudentFromACourse(int _studentID, string _courseID, strin
         }
     }
 }
->>>>>>> e4295aa0e87933f62a81768c60747fa74a0d9cb0
+
+
