@@ -31,18 +31,19 @@ public:
     int getTotalCourse();
     int getTotalLecturer();
     
-    void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
+    void loadStudentsFromCSV(ifstream& fin); // beginning of the program
     void addCourseToClass(string _courseID, string class_name); // For loading file (Ton)
-    void ManuallyAddNewCourse(); //15
     void ManuallyaddStudentToClass(); // 7
     void editAnExistingStudent(string _ID); //8
+    void RemoveAStudent(string _studentID); // 9
     void changeClass(string _ID); // 10
-    void removeACourse(string _courseID); //17
-    void removeAStudentFromACourse(int _studentID, string _courseID, string _className); //18
-    void loadStudentsFromCSV(ifstream& fin); // beginning of the program
-    void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
     void viewListOfClasses(string _className); //11
     void viewListOfStudent(string _ClassName); //12
+     void ManuallyAddNewCourse(); //15
+    void removeACourse(string _courseID); //17
+    void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
+    void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
+
 
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
