@@ -685,6 +685,7 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
 }
 
 
+
 //12
 void Semester::viewListOfStudent(string _ClassName)       
 {
@@ -704,6 +705,7 @@ void Semester::viewListOfStudent(string _ClassName)
     }
     
 }
+
 
 //20
 void Semester::viewListOfCourses()
@@ -726,13 +728,20 @@ void Semester::viewListStudentOfCourse(string _CourseName)
             for (int j = 0; j < arrCourse[i].getTotalStudent(); j++)
             {
                 cout << j + 1 << " : ";
+                //cout << j + 1 << " : " << arrCourse[i]. << endl;
+
             }
         }
     }
 
 }
 
+<<<<<<< HEAD
 Student Semester::getStudentForCourse(string _ID){
+=======
+Student Semester::getStudent(string _ID){
+
+>>>>>>> 29e12368fa60c3a2bee6ae119c3082da994afbc3
     Student a;
     for (int i = 0; i < total_class; ++i){
         for (int j = 0; j < arrClass[i].totalStudent; ++j){
