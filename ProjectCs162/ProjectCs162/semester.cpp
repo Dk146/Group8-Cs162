@@ -319,7 +319,6 @@ void Semester::removeAStudentFromACourse(string _studentID, string _courseID, st
 }
 
 
-
 void Semester::loadStudentsFromCSV(ifstream& fin)
 {
     string link;
@@ -332,8 +331,8 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
     string _No, _ID, _gen;
     string _fullname, _class, _doB;
     bool _gender;
-    for (int i = 0; i < 6; ++i)
-        getline(fin, skipfirstline, ',');
+    
+    getline(fin, skipfirstline, '\n');
 
     while (fin.good())
     {
@@ -375,7 +374,79 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
         }
     }
     fin.close();
+}
 
+void Semester::loadLecturersFromCSV(ifstream& fin)
+{
+    string link;
+    cout << "Please input the link to Lecturers.csv file: ";
+    getline(cin, link);
+    
+    fin.open(link + "Lecturers.csv"); // khai quat
+
+    string skipfirstline, _user, _pass, _name, _gen, _degree;
+    bool _gender;
+
+    if (fin.is_open())
+    {
+        getline(fin, skipfirstline, '\n');
+
+        while (fin.good())
+        {
+            getline(fin, _user, ',');
+            getline(fin, _pass, ',');
+            getline(fin, _name, ',');
+            getline(fin, _degree, ',');
+            getline(fin, _gen, ',');
+            
+            if (_gen == "Male") _gender = true;
+            else _gender = false;
+
+            Lecturer A;
+            A.setUserName(_user);
+            A.setPassword(_pass);
+            A.setName(_name);
+            A.setDegree(_degree);
+            A.setGender(_gender);
+        
+            arrLecturer[total_lecturer] = A;
+            ++total_lecturer;
+        }
+        fin.close();
+    }
+}
+
+void loadStaffsFromCSV(ifstream& fin, ofstream& fout)
+{
+    string link;
+    cout << "Please input the link to Staffs.csv: ";
+    getline(cin, link);
+    
+    fin.open(link + "Staffs.csv"); // khai quat
+
+    string skip, _user, _pass, _name, _gen;
+    
+    if (fin.is_open())
+    {
+        getline(fin, skip, '\n');
+        fout.open("Staffs.txt"); // khai quat
+        
+        while (fin.good())
+        {
+            getline(fin, _user, ',');
+            getline(fin, _pass, ',');
+            getline(fin, _name, ',');
+            getline(fin, _gen, ',');
+
+            fout << _name << endl;
+            fout << _user << endl;
+            fout << _pass << endl;
+            fout << _gen << endl;
+        }
+        fin.close();
+        fout.close();
+    }
+    else cout << "Cannot open file Staffs.csv";
 }
 
 

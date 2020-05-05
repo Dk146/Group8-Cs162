@@ -37,13 +37,13 @@ public:
     void ManuallyaddStudentToClass(); // 7
     void editAnExistingStudent(string _ID); //8
     void changeClass(string _ID); // 10
-    void removeACourse(string _courseID); //17
-    void removeAStudentFromACourse(int _studentID, string _courseID, string _className); //18
-    void loadStudentsFromCSV(ifstream& fin); // beginning of the program
+    void removeACourse(string _courseID); //17  
     void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
-    
+    void loadStudentsFromCSV(ifstream& fin); // beginning 
+    void loadLecturersFromCSV(ifstream& fin); //beginning
+    void loadStaffsFromCSV(ifstream& fin); // beginning
 };
 
 #endif
