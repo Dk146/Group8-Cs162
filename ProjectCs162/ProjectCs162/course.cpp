@@ -114,6 +114,3 @@ string Course::getDoW(){
 int Course::getTotalStudent(){
     return c_totalStudent;
 }
-string Course::getStudent(string c_ID_Student) {
-    return c_FullName_Student;
-}

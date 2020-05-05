@@ -52,7 +52,7 @@ public:
 
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
-    Student getStudent(string _ID);
+    Student getStudentForCourse(string _ID);
     
     void loadStudentsFromCSV(ifstream& fin); // beginning
     void loadLecturersFromCSV(ifstream& fin); //beginning

@@ -573,7 +573,7 @@ bool Semester::isStudentActive(string _studentID) {
 }
 
 
-}
+
 //12
 void Semester::viewListOfStudent(string _ClassName)       
 {
@@ -612,21 +612,18 @@ void Semester::viewListStudentOfCourse(string _CourseName)
     {
         if (_CourseName == arrCourse[i].getCourseName())
         {
-            for (int j = 0; j < arrCourse[i].getTotalStudent; j++)
+            for (int j = 0; j < arrCourse[i].getTotalStudent(); j++)
             {
-                cout << j + 1 << " : " << arrCourse[i]. << endl;
+                cout << j + 1 << " : ";
             }
         }
     }
 
 }
 
-void Semester::getStudent(string _ID)
-{
 
-}
 
-Student Semester::getStudent(string _ID){
+Student Semester::getStudentForCourse(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
         for (int j = 0; j < arrClass[i].totalStudent; ++j){
