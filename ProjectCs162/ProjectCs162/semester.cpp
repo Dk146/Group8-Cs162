@@ -397,21 +397,19 @@ void Semester::removeAStudentFromACourse(string _studentID, string _courseID, st
     }
 }
 
-<<<<<<< HEAD
-
 void Semester::loadStudentsFromCSV(ifstream& fin)
 {
     string link;
     cout << "Please input the link to csv file: ";
     getline(cin, link);
-    
+
     fin.open(link + "Students.csv"); // cai nay sua tuy theo hoan canh, t de dang khai quat cho de hieu
-    
+
     string skipfirstline;
     string _No, _ID, _gen;
     string _fullname, _class, _doB;
     bool _gender;
-    
+
     getline(fin, skipfirstline, '\n');
 
     while (fin.good())
@@ -422,7 +420,7 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
         getline(fin, _class, ',');
         getline(fin, _doB, ',');
         getline(fin, _gen, ',');
-        
+
         if (_gen == "Male") _gender = true;
         else _gender = false;
 
@@ -432,7 +430,6 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
         A.setDoB(_doB);
         A.setGender(_gender);
         A.setStatus(true);
-
         A.createAccount();
 
         int exist = 0;
@@ -443,7 +440,19 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
                 arrClass[i].student[arrClass[i].totalStudent] = A;
                 exist = 1;
                 ++arrClass[i].totalStudent;
-=======
+            }
+        }
+    
+        if (exist == 0)
+        {
+            arrClass[total_class].setClassName(_class);
+            arrClass[total_class].addStudent(A);
+            ++total_class;
+        }
+    }
+    fin.close();
+}
+                
 //19
 void Semester::addStudentToCourse(string _studentID, string _courseID, string class_name){
     for (int i = 0; i < total_class; ++i){
@@ -456,7 +465,6 @@ void Semester::addStudentToCourse(string _studentID, string _courseID, string cl
                     arrClass[i].student[j].numberofCourse = k;
                     break;;
                 }
->>>>>>> 7fd5b25c14f5b9daeb81a7ca8356771e26b70ad0
             }
             break;
         }
@@ -470,9 +478,8 @@ void Semester::addStudentToCourse(string _studentID, string _courseID, string cl
             break;
         }
     }
-<<<<<<< HEAD
-    fin.close();
 }
+
 
 void Semester::loadLecturersFromCSV(ifstream& fin)
 {
@@ -514,7 +521,7 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
     }
 }
 
-void loadStaffsFromCSV(ifstream& fin, ofstream& fout)
+void Semester::loadStaffsFromCSV(ifstream& fin, ofstream& fout)
 {
     string link;
     cout << "Please input the link to Staffs.csv: ";
@@ -545,8 +552,6 @@ void loadStaffsFromCSV(ifstream& fin, ofstream& fout)
         fout.close();
     }
     else cout << "Cannot open file Staffs.csv";
-=======
->>>>>>> 7fd5b25c14f5b9daeb81a7ca8356771e26b70ad0
 }
 
 
@@ -574,4 +579,60 @@ bool Semester::isStudentActive(string _studentID) {
         }
     }
     return false;
+}
+
+// 6
+void Semester::loadSingleClassFromCSV(ifstream& fin)
+{
+    string link; // co the co hoac khong
+    string name;
+
+    cout << "Please input class's name: ";
+    getline(cin, name);
+    
+    for (int i = 0; i < total_class; ++i)
+    {
+        if (arrClass[i].getClassName() == name)
+        {
+            cout << "Class already imported! ";
+            return;
+        }
+    }
+
+    arrClass[total_class].setClassName(name);
+    
+    cout << "Please input the link to " << name << ".csv";
+    getline(cin, link);
+    
+    fin.open(link + name + ".csv");
+    if (fin.is_open())
+    {
+        string skip, id, no, fullname, gen, doB;
+        bool gender;
+
+        getline(fin, skip, '\n');
+        
+        while (fin.good())
+        {
+            getline(fin, no, ',');
+            getline(fin, id, ',');
+            getline(fin, fullname, ',');
+            getline(fin, gen, ',');
+            getline(fin, doB);
+
+            if (gen == "Male") gender = true;
+            else gender = false;
+
+            Student A;
+            A.setID(id);
+            A.setFullName(fullname);
+            A.setGender(gender);
+            A.setDoB(doB);
+            A.setStatus(true);
+            A.createAccount();
+
+            arrClass[total_class].addStudent(A);
+        }
+    }
+    ++total_class;
 }
