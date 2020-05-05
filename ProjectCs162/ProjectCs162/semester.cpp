@@ -44,8 +44,7 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
     string _No, _ID, _gen;
     string _fullname, _class, _doB;
     bool _gender;
-    for (int i = 0; i < 6; ++i)
-        getline(fin, skipfirstline, ',');
+    getline(fin, skipfirstline, '\n');
 
     while (fin.good())
     {
@@ -54,7 +53,7 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
         getline(fin, _fullname, ',');
         getline(fin, _class, ',');
         getline(fin, _doB, ',');
-        getline(fin, _gen, ',');
+        getline(fin, _gen, '\n');
 
         if (_gen == "Male") _gender = true;
         else _gender = false;
@@ -395,110 +394,7 @@ void Semester::removeAStudentFromACourse(string _studentID, string _courseID, st
     }
 }
 
-void Semester::loadStudentsFromCSV(ifstream& fin)
-{
-    string link;
-    cout << "Please input the link to csv file: ";
-    getline(cin, link);
 
-    fin.open(link + "Students.csv"); // cai nay sua tuy theo hoan canh, t de dang khai quat cho de hieu
-
-    string skipfirstline;
-    string _No, _ID, _gen;
-    string _fullname, _class, _doB;
-    bool _gender;
-
-    getline(fin, skipfirstline, '\n');
-
-    while (fin.good())
-    {
-        getline(fin, _No, ',');
-        getline(fin, _ID, ',');
-        getline(fin, _fullname, ',');
-        getline(fin, _class, ',');
-        getline(fin, _doB, ',');
-        getline(fin, _gen, ',');
-
-        if (_gen == "Male") _gender = true;
-        else _gender = false;
-
-        Student A;
-        A.setID(_ID);
-        A.setFullName(_fullname);
-        A.setDoB(_doB);
-        A.setGender(_gender);
-        A.setStatus(true);
-        A.createAccount();
-
-        int exist = 0;
-        for (int i = 0; i < total_class; ++i)
-        {
-            if (arrClass[i].getClassName() == _class)
-            {
-                arrClass[i].student[arrClass[i].totalStudent] = A;
-                exist = 1;
-                ++arrClass[i].totalStudent;
-            }
-        }
-    
-        if (exist == 0)
-        {
-            arrClass[total_class].setClassName(_class);
-            arrClass[total_class].addStudent(A);
-            ++total_class;
-        }
-    }
-    fin.close();
-}
-//void Semester::loadStudentsFromCSV(ifstream& fin)
-//{
-//    string link;
-//    cout << "Please input the link to csv file: ";
-//    getline(cin, link);
-//
-//    fin.open(link + "Students.csv"); // cai nay sua tuy theo hoan canh, t de dang khai quat cho de hieu
-//
-//    string skipfirstline;
-//    string _No, _ID, _gen;
-//    string _fullname, _class, _doB;
-//    bool _gender;
-//
-//    getline(fin, skipfirstline, '\n');
-//
-//    while (fin.good())
-//    {
-//        getline(fin, _No, ',');
-//        getline(fin, _ID, ',');
-//        getline(fin, _fullname, ',');
-//        getline(fin, _class, ',');
-//        getline(fin, _doB, ',');
-//        getline(fin, _gen, ',');
-//
-//        if (_gen == "Male") _gender = true;
-//        else _gender = false;
-//
-//        Student A;
-//        A.setID(_ID);
-//        A.setFullName(_fullname);
-//        A.setDoB(_doB);
-//        A.setGender(_gender);
-//        A.setStatus(true);
-//
-//        A.createAccount();
-//
-//        int exist = 0;
-//        for (int i = 0; i < total_class; ++i)
-//        {
-//            if (arrClass[i].getClassName() == _class)
-//            {
-//                arrClass[i].student[arrClass[i].totalStudent] = A;
-//                exist = 1;
-//                ++arrClass[i].totalStudent;
-//            }
-//        }
-//    }
-//}
-                
 //19
 void Semester::addStudentToCourse(string _studentID, string _courseID, string class_name){
     for (int i = 0; i < total_class; ++i){
@@ -548,7 +444,7 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
             getline(fin, _pass, ',');
             getline(fin, _name, ',');
             getline(fin, _degree, ',');
-            getline(fin, _gen, ',');
+            getline(fin, _gen, '\n');
             
             if (_gen == "Male") _gender = true;
             else _gender = false;
@@ -587,7 +483,7 @@ void Semester::loadStaffsFromCSV(ifstream& fin, ofstream& fout)
             getline(fin, _user, ',');
             getline(fin, _pass, ',');
             getline(fin, _name, ',');
-            getline(fin, _gen, ',');
+            getline(fin, _gen, '\n');
 
             fout << _name << endl;
             fout << _user << endl;
@@ -600,33 +496,6 @@ void Semester::loadStaffsFromCSV(ifstream& fin, ofstream& fout)
     else cout << "Cannot open file Staffs.csv";
 }
 
-
-//check
-bool Semester::isCourseActive(string _courseID) {
-    for (int i = 0; i < total_course; ++i) {
-        if (arrCourse[i].getID() == _courseID) {
-            if (arrCourse[i].getStatus() == true)
-                return true;
-            return false;
-        }
-    }
-    return false;
-}
-                
-//check
-bool Semester::isStudentActive(string _studentID) {
-    for (int i = 0; i < total_class; ++i) {
-        for (int j = 0; j < arrClass[i].totalStudent; ++j) {
-            if (arrClass[i].student[j].getID() == _studentID) {
-                if (arrClass[i].student[j].getStatus() == 1)
-                    return true;
-                else
-                    return false;
-            }
-        }
-    }
-    return false;
-}
 
 // 6
 void Semester::loadSingleClassFromCSV(ifstream& fin)
@@ -665,7 +534,7 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
             getline(fin, id, ',');
             getline(fin, fullname, ',');
             getline(fin, gen, ',');
-            getline(fin, doB);
+            getline(fin, doB, '\n');
 
             if (gen == "Male") gender = true;
             else gender = false;
@@ -680,39 +549,17 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
 
             arrClass[total_class].addStudent(A);
         }
+        fin.close();
     }
     ++total_class;
 }
-
-
-
-//12
-void Semester::viewListOfStudent(string _ClassName)       
-{
-   
-    for (int i = 0; i < total_class; ++i)
-    {
-        if (_ClassName==arrClass[i].getClassName())
-        {
-            for (int j = 0; j <arrClass[i].totalStudent; j++)
-            {
-                if (arrClass[i].student[j].getStatus() == 1)
-                {
-                    cout << "Full name of student " << j + 1 << " : " << arrClass[i].student[j].getFullName();
-                }
-            }
-        }
-    }
-    
-}
-
 
 //20
 void Semester::viewListOfCourses()
 {
     for (int i = 0; i < total_course; i++)
     {
-        if (isCourseActive(arrCourse[i].getID()) == true)
+        if (arrCourse[i].getStatus() == true)
         {
             cout << i + 1 << " : " << arrCourse[i].getCourseName() << endl;
         }
@@ -721,27 +568,24 @@ void Semester::viewListOfCourses()
 //21
 void Semester::viewListStudentOfCourse(string _CourseName)
 {
+    Student a;
     for (int i = 0; i < total_course; i++)
     {
-        if (_CourseName == arrCourse[i].getCourseName())
+        if (arrCourse[i].getCourseName() == _CourseName)
         {
             for (int j = 0; j < arrCourse[i].getTotalStudent(); j++)
             {
-                cout << j + 1 << " : ";
-                //cout << j + 1 << " : " << arrCourse[i]. << endl;
-
+                a = getStudent(arrCourse[i].c_ListStudent[j]);
+                if (a.getStatus() == true)
+                    cout << j+1 << ": " << a.getFullName() << " - " << a.getID() << endl;
+                else
+                    cout << j+1 << ": " << endl;
             }
         }
     }
-
 }
 
-<<<<<<< HEAD
-Student Semester::getStudentForCourse(string _ID){
-=======
 Student Semester::getStudent(string _ID){
-
->>>>>>> 29e12368fa60c3a2bee6ae119c3082da994afbc3
     Student a;
     for (int i = 0; i < total_class; ++i){
         for (int j = 0; j < arrClass[i].totalStudent; ++j){
@@ -754,3 +598,30 @@ Student Semester::getStudent(string _ID){
     return a;
 }
 
+
+//check
+bool Semester::isCourseActive(string _courseID) {
+    for (int i = 0; i < total_course; ++i) {
+        if (arrCourse[i].getID() == _courseID) {
+            if (arrCourse[i].getStatus() == true)
+                return true;
+            return false;
+        }
+    }
+    return false;
+}
+                
+//check
+bool Semester::isStudentActive(string _studentID) {
+    for (int i = 0; i < total_class; ++i) {
+        for (int j = 0; j < arrClass[i].totalStudent; ++j) {
+            if (arrClass[i].student[j].getID() == _studentID) {
+                if (arrClass[i].student[j].getStatus() == 1)
+                    return true;
+                else
+                    return false;
+            }
+        }
+    }
+    return false;
+}
