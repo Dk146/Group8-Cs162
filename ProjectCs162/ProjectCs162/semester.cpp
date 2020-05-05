@@ -425,10 +425,42 @@ void Semester::viewListOfStudent(string _ClassName)
             {
                 if (arrClass[i].student[j].getStatus() == 1)
                 {
-                    cout << "Full name of student " << i + 1 << " : " << arrClass[i].student[j].getFullName();
+                    cout << "Full name of student " << j + 1 << " : " << arrClass[i].student[j].getFullName();
                 }
             }
         }
     }
     
+}
+
+//20
+void Semester::viewListOfCourses()
+{
+    for (int i = 0; i < total_course; i++)
+    {
+        if (isCourseActive(arrCourse[i].getID()) == true)
+        {
+            cout << i + 1 << " : " << arrCourse[i].getCourseName() << endl;
+        }
+    }
+}
+//21
+void Semester::viewListStudentOfCourse(string _CourseName)
+{
+    for (int i = 0; i < total_course; i++)
+    {
+        if (_CourseName == arrCourse[i].getCourseName())
+        {
+            for (int j = 0; j < arrCourse[i].getTotalStudent; j++)
+            {
+                cout << j + 1 << " : " << arrCourse[i]. << endl;
+            }
+        }
+    }
+
+}
+
+void Semester::getStudent(string _ID)
+{
+
 }

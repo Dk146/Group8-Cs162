@@ -43,9 +43,11 @@ public:
     void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
     void viewListOfClasses(string _className); //11
     void viewListOfStudent(string _ClassName); //12
-
+    void viewListOfCourses(); //20 
+    void viewListStudentOfCourse(string _CourseName); //21
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
+    void getStudent(string _ID);// get student name from id
     
 
 };
