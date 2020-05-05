@@ -86,7 +86,6 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
         }
     }
     fin.close();
-
 }
 
 // for loading file (Ton)

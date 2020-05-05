@@ -8,6 +8,7 @@ private:
     string l_name, l_degree, l_userName, l_password;
     bool l_gender;
 public:
+    int L_totalCourse;
     string L_ListCourse[10];
     
     void setName(string _name);
@@ -20,6 +21,10 @@ public:
     string getUserName();
     string getPassword();
     bool getGender();
+    
+    Lecturer(){
+        L_totalCourse = 0;
+    }
 };
 
 #endif
