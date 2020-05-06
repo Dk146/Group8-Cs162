@@ -90,30 +90,19 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
 
 // for loading file (Ton)
 void Semester::addCourseToClass(string _courseID, string class_name){
-    int pos_class = 0;
-    int s_inClass = 0;
-    for (int i = 0; i < total_class; ++i){
-        if(arrClass[i].getClassName() == class_name){
-            pos_class = i;
-            s_inClass = arrClass[i].totalStudent;
-            for(int j = 0; j < arrClass[i].totalStudent; ++i){
-                int temp = arrClass[i].student[j].numberofCourse;
-                arrClass[i].student[j].s_ListCourse[temp] = _courseID;
-                temp++;
-                arrClass[i].student[j].numberofCourse = temp;
-            }
-            break;
-        }
+    Course _course;
+    Class _class;
+    _course = getCourse(_courseID);
+    _class = getClass(_course.getClass());
+    for (int i = 0; i < _class.totalStudent; ++i){
+        _class.student[i].s_ListCourse[_class.student[i].numberofCourse++] = _courseID;
     }
-    for (int i = 0; i < total_course; ++i){
-        int s_inCourse = arrCourse[i].c_totalStudent;
-        if (arrCourse[i].getID() == _courseID){
-            int temp = 0;
-            for (int j = s_inCourse; j < s_inCourse + s_inClass; ++j){
-                arrCourse[i].c_ListStudent[j] = arrClass[pos_class].student[temp++].getID();
-            }
-            arrCourse[i].c_totalStudent = s_inCourse + s_inClass;
-            break;
+    for (int i = 0; i < _class.totalStudent; ++i){
+        _course.c_ListStudent[i] = _class.student[i].getFullName();
+    }
+    for (int i = 0; i < total_lecturer; ++i){
+        if (arrLecturer[i].getName() == _course.getLName()){
+            arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse++] = _courseID;
         }
     }
 }
@@ -550,7 +539,6 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
         fin.close();
     }
     ++total_class;
-    fin.close();
 }
 
 //20
@@ -584,8 +572,11 @@ void Semester::viewListStudentOfCourse(string _CourseName)
     }
 }
 
+<<<<<<< HEAD
 Student Semester::getStudentForCourse(string _ID) {
 }
+=======
+>>>>>>> 331346ce89975be6be42d93f0bda7ea9aacf8564
 
 Student Semester::getStudent(string _ID){
     Student a;
@@ -596,6 +587,24 @@ Student Semester::getStudent(string _ID){
                 return a;
             }
         }
+    }
+    return a;
+}
+
+Course Semester::getCourse(string _courseID){
+    Course a;
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID)
+            return a;
+    }
+    return a;
+}
+
+Class Semester::getClass(string _ClassName){
+    Class a;
+    for (int i = 0; i < total_class; ++i){
+        if (arrClass[i].getClassName() == _ClassName)
+            return a;
     }
     return a;
 }
@@ -628,6 +637,7 @@ bool Semester::isStudentActive(string _studentID) {
     return false;
 }
 
+<<<<<<< HEAD
 void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
@@ -681,3 +691,5 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
         }
     }
 }
+=======
+>>>>>>> 331346ce89975be6be42d93f0bda7ea9aacf8564
