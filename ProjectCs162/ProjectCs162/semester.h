@@ -45,12 +45,12 @@ public:
     void viewListOfCourses(); //20
     void viewListStudentOfCourse(string _CourseName); //21
 
-    Student getStudentForCourse(string _ID);    
-
-
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     Student getStudent(string _ID);
+    Course getCourse(string _courseID);
+    Class getClass(string _ClassName);
+
     void loadStudentsFromCSV(ifstream& fin); // beginning
     void loadLecturersFromCSV(ifstream& fin); //beginning
     void loadStaffsFromCSV(ifstream& fin, ofstream& fout); // beginning
