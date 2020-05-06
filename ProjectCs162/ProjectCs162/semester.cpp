@@ -152,7 +152,6 @@ void Semester::ManuallyaddStudentToClass()
             arrClass[i].addStudent(a);
         }
     }
-    // Missing the output to txt file, saved for later.
 }
 
 // 8
@@ -278,11 +277,11 @@ void Semester::viewListOfStudent(string _ClassName)
 //15
 void Semester::ManuallyAddNewCourse(){
     Course new_course;
-    int _No;
+    string _No;
     string _ID, _CourseName, _Room, _LUsername, _LName, _LDegree, _Class;
     bool _LGender, _status; // 1 is active, 0 is inactive
     string _startDate, _endDate;
-    int _sHour, _sMin, _eHour, _eMin;
+    string _sHour, _sMin, _eHour, _eMin;
     string _DoW;
 
     cout << "No: ";
@@ -585,13 +584,9 @@ void Semester::viewListStudentOfCourse(string _CourseName)
     }
 }
 
-<<<<<<< HEAD
-
 Student Semester::getStudentForCourse(string _ID) {
 }
 
-=======
->>>>>>> 59c2235becd0dd7408bfa0145927884763d7a56e
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -631,4 +626,58 @@ bool Semester::isStudentActive(string _studentID) {
         }
     }
     return false;
+}
+
+void Semester::loadCoursesFromCSV(ifstream& fin)
+{
+    string link;
+    cout << "Please input the link to Courses.csv";
+    getline(cin, link);
+
+    fin.open(link + "Courses.csv"); // khai quat
+    if (fin.is_open())
+    {
+        string skip;
+        getline(fin, skip, '\n');
+        string no, id, c_name, _class, l_user, l_name, l_degree, l_gen, sday, eday, doW, shour, ehour, smin, emin, room;
+        bool gender;
+        
+        while (fin.good())
+        {
+            getline(fin, no, ',');
+            getline(fin, id, ',');
+            getline(fin, c_name, ',');
+            getline(fin, _class, ',');
+            getline(fin, l_user, ',');
+            getline(fin, l_name, ',');
+            getline(fin, l_degree, ',');
+            getline(fin, l_gen, ',');
+            if (l_gen == "Male") gender = true;
+            else gender = false; 
+            getline(fin, sday, ',');
+            getline(fin, eday, ',');
+            getline(fin, doW, ',');
+            getline(fin, shour, ',');
+            getline(fin, smin, ',');
+            getline(fin, ehour, ',');
+            getline(fin, emin, ',');
+            getline(fin, room, ',');
+
+            Course a;
+            a.setID(id);
+            a.setCourseName(c_name);
+            a.setClass(_class);
+            a.setLUsername(l_user);
+            a.setLName(l_name);
+            a.setLGender(gender);
+            a.setLDegree(l_degree);
+            a.setTime(sday, eday, shour, smin, ehour, emin, doW);
+            a.setStatus(true);
+            a.setTotalStudent(0);
+
+            arrCourse[total_course] = a;
+            addCourseToClass(id, _class);
+            ++total_course;
+        }
+    }
 }

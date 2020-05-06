@@ -5,11 +5,11 @@
 
 class Course{
 private:
-    int c_No;
+    string c_No;
     string c_ID, c_CourseName, c_Room, c_LUsername, c_LName, c_LDegree, c_Class;
     bool c_LGender, c_status; // 1 is active, 0 is inactive
     string c_startDate, c_endDate;
-    int c_sHour, c_sMin, c_eHour, c_eMin;
+    string c_sHour, c_sMin, c_eHour, c_eMin;
     string c_DoW;
     
 public:
@@ -18,7 +18,7 @@ public:
     string c_ListStudent[100];
     
     void setStatus(bool _status);
-    void setNo(int _No);
+    void setNo(string _No);
     void setID(string _ID);
     void setCourseName(string _CourseName);
     void setLUsername(string _LUsername);
@@ -29,15 +29,15 @@ public:
     void setLGender(bool _LGender);
     void setStartDate(string _startDate);
     void setEndDate(string _endDate);
-    void setsHour(int _sHour);
-    void setsMin(int _sMin);
-    void seteHour(int _eHour);
-    void seteMin(int _eMin);
+    void setsHour(string _sHour);
+    void setsMin(string _sMin);
+    void seteHour(string _eHour);
+    void seteMin(string _eMin);
     void setDoW(string _DoW);
-    void setTime(string _startDate, string _endDate, int _sHour, int _sMin, int _eHour, int _eMin, string _DoW);
+    void setTime(string _startDate, string _endDate, string _sHour, string _sMin, string _eHour, string _eMin, string _DoW);
     void setTotalStudent(int _totalStudent);
     bool getStatus();
-    int getNo();
+    string getNo();
     string getID();
     string getCourseName();
     string getUsername();
@@ -47,10 +47,10 @@ public:
     bool getLGender();
     string getStartDate();
     string getEndDate();
-    int getsHour();
-    int getsMin();
-    int geteHour();
-    int geteMin();
+    string getsHour();
+    string getsMin();
+    string geteHour();
+    string geteMin();
     string getDoW();
     int getTotalStudent();
 

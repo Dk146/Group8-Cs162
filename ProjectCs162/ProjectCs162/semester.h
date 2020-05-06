@@ -44,10 +44,7 @@ public:
     void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
     void viewListOfCourses(); //20
     void viewListStudentOfCourse(string _CourseName); //21
-
     Student getStudentForCourse(string _ID);    
-
-
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     Student getStudent(string _ID);
@@ -55,6 +52,7 @@ public:
     void loadLecturersFromCSV(ifstream& fin); //beginning
     void loadStaffsFromCSV(ifstream& fin, ofstream& fout); // beginning
     void loadSingleClassFromCSV(ifstream& fin); //6
+    void loadCoursesFromCSV(ifstream& fin); // 14
 
 };
 

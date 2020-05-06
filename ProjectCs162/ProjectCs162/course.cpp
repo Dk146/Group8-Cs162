@@ -3,7 +3,7 @@
 void Course::setStatus(bool _status){
     c_status = _status;
 }
-void Course::setNo(int _No){
+void Course::setNo(string _No){
     c_No = _No;
 }
 void Course::setID(string _ID){
@@ -36,22 +36,22 @@ void Course::setStartDate(string _startDate){
 void Course::setEndDate(string _endDate){
     c_endDate = _endDate;
 }
-void Course::setsHour(int _sHour){
+void Course::setsHour(string _sHour){
     c_sHour = _sHour;
 }
-void Course::setsMin(int _sMin){
+void Course::setsMin(string _sMin){
     c_sMin = _sMin;
 }
-void Course::seteHour(int _eHour){
+void Course::seteHour(string _eHour){
     c_eHour = _eHour;
 }
-void Course::seteMin(int _eMin){
+void Course::seteMin(string _eMin){
     c_eMin = _eMin;
 }
 void Course::setDoW(string _DoW){
     c_DoW = _DoW;
 }
-void Course::setTime(string _startDate, string _endDate, int _sHour, int _sMin, int _eHour, int _eMin, string _DoW){
+void Course::setTime(string _startDate, string _endDate, string _sHour, string _sMin, string _eHour, string _eMin, string _DoW){
     c_startDate = _startDate;
     c_endDate = _endDate;
     c_DoW = _DoW;
@@ -66,7 +66,7 @@ void Course::setTotalStudent(int _totalStudent){
 bool Course::getStatus(){
     return c_status;
 }
-int Course::getNo(){
+string Course::getNo(){
     return c_No;
 }
 string Course::getID(){
@@ -96,16 +96,16 @@ string Course::getStartDate(){
 string Course::getEndDate(){
     return c_endDate;
 }
-int Course::getsHour(){
+string Course::getsHour(){
     return c_sHour;
 }
-int Course::getsMin(){
+string Course::getsMin(){
     return c_sMin;
 }
-int Course::geteHour(){
+string Course::geteHour(){
     return c_eHour;
 }
-int Course::geteMin(){
+string Course::geteMin(){
     return c_eMin;
 }
 string Course::getDoW(){

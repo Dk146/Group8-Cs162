@@ -10,7 +10,8 @@ using namespace std;
 
 int main(){
     
-    
+//  Note: Khi tao semester moi, phai set day du moi thu bat dau = 0
+
 //    ifstream fin;
 //    ofstream fout;
 //    int x;
@@ -24,6 +25,7 @@ int main(){
 //        // loadStudentsFromCsv (fin);
 //        // loadLecturersFromCsv (fin);
 //        // loadStaffFromCsv (fin);
+//        // x = 1;  
 //    }
 //    else if (x == 1)
 //    {
