@@ -540,7 +540,6 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
         fin.close();
     }
     ++total_class;
-    fin.close();
 }
 
 //20
