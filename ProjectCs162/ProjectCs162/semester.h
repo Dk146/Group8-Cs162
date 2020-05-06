@@ -36,7 +36,7 @@ public:
     void editAnExistingStudent(string _ID); //8
     void RemoveAStudent(string _studentID); // 9
     void changeClass(string _ID); // 10
-    void viewListOfClasses(string _className); //11
+    void viewListOfClasses(); //11
     void viewListOfStudent(string _ClassName); //12
     void ManuallyAddNewCourse(); //15
     void removeACourse(string _courseID); //17

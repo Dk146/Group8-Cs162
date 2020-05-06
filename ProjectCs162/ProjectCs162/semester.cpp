@@ -234,7 +234,7 @@ void Semester::changeClass(string _ID)
 }
 
 //11
-void Semester::viewListOfClasses(string _className)
+void Semester::viewListOfClasses()
 {
     for (int i = 0; i < total_class; i++)
     {
