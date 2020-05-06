@@ -13,7 +13,7 @@ class Class{
     
     int totalStudent;
     Student student[50];
-
+    
     void settotalStudent(int _totalStudent);
     void setClassName(string _className);
     string getClassName();
