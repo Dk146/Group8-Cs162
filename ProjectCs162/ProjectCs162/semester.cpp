@@ -682,6 +682,7 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
         }
     }
     ++total_class;
+    fin.close();
 }
 
 
@@ -736,12 +737,11 @@ void Semester::viewListStudentOfCourse(string _CourseName)
 
 }
 
-<<<<<<< HEAD
-Student Semester::getStudentForCourse(string _ID){
-=======
-Student Semester::getStudent(string _ID){
 
->>>>>>> 29e12368fa60c3a2bee6ae119c3082da994afbc3
+Student Semester::getStudentForCourse(string _ID) {
+}
+
+Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
         for (int j = 0; j < arrClass[i].totalStudent; ++j){
