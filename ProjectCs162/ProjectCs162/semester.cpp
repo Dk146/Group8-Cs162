@@ -123,9 +123,9 @@ void Semester::addCourseToClass(string _courseID, string _className){
         _class.student[i].s_ListCourse[_class.student[i].numberofCourse++] = _courseID;
     }
     for (int i = 0; i < _class.totalStudent; ++i){
-        _course.c_ListStudent[i] = _class.student[i].getFullName();
+        _course.c_ListStudent[i] = _class.student[i].getID();
     }
-
+    _course.c_totalStudent = _class.totalStudent;
 }
 
 // 7
@@ -257,6 +257,7 @@ void Semester::changeClass(string _ID)
 //11
 void Semester::viewListOfClasses()
 {
+    cout << "List of classes: " << endl;
     for (int i = 0; i < total_class; i++)
     {
         cout << i << ": " << arrClass[i].getClassName() << endl;
@@ -267,7 +268,7 @@ void Semester::viewListOfClasses()
 //12
 void Semester::viewListOfStudent(string _ClassName)
 {
-   
+   cout << "List of student in class " << _ClassName << ": \n";
     for (int i = 0; i < total_class; ++i)
     {
         if (_ClassName==arrClass[i].getClassName())
@@ -276,7 +277,7 @@ void Semester::viewListOfStudent(string _ClassName)
             {
                 if (arrClass[i].student[j].getStatus() == 1)
                 {
-                    cout << "Full name of student " << j + 1 << " : " << arrClass[i].student[j].getFullName();
+                    cout << "Full name of student " << j + 1 << " : " << arrClass[i].student[j].getFullName() << endl;
                 }
             }
         }
@@ -571,12 +572,13 @@ void Semester::viewListOfCourses()
     }
 }
 //21
-void Semester::viewListStudentOfCourse(string _CourseName)
+void Semester::viewListStudentOfCourse(string _courseID)
 {
     Student a;
+    cout << "List of student in course " << _courseID << " : \n";
     for (int i = 0; i < total_course; i++)
     {
-        if (arrCourse[i].getCourseName() == _CourseName)
+        if (arrCourse[i].getCourseName() == _courseID)
         {
             for (int j = 0; j < arrCourse[i].getTotalStudent(); j++)
             {
@@ -700,10 +702,11 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
             a.setStatus(true);
             a.setTotalStudent(0);
 
-            arrCourse[total_course] = a;
+            arrCourse[total_course++] = a;
             addCourseToClass(id, _class);
-            ++total_course;
         }
     }
+    else
+        cout << "Cannot open file!" << endl;
 }
 
