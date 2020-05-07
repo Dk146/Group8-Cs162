@@ -89,22 +89,43 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
 }
 
 // for loading file (Ton)
-void Semester::addCourseToClass(string _courseID, string class_name){
-    Course _course;
-    Class _class;
-    _course = getCourse(_courseID);
-    _class = getClass(_course.getClass());
+void Semester::addCourseToClass(string _courseID, string _className){
+    int pos_Course = 0;
+    int pos_Class = 0;
+    int pos_Lecturer = 0;
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID){
+            pos_Course = i;
+            break;
+        }
+    }
+    for (int i = 0; i < total_course; ++i){
+        if (arrClass[i].getClassName() == _className){
+            pos_Class = i;
+            break;
+        }
+    }
+    
+    Course &_course(arrCourse[pos_Course]);
+    Class &_class(arrClass[pos_Class]);
+    
+    for (int i = 0; i < total_lecturer; ++i){
+        if(arrLecturer[i].getName() == _course.getLName()){
+            pos_Lecturer = i;
+            break;
+        }
+    }
+    
+    Lecturer &_lecturer(arrLecturer[pos_Lecturer]);
+    _lecturer.L_ListCourse[_lecturer.L_totalCourse++] = _courseID;
+    
     for (int i = 0; i < _class.totalStudent; ++i){
         _class.student[i].s_ListCourse[_class.student[i].numberofCourse++] = _courseID;
     }
     for (int i = 0; i < _class.totalStudent; ++i){
         _course.c_ListStudent[i] = _class.student[i].getFullName();
     }
-    for (int i = 0; i < total_lecturer; ++i){
-        if (arrLecturer[i].getName() == _course.getLName()){
-            arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse++] = _courseID;
-        }
-    }
+
 }
 
 // 7
@@ -255,7 +276,7 @@ void Semester::viewListOfStudent(string _ClassName)
             {
                 if (arrClass[i].student[j].getStatus() == 1)
                 {
-                    cout << "Full name of student " << i + 1 << " : " << arrClass[i].student[j].getFullName();
+                    cout << "Full name of student " << j + 1 << " : " << arrClass[i].student[j].getFullName();
                 }
             }
         }
@@ -265,7 +286,8 @@ void Semester::viewListOfStudent(string _ClassName)
 
 //15
 void Semester::ManuallyAddNewCourse(){
-    Course new_course;
+    Course &new_course = arrCourse[total_course++];
+    
     string _No;
     string _ID, _CourseName, _Room, _LUsername, _LName, _LDegree, _Class;
     bool _LGender, _status; // 1 is active, 0 is inactive
@@ -322,10 +344,6 @@ void Semester::ManuallyAddNewCourse(){
     cout << "Day of week: ";
     cin >> _DoW;
     new_course.setDoW(_DoW);
-    int k = total_course;
-    arrCourse[k] = new_course;
-    k++;
-    total_course = k;
 }
 
 //17
@@ -572,12 +590,6 @@ void Semester::viewListStudentOfCourse(string _CourseName)
     }
 }
 
-<<<<<<< HEAD
-Student Semester::getStudentForCourse(string _ID) {
-}
-=======
->>>>>>> 331346ce89975be6be42d93f0bda7ea9aacf8564
-
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -594,8 +606,10 @@ Student Semester::getStudent(string _ID){
 Course Semester::getCourse(string _courseID){
     Course a;
     for (int i = 0; i < total_course; ++i){
-        if (arrCourse[i].getID() == _courseID)
+        if (arrCourse[i].getID() == _courseID){
+            a = arrCourse[i];
             return a;
+        }
     }
     return a;
 }
@@ -603,8 +617,10 @@ Course Semester::getCourse(string _courseID){
 Class Semester::getClass(string _ClassName){
     Class a;
     for (int i = 0; i < total_class; ++i){
-        if (arrClass[i].getClassName() == _ClassName)
+        if (arrClass[i].getClassName() == _ClassName){
+            a = arrClass[i];
             return a;
+        }
     }
     return a;
 }
@@ -637,7 +653,6 @@ bool Semester::isStudentActive(string _studentID) {
     return false;
 }
 
-<<<<<<< HEAD
 void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
@@ -671,7 +686,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
             getline(fin, smin, ',');
             getline(fin, ehour, ',');
             getline(fin, emin, ',');
-            getline(fin, room, ',');
+            getline(fin, room, '\n');
 
             Course a;
             a.setID(id);
@@ -691,5 +706,4 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
         }
     }
 }
-=======
->>>>>>> 331346ce89975be6be42d93f0bda7ea9aacf8564
+
