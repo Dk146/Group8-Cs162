@@ -36,7 +36,7 @@ public:
     void editAnExistingStudent(string _ID); //8
     void RemoveAStudent(string _studentID); // 9
     void changeClass(string _ID); // 10
-    void viewListOfClasses(string _className); //11
+    void viewListOfClasses(); //11
     void viewListOfStudent(string _ClassName); //12
     void ManuallyAddNewCourse(); //15
     void removeACourse(string _courseID); //17
@@ -44,7 +44,10 @@ public:
     void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
     void viewListOfCourses(); //20
     void viewListStudentOfCourse(string _CourseName); //21
+<<<<<<< HEAD
     Student getStudentForCourse(string _ID);    
+=======
+>>>>>>> f8250cbec88caac2f0c33d0702ca3d90f69576ae
 
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
