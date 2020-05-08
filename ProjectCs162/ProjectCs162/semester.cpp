@@ -21,7 +21,7 @@ string Semester::getSemesterName(){
 }
 
 int Semester::getTotalClass(){
-    return total_class;
+    return total_class;     
 }
 
 int Semester::getTotalCourse(){
