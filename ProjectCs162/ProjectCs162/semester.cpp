@@ -572,11 +572,10 @@ void Semester::viewListStudentOfCourse(string _CourseName)
     }
 }
 
-<<<<<<< HEAD
+
 Student Semester::getStudentForCourse(string _ID) {
 }
-=======
->>>>>>> 331346ce89975be6be42d93f0bda7ea9aacf8564
+
 
 Student Semester::getStudent(string _ID){
     Student a;
@@ -637,7 +636,6 @@ bool Semester::isStudentActive(string _studentID) {
     return false;
 }
 
-<<<<<<< HEAD
 void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
@@ -691,5 +689,3 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
         }
     }
 }
-=======
->>>>>>> 331346ce89975be6be42d93f0bda7ea9aacf8564
