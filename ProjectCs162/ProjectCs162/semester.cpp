@@ -592,14 +592,6 @@ void Semester::viewListStudentOfCourse(string _courseID)
     }
 }
 
-<<<<<<< HEAD
-
-Student Semester::getStudentForCourse(string _ID) {
-}
-
-
-=======
->>>>>>> f8250cbec88caac2f0c33d0702ca3d90f69576ae
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -717,7 +709,4 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
     else
         cout << "Cannot open file!" << endl;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> f8250cbec88caac2f0c33d0702ca3d90f69576ae

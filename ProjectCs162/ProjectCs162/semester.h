@@ -44,10 +44,6 @@ public:
     void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
     void viewListOfCourses(); //20
     void viewListStudentOfCourse(string _CourseName); //21
-<<<<<<< HEAD
-    Student getStudentForCourse(string _ID);    
-=======
->>>>>>> f8250cbec88caac2f0c33d0702ca3d90f69576ae
 
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
