@@ -373,6 +373,11 @@ void Semester::ManuallyAddNewCourse(){
     new_course.setDoW(_DoW);
 }
 
+//16
+void editAnExistingCourse(){
+    
+}
+
 //17
 void Semester::removeACourse(){
     string _courseID;

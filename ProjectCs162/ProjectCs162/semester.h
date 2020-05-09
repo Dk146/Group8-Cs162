@@ -39,6 +39,7 @@ public:
     void viewListOfClasses(); //11
     void viewListOfStudent(); //12
     void ManuallyAddNewCourse(); //15
+    void editAnExistingCourse(); //16
     void removeACourse(); //17
     void removeAStudentFromACourse(); //18
     void addStudentToCourse(); //19

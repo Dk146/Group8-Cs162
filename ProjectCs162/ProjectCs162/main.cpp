@@ -42,6 +42,7 @@ int main(){
     semester.loadLecturersFromCSV(fin);
     semester.loadCoursesFromCSV(fin);
     semester.StaffMenu();
+    semester.loadStudentsToTxt(fout);
     
 
     return 0;
