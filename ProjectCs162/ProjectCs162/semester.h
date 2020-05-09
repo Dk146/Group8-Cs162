@@ -33,22 +33,19 @@ public:
     
     void addCourseToClass(string _courseID, string class_name); // For loading file (Ton)
     void ManuallyaddStudentToClass(); // 7
-    void editAnExistingStudent(string _ID); //8
-    void RemoveAStudent(string _studentID); // 9
-    void changeClass(string _ID); // 10
+    void editAnExistingStudent(); //8
+    void RemoveAStudent(); // 9
+    void changeClass(); // 10
     void viewListOfClasses(); //11
-    void viewListOfStudent(string _ClassName); //12
+    void viewListOfStudent(); //12
     void ManuallyAddNewCourse(); //15
-    void removeACourse(string _courseID); //17
-    void removeAStudentFromACourse(string _studentID, string _courseID, string _className); //18
-    void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
+    void removeACourse(); //17
+    void removeAStudentFromACourse(); //18
+    void addStudentToCourse(); //19
     void viewListOfCourses(); //20
-    void viewListStudentOfCourse(string _CourseName); //21
-<<<<<<< HEAD
-    Student getStudentForCourse(string _ID);    
-=======
-
->>>>>>> 7da79ab26d1d77c59c6118585d14fca4f63e0333
+    void viewListStudentOfCourse(); //21
+    void viewListLecturer(); //23
+    
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     Student getStudent(string _ID);
@@ -68,7 +65,18 @@ public:
     void loadStudentsFromTxt(ifstream& fin); // beginning, condition 2
     void loadLecturersFromTxt(ifstream& fin); // beginning, condition 2 
     
+    void StaffMenu();
+    void ClassOption();
+    void CourseOption();
+    void ScoreboardOption();
+    void AttendenceListOption();
 
+    Semester(){
+        total_lecturer = 0;
+        total_class = 0;
+        total_course = 0;
+    }
+    
 };
 
 #endif
