@@ -216,7 +216,7 @@ void Semester::RemoveAStudent(){
     cin >> _studentID;
     int k = 0;
     for (int i = 0; i < total_class; ++i){
-        for (int j = 0; i < arrClass[i].totalStudent; j++){
+        for (int j = 0; j < arrClass[i].totalStudent; j++){
             if (arrClass[i].student[j].getID() == _studentID){
                 arrClass[i].student[j].setStatus(0);
                 k = 1;
