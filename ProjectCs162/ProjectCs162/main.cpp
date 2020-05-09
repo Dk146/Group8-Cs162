@@ -11,6 +11,8 @@ using namespace std;
 int main(){
     
 //  Note: Khi tao semester moi, phai set day du moi thu bat dau = 0
+//   Phai chay loop set all total (total student, total class, ...) = 0
+
 
 //    ifstream fin;
 //    ofstream fout;

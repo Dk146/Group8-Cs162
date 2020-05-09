@@ -40,20 +40,21 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
 
     fin.open(link + "Students.csv"); // cai nay sua tuy theo hoan canh, t de dang khai quat cho de hieu
 
-    string skipfirstline;
+    string skipfirstline, line;
     string _No, _ID, _gen;
     string _fullname, _class, _doB;
     bool _gender;
     getline(fin, skipfirstline, '\n');
 
-    while (fin.good())
+    while (getline(fin, line))
     {
-        getline(fin, _No, ',');
-        getline(fin, _ID, ',');
-        getline(fin, _fullname, ',');
-        getline(fin, _class, ',');
-        getline(fin, _doB, ',');
-        getline(fin, _gen, '\n');
+        stringstream ss(line);
+        getline(ss, _No, ',');
+        getline(ss, _ID, ',');
+        getline(ss, _fullname, ',');
+        getline(ss, _class, ',');
+        getline(ss, _doB, ',');
+        getline(ss, _gen, ',');
 
         if (_gen == "Male") _gender = true;
         else _gender = false;
@@ -99,7 +100,7 @@ void Semester::addCourseToClass(string _courseID, string _className){
             break;
         }
     }
-    for (int i = 0; i < total_course; ++i){
+    for (int i = 0; i < total_class; ++i){
         if (arrClass[i].getClassName() == _className){
             pos_Class = i;
             break;
@@ -437,24 +438,26 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
     
     fin.open(link + "Lecturers.csv"); // khai quat
 
-    string skipfirstline, _user, _pass, _name, _gen, _degree;
+    string skipfirstline, _user, _pass, _name, _gen, _degree, line;
     bool _gender;
 
     if (fin.is_open())
     {
         getline(fin, skipfirstline, '\n');
 
-        while (fin.good())
+        while (getline(fin, line))
         {
-            getline(fin, _user, ',');
-            getline(fin, _pass, ',');
-            getline(fin, _name, ',');
-            getline(fin, _degree, ',');
-            getline(fin, _gen, '\n');
+            stringstream ss(line);
+            getline(ss, _user, ',');
+            getline(ss, _pass, ',');
+            getline(ss, _name, ',');
+            getline(ss, _degree, ',');
+            getline(ss, _gen, ',');
             
             if (_gen == "Male") _gender = true;
             else _gender = false;
 
+            // Lecturer &A = arrLecturer[total_lecturer++]; cai nay de neu bi loi ko load tu csv dc
             Lecturer A;
             A.setUserName(_user);
             A.setPassword(_pass);
@@ -477,19 +480,20 @@ void Semester::loadStaffsFromCSV(ifstream& fin, ofstream& fout)
     
     fin.open(link + "Staffs.csv"); // khai quat
 
-    string skip, _user, _pass, _name, _gen;
+    string skip, _user, _pass, _name, _gen, line;
     
     if (fin.is_open())
     {
         getline(fin, skip, '\n');
         fout.open("Staffs.txt"); // khai quat
         
-        while (fin.good())
+        while (getline(fin, line))
         {
-            getline(fin, _user, ',');
-            getline(fin, _pass, ',');
-            getline(fin, _name, ',');
-            getline(fin, _gen, '\n');
+            stringstream ss(line);
+            getline(ss, _user, ',');
+            getline(ss, _pass, ',');
+            getline(ss, _name, ',');
+            getline(ss, _gen, ',');
 
             fout << _name << endl;
             fout << _user << endl;
@@ -529,18 +533,19 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
     fin.open(link + name + ".csv");
     if (fin.is_open())
     {
-        string skip, id, no, fullname, gen, doB;
+        string skip, id, no, fullname, gen, doB, line;
         bool gender;
 
         getline(fin, skip, '\n');
         
-        while (fin.good())
+        while (getline(fin, line))
         {
-            getline(fin, no, ',');
-            getline(fin, id, ',');
-            getline(fin, fullname, ',');
-            getline(fin, gen, ',');
-            getline(fin, doB, '\n');
+            stringstream ss(line);
+            getline(ss, no, ',');
+            getline(ss, id, ',');
+            getline(ss, fullname, ',');
+            getline(ss, gen, ',');
+            getline(ss, doB, ',');
 
             if (gen == "Male") gender = true;
             else gender = false;
@@ -592,14 +597,10 @@ void Semester::viewListStudentOfCourse(string _courseID)
     }
 }
 
-<<<<<<< HEAD
 
 Student Semester::getStudentForCourse(string _ID) {
 }
 
-
-=======
->>>>>>> f8250cbec88caac2f0c33d0702ca3d90f69576ae
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -674,29 +675,30 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
     {
         string skip;
         getline(fin, skip, '\n');
-        string no, id, c_name, _class, l_user, l_name, l_degree, l_gen, sday, eday, doW, shour, ehour, smin, emin, room;
+        string line, no, id, c_name, _class, l_user, l_name, l_degree, l_gen, sday, eday, doW, shour, ehour, smin, emin, room;
         bool gender;
         
-        while (fin.good())
+        while (getline(fin, line))
         {
-            getline(fin, no, ',');
-            getline(fin, id, ',');
-            getline(fin, c_name, ',');
-            getline(fin, _class, ',');
-            getline(fin, l_user, ',');
-            getline(fin, l_name, ',');
-            getline(fin, l_degree, ',');
-            getline(fin, l_gen, ',');
+            stringstream ss(line);
+            getline(ss, no, ',');
+            getline(ss, id, ',');
+            getline(ss, c_name, ',');
+            getline(ss, _class, ',');
+            getline(ss, l_user, ',');
+            getline(ss, l_name, ',');
+            getline(ss, l_degree, ',');
+            getline(ss, l_gen, ',');
             if (l_gen == "Male") gender = true;
             else gender = false; 
-            getline(fin, sday, ',');
-            getline(fin, eday, ',');
-            getline(fin, doW, ',');
-            getline(fin, shour, ',');
-            getline(fin, smin, ',');
-            getline(fin, ehour, ',');
-            getline(fin, emin, ',');
-            getline(fin, room, '\n');
+            getline(ss, sday, ',');
+            getline(ss, eday, ',');
+            getline(ss, doW, ',');
+            getline(ss, shour, ',');
+            getline(ss, smin, ',');
+            getline(ss, ehour, ',');
+            getline(ss, emin, ',');
+            getline(ss, room, ',');
 
             Course a;
             a.setID(id);
@@ -717,7 +719,175 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
     else
         cout << "Cannot open file!" << endl;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> f8250cbec88caac2f0c33d0702ca3d90f69576ae
+void Semester::loadStudentsToTxt(ofstream& fout)
+{
+    fout.open("Students.txt"); // khai quat
+    if (fout.is_open())
+    {
+        for (int i = 0; i < total_class; ++i)
+        {
+            for (int j = 0; j < arrClass[i].totalStudent; ++j)
+            {
+                fout << arrClass[i].student[j].getID() << ',';
+                fout << arrClass[i].student[j].getFullName() << ',';
+                fout << arrClass[i].getClassName() << ',';
+                if (arrClass[i].student[j].getGender() == true) fout << "Male" << ',';
+                else fout << "Female " << ',';
+                fout << arrClass[i].student[j].getDoB() << ',';
+                fout << arrClass[i].student[j].getUsername() << ',';
+                fout << arrClass[i].student[j].getPass() << ',';
+                if (arrClass[i].student[j].getStatus() == true) fout << "1" << ',';
+                else fout << "0" << ',';
+                fout << arrClass[i].student[j].numberofCourse << ',';
+                for (int z = 0; z < arrClass[i].student[j].numberofCourse - 1; ++z)
+                {
+                    fout << arrClass[i].student[j].s_ListCourse[z] << ',';
+                }
+                fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1] << '\n';
+            }
+        }
+        fout.close();
+    }
+    else cout << "Cannot open file output!";
+}
+
+void Semester::loadStudentsFromTxt(ifstream& fin)
+{
+    fin.open("Students.txt");
+    if (fin.is_open())
+    {
+        string line, id, name, _class, gen, dob, user, pass, stat, num, course;
+        bool status, gender;
+        int numofCourses;
+        
+        while (getline(fin, line))
+        {
+            stringstream ss(line);
+            getline(ss, id, ',');
+            getline(ss, name, ',');
+            getline(ss, _class, ',');
+            getline(ss, gen, ',');
+            if (gen == "Male") gender = true;
+            else gender = false;
+            getline(ss, dob, ',');
+            getline(ss, user, ',');
+            getline(ss, pass, ',');
+            getline(ss, stat, ',');
+            if (stat == "1") status = true;
+            else status = false;
+            getline(ss, num, ',');
+            numofCourses = stoi(num);
+
+            Student a;
+            a.setID(id);
+            a.setFullName(name);
+            a.setGender(gender);
+            a.setDoB(dob);
+            a.setUsername(user);
+            a.setPass(pass);
+            a.setStatus(status);
+            a.setNumberofCourse(numofCourses);
+
+            for (int i = 0; i < a.getNumberofCourse() - 1; ++i)
+            {
+                getline(ss, course, ',');
+                a.s_ListCourse[i] = course;
+            }
+            getline(ss, course, ',');
+            a.s_ListCourse[a.getNumberofCourse - 1] = course;
+
+            int exist = 0;
+            for (int i = 0; i < total_class; ++i)
+            {
+                if (arrClass[i].getClassName() == _class)
+                {
+                    arrClass[i].addStudent(a);
+                    exist = 1;
+                }
+            }
+        
+            if (exist == 0)
+            {
+                arrClass[total_class].setClassName(_class);
+                arrClass[total_class].addStudent(a);
+                ++total_class;
+            }
+        }
+        fin.close(); 
+    }
+}
+
+void Semester::loadLecturersToTxt(ofstream& fout)
+{
+    fout.open("Lecturers.txt");
+    if (fout.is_open())
+    {
+        fout << total_lecturer << '\n';
+        for (int i = 0; i < total_lecturer; ++i)
+        {
+            fout << arrLecturer[i].getName << ',';
+            fout << arrLecturer[i].getUserName << ',';
+            fout << arrLecturer[i].getPassword << ',';
+            fout << arrLecturer[i].getDegree << ',';
+            if (arrLecturer[i].getGender == true) fout << "Male" << ',';
+            else fout << "Female" << ',';
+            fout << arrLecturer[i].L_totalCourse << ',';
+            for (int j = 0; j < arrLecturer[i].L_totalCourse - 1; ++j)
+            {
+                fout << arrLecturer[i].L_ListCourse[j] << ',';
+            }
+            fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1] << '\n';
+        }
+        fout.close();
+    }
+    else cout << "Cannot open file output! ";
+}
+
+void Semester::loadLecturersFromTxt(ifstream& fin)
+{
+    fin.open("Lecturers.txt");
+    if (fin.is_open())
+    {
+        int total;
+        fin >> total;
+        total_lecturer = total;
+
+        string line, user, pass, name, degree, gen, course, num;
+        int numofCourse, count = 0;
+        bool gender;
+        
+        while (getline(fin, line))
+        {
+            stringstream ss(line);
+            getline(ss, name, ',');
+            getline(ss, user, ',');
+            getline(ss, pass, ',');
+            getline(ss, degree, ',');
+            getline(ss, gen, ',');
+            if (gen == "Male") gender = true;
+            else gender = false;
+            getline(ss, num, ',');
+            numofCourse = stoi(num);
+
+            Lecturer a;
+            a.setName(name);
+            a.setUserName(user);
+            a.setPassword(pass);
+            a.setDegree(degree);
+            a.setGender(gender);
+            a.L_totalCourse = numofCourse;
+
+            for (int i = 0; i < a.L_totalCourse; ++i)
+            {
+                getline(ss, course, ',');
+                a.L_ListCourse[i] = course; // co the bug o day
+            }
+
+            arrLecturer[count] = a;
+            ++count;
+        }
+        fin.close();
+    }
+    else cout << "Cannot open file input! ";    
+}
