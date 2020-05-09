@@ -176,7 +176,7 @@ void Semester::editAnExistingStudent()
     cin >> _ID;
     for (int i = 0; i < total_class; ++i)
     {
-        for (int j = 0; j < arrClass[i].totalStudent; ++i)
+        for (int j = 0; j < arrClass[i].totalStudent; ++j)
         {
             if (arrClass[i].student[j].getID() == _ID)
             {
@@ -184,7 +184,7 @@ void Semester::editAnExistingStudent()
                 int choose;
                 do
                 {
-                    cout << "Which do you want to perform?\n "
+                    cout << "Which do you want to perform? \n"
                         << "1. Change student's name. \n"
                         << "2. Change student's date of birth. \n"                       
                         << "3. Exit. \n";
@@ -193,17 +193,20 @@ void Semester::editAnExistingStudent()
                     {
                     case 1:
                         cout << "Input student's new full name: ";
+                        cin.ignore();
                         getline(cin, _fullname);
                         arrClass[i].student[j].setFullName(_fullname);
+                        break;
                     case 2:
                         cout << "Input student's new date of birth: ";
+                        cin.ignore();
                         getline(cin, _doB);
                         arrClass[i].student[j].setDoB(_doB);
                         break;
                     case 3:
                         break;
                     }
-                } while (choose != 4);
+                } while (choose!=3);
             }
         }
     }
@@ -302,7 +305,7 @@ void Semester::viewListOfStudent()
             {
                 if (arrClass[i].student[j].getStatus() == true)
                 {
-                    cout << "Student " << j + 1 << " : " << arrClass[i].student[j].getID() << endl;
+                    cout << "Student " << j + 1 << " : " << arrClass[i].student[j].getID()  << " - " << arrClass[i].student[j].getFullName() << endl;
                 }
             }
         }
@@ -374,8 +377,83 @@ void Semester::ManuallyAddNewCourse(){
 }
 
 //16
-void editAnExistingCourse(){
-    
+void Semester::editAnExistingCourse(){
+    int choose;
+    string _courseID, all;
+    cout << "Course's ID: ";
+    cin >> _courseID;
+    if(isCourseActive(_courseID) == false){
+        cout << "This course does not exist! \n";
+        return;
+    }
+    for (int i = 0; i < total_course; ++i){
+        if(arrCourse[i].getID() == _courseID){
+            do{
+                cout << "0. Exit \n"
+                     << "1. Change course's name \n"
+                     << "2. Change course's room \n"
+                     << "3. Change course's day of week \n"
+                     << "4. Change course's start date \n"
+                     << "5. Change course's end date \n"
+                     << "6. Time study \n"
+                     << "Which do you want to perform? \n";
+                cin >> choose;
+                switch (choose) {
+                    case 1:
+                        cout << "New name: " ;
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].setCourseName(all);
+                        break;
+                    case 2:
+                        cout << "Room: " ;
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].setRoom(all);
+                        break;
+                    case 3:
+                        cout << "DoW: ";
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].setDoW(all);
+                        break;
+                    case 4:
+                        cout << "Start date: ";
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].setStartDate(all);
+                        break;
+                    case 5:
+                        cout << "End date: ";
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].setEndDate(all);
+                        break;
+                    case 6:
+                        cout << "Start hour: ";
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].setsHour(all);
+                        cout << "Start min: ";
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].setsMin(all);
+                        cout << "End hour: ";
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].seteHour(all);
+                        cout << "End minute: ";
+                        cin.ignore();
+                        getline(cin, all, '\n');
+                        arrCourse[i].seteMin(all);
+                        break;
+                    default:
+                        break;
+                }
+            }while(choose);
+            break;
+        }
+    }
 }
 
 //17
@@ -640,7 +718,7 @@ void Semester::viewListOfCourses()
     {
         if (arrCourse[i].getStatus() == true)
         {
-            cout << i + 1 << " : " << arrCourse[i].getCourseName() << endl;
+            cout << i + 1 << " : " << arrCourse[i].getID() << " - " << arrCourse[i].getCourseName() << endl;
         }
     }
 }
@@ -1069,7 +1147,7 @@ void Semester::CourseOption(){
                 ManuallyAddNewCourse();
                 break;
             case 3:
-                
+                editAnExistingCourse();
                 break;
             case 4:
                 removeACourse();
