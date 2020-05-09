@@ -21,7 +21,7 @@ string Semester::getSemesterName(){
 }
 
 int Semester::getTotalClass(){
-    return total_class;
+    return total_class;     
 }
 
 int Semester::getTotalCourse(){
@@ -597,10 +597,13 @@ void Semester::viewListStudentOfCourse(string _courseID)
     }
 }
 
+<<<<<<< HEAD
 
 Student Semester::getStudentForCourse(string _ID) {
 }
 
+=======
+>>>>>>> 7da79ab26d1d77c59c6118585d14fca4f63e0333
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -720,6 +723,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
         cout << "Cannot open file!" << endl;
 }
 
+<<<<<<< HEAD
 void Semester::loadStudentsToTxt(ofstream& fout)
 {
     fout.open("Students.txt"); // khai quat
@@ -891,3 +895,5 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
     }
     else cout << "Cannot open file input! ";    
 }
+=======
+>>>>>>> 7da79ab26d1d77c59c6118585d14fca4f63e0333
