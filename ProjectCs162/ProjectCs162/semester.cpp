@@ -749,19 +749,13 @@ void Semester::viewListStudentOfCourse()
     }
 }
 
-<<<<<<< HEAD
-
-Student Semester::getStudentForCourse(string _ID) {
-}
 
 
-=======
 void Semester::viewListLecturer(){
     for (int i = 0; i < total_lecturer; ++i)
         cout << arrLecturer[i].getName() << endl;
 }
 
->>>>>>> 499d399e696289bb9cdc340d9a0f3d0ea4af9ddc
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -1053,7 +1047,7 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
     else cout << "Cannot open file input! ";    
 }
 
-<<<<<<< HEAD
+
 // file course chung (bao gom thong tin + total_course)
 void Semester::loadAllCoursesToTxt(ofstream& fout)
 {
@@ -1071,7 +1065,7 @@ void Semester::loadAllCoursesToTxt(ofstream& fout)
             fout << arrCourse[i].getLName() << ',';
             fout << arrCourse[i].getUsername() << ',';
             fout << arrCourse[i].getLDegree() << ',';
-            if (arrCourse[i].getLGender == true) fout << "Male" << ',';
+            if (arrCourse[i].getLGender() == true) fout << "Male" << ',';
             else fout << "Female" << ',';
             if (arrCourse[i].getStatus() == true) fout << '1' << ',';
             else fout << '0' << ',';
@@ -1189,7 +1183,7 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
         else cout << "Cannot open file input! ";
     }
 }
-=======
+
 void Semester::StaffMenu(){
     int choose = 0;
     do{
@@ -1325,4 +1319,119 @@ void Semester::ScoreboardOption(){
 void Semester::AttendenceListOption(){
     
 }
->>>>>>> 499d399e696289bb9cdc340d9a0f3d0ea4af9ddc
+
+void Semester::StudentMenu(){
+    int choose;
+    do{
+        cout << "\nStudent Menu: \n"
+            << "0. Exit \n"
+            << "1. Check in \n"
+            << "2. View check in result \n"
+            << "3. View schedules \n"
+            << "4. View score of a course \n\n";
+        cout << "Choose an option: ";
+        cin >> choose;
+        switch (choose) {
+            case 1:
+                //CheckIn();
+                break;
+            case 2:
+                //viewCheckInResult();
+                break;
+            case 3:
+                //viewSchedule();
+                break;
+            case 4:
+                //viewScore();
+                break;
+            default:
+                break;
+        }
+    }while(choose);
+}
+
+void Semester::LecturerMenu(){
+    int choose;
+    do{
+        cout << "\nLecturer Menu: \n"
+            << "0. Exit \n"
+            << "1. View list of courses in the current semester \n"
+            << "2. View list of students of a course \n"
+            << "3. View attendance list of a course \n"
+            << "4. Edit an attendance \n"
+            << "5. Import scoreboard of a course (midterm, final, lab, bonus) from a csv file \n"
+            << "6. Edit grade of a student \n"
+            << "7. View a scoreboard \n";
+        cout << "Choose an option: ";
+        cin >> choose;
+        switch (choose) {
+            case 1:
+                //viewCoursesofLecturer();
+                break;
+            case 2:
+                //viewListStudentOfCourse();
+                break;
+            case 3:
+                //viewAttendanceList();
+                break;
+            case 4:
+                //editAnAttendance();
+                break;
+            case 5:
+                break;
+            case 6:
+                //editGradeOfAStudent();
+                break;
+            case 7:
+                //viewAScoreBoard();
+                break;
+            default:
+                break;
+        }
+    }while(choose);
+}
+
+int Semester::Login(){
+    string _username, _password;
+    cout << "Username: " ;
+    getline(cin, _username, '\n');
+    cout << "Password: " ;
+    getline(cin, _password, '\n');
+    if(isStudent(_username, _password) == true)
+        return 1;
+    if(isLecturer(_username, _password) == true)
+        return 2;
+    if(isStaff(_username, _password) == true)
+        return 3;
+    cout << "Wrong username or password, please try again! \n";
+    return 0;
+}
+
+bool Semester::isStudent(string _username, string _password){
+    for (int i = 0; i < total_class; ++i){
+        for (int j = 0; j < arrClass[i].totalStudent; ++j){
+            if(arrClass[i].student[j].getUsername() == _username){
+                if(arrClass[i].student[j].getPass() == _password)
+                    return true;
+                return false;
+            }
+        }
+    }
+    return false;
+}
+     
+bool Semester::isLecturer(string _username, string _password){
+    for (int i = 0; i < total_lecturer; ++i){
+        if(arrLecturer[i].getUserName() == _username){
+            if(arrLecturer[i].getPassword() == _password)
+                return true;
+            return false;
+        }
+    }
+    return false;
+}
+            
+bool Semester::isStaff(string _username, string _password){
+    return false;
+}
+
