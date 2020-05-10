@@ -35,6 +35,15 @@ int main(){
 //        // loadLecturersFromTxt (fin);
 //        // loadStaffFromCsv (fin);
 //    }
+    Semester semester;
+    ifstream fin;
+    ofstream fout;
+    semester.loadStudentsFromCSV(fin);
+    semester.loadLecturersFromCSV(fin);
+    semester.loadCoursesFromCSV(fin);
+    semester.StaffMenu();
+    semester.loadStudentsToTxt(fout);
+    
 
     return 0;
 }

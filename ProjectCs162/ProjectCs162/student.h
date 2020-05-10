@@ -36,6 +36,9 @@ public:
     int getNumberofCourse();
     void createAccount();
     
+    Student(){
+        status = true;
+    }
 };
 
 
