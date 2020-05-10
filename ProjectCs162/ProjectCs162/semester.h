@@ -44,11 +44,9 @@ public:
     void addStudentToCourse(string _studentID, string _courseID, string class_name); //19
     void viewListOfCourses(); //20
     void viewListStudentOfCourse(string _CourseName); //21
-<<<<<<< HEAD
-    Student getStudentForCourse(string _ID);    
-=======
 
->>>>>>> 7da79ab26d1d77c59c6118585d14fca4f63e0333
+    Student getStudentForCourse(string _ID);    
+
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     Student getStudent(string _ID);
@@ -60,14 +58,16 @@ public:
     void loadLecturersFromCSV(ifstream& fin); //beginning
     void loadStaffsFromCSV(ifstream& fin, ofstream& fout); // beginning 
     void loadSingleClassFromCSV(ifstream& fin); // 6
-    void loadCoursesFromCSV(ifstream& fin); // 14
-    
+    void loadCoursesFromCSV(ifstream& fin); // 14    
     void loadStudentsToTxt(ofstream& fout); // ending
-    void loadLecturersToTxt(ofstream& fout); // ending
-    void loadCoursesToTxt(ofstream& fout); // ending
+    void loadLecturersToTxt(ofstream& fout); // ending 
     void loadStudentsFromTxt(ifstream& fin); // beginning, condition 2
     void loadLecturersFromTxt(ifstream& fin); // beginning, condition 2 
-    
+    // void checkStaffsFromTxt(ifstream& fin); // check username + pass
+    void loadAllCoursesToTxt(ofstream& fout); // ending, thong tin chung        
+    void loadAllCoursesFromTxt(ifstream& fin); // load khai quat                 
+    void loadEachCourseToTxt(ofstream& fout); // load cu the                     // khi nao biet diem danh thi  
+    void loadEachCourseFromTxt(ifstream& fin); // load cu the                    // add vao 2 function nay
 
 };
 

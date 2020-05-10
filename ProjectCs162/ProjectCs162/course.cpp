@@ -114,3 +114,6 @@ string Course::getDoW(){
 int Course::getTotalStudent(){
     return c_totalStudent;
 }
+string Course::getRoom() {
+    return c_Room;
+}

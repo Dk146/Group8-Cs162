@@ -73,9 +73,8 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
         {
             if (arrClass[i].getClassName() == _class)
             {
-                arrClass[i].student[arrClass[i].totalStudent] = A;
+                arrClass[i].addStudent(A);
                 exist = 1;
-                ++arrClass[i].totalStudent;
             }
         }
 
@@ -597,13 +596,11 @@ void Semester::viewListStudentOfCourse(string _courseID)
     }
 }
 
-<<<<<<< HEAD
 
 Student Semester::getStudentForCourse(string _ID) {
 }
 
-=======
->>>>>>> 7da79ab26d1d77c59c6118585d14fca4f63e0333
+
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -723,7 +720,6 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
         cout << "Cannot open file!" << endl;
 }
 
-<<<<<<< HEAD
 void Semester::loadStudentsToTxt(ofstream& fout)
 {
     fout.open("Students.txt"); // khai quat
@@ -895,5 +891,139 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
     }
     else cout << "Cannot open file input! ";    
 }
-=======
->>>>>>> 7da79ab26d1d77c59c6118585d14fca4f63e0333
+
+// file course chung (bao gom thong tin + total_course)
+void Semester::loadAllCoursesToTxt(ofstream& fout)
+{
+    fout.open("Courses.txt");
+    if (fout.is_open())
+    {
+        fout << total_course << '\n';
+
+        for (int i = 0; i < total_course; ++i)
+        {
+            fout << arrCourse[i].getID() << ',';
+            fout << arrCourse[i].getCourseName() << ',';
+            fout << arrCourse[i].getClass() << ',';
+            fout << arrCourse[i].getRoom() << ',';
+            fout << arrCourse[i].getLName() << ',';
+            fout << arrCourse[i].getUsername() << ',';
+            fout << arrCourse[i].getLDegree() << ',';
+            if (arrCourse[i].getLGender == true) fout << "Male" << ',';
+            else fout << "Female" << ',';
+            if (arrCourse[i].getStatus() == true) fout << '1' << ',';
+            else fout << '0' << ',';
+            fout << arrCourse[i].getStartDate() << ',';
+            fout << arrCourse[i].getEndDate() << ',';
+            fout << arrCourse[i].getsHour() << ',';
+            fout << arrCourse[i].getsMin() << ',';
+            fout << arrCourse[i].geteHour() << ',';
+            fout << arrCourse[i].geteMin() << ',';
+            fout << arrCourse[i].getDoW() << '\n';
+        }
+        fout.close();
+    }
+    else cout << "Cannot open file output! ";
+}
+
+void Semester::loadAllCoursesFromTxt(ifstream& fin)
+{
+    fin.open("Courses.txt");
+    if (fin.is_open())
+    {
+        string line, id, name, room, _class, luser, lname, ldegree, gen, stat, sday, eday, shour, smin, ehour, emin, doW;
+        bool gender, status;
+        int total;
+
+        fin >> total;
+        total_course = total;
+
+        for (int i = 0; i < total_course; ++i) // co 2 cach input: while (getline) / for ...
+        {
+            getline(fin, line);
+            stringstream ss(line);
+            getline(ss, id, ',');
+            getline(ss, name, ',');
+            getline(ss, _class, ',');
+            getline(ss, room, ',');
+            getline(ss, lname, ',');
+            getline(ss, luser, ',');
+            getline(ss, ldegree, ',');
+            getline(ss, gen, ',');
+            getline(ss, stat, ',');
+            getline(ss, sday, ',');
+            getline(ss, eday, ',');
+            getline(ss, shour, ',');
+            getline(ss, smin, ',');
+            getline(ss, ehour, ',');
+            getline(ss, emin, ',');
+            getline(ss, doW, ',');
+            if (gen == "Male") gender = true;
+            else gender = false;
+            if (stat == "1") status = true;
+            else status = false;
+
+            arrCourse[i].setID(id);
+            arrCourse[i].setCourseName(name);
+            arrCourse[i].setClass(_class);
+            arrCourse[i].setRoom(room);
+            arrCourse[i].setLName(lname);
+            arrCourse[i].setLUsername(luser);
+            arrCourse[i].setLDegree(ldegree);
+            arrCourse[i].setLGender(gender);
+            arrCourse[i].setStatus(status);
+            arrCourse[i].setStartDate(sday);
+            arrCourse[i].setEndDate(eday);
+            arrCourse[i].setsHour(shour);
+            arrCourse[i].setsMin(smin);
+            arrCourse[i].seteHour(ehour);
+            arrCourse[i].seteMin(emin);
+            arrCourse[i].setDoW(doW);
+        }
+        fin.close();
+    }
+    else cout << "Cannot open file input! ";
+}
+
+void Semester::loadEachCourseToTxt(ofstream& fout)
+{
+    for (int i = 0; i < total_course; ++i)
+    {
+        string _coursename, _class;
+        _coursename = arrCourse[i].getCourseName();
+        _class = arrCourse[i].getClass();
+
+        fout.open(_coursename + "-" + _class + ".txt");
+        if (fout.is_open())
+        {
+            fout << arrCourse[i].c_totalStudent << '\n';
+            for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
+            {
+                fout << arrCourse[i].c_ListStudent[j] << '\n';
+            }
+            fout.close();
+        }
+        else cout << "Cannot open file output! ";
+    }
+}
+
+// cai nay dung sau khi da loadAllCoursesFromTxt
+void Semester::loadEachCourseFromTxt(ifstream& fin)
+{
+    for (int i = 0; i < total_course; ++i)
+    {
+        int total;
+        fin.open(arrCourse[i].getCourseName() + "-" + arrCourse[i].getClass() + ".txt");
+        if (fin.is_open())
+        {
+            fin >> total;
+            arrCourse[i].c_totalStudent = total;
+            for (int j = 0; j < arrCourse[j].c_totalStudent; ++j)
+            {
+                getline(fin, arrCourse[i].c_ListStudent[j]);
+            }
+            fin.close();
+        }
+        else cout << "Cannot open file input! ";
+    }
+}
