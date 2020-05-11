@@ -57,6 +57,7 @@ public:
     void loadSingleClassFromCSV(ifstream& fin); //6
     void loadCoursesFromCSV(ifstream& fin); // 14
 
+
 };
 
 #endif
