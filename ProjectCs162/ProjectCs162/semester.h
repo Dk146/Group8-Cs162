@@ -79,11 +79,11 @@ public:
     void ScoreboardOption(); // chua lam
     void AttendenceListOption(); // chua lam
     
-    void StudentMenu();
-    void CheckIn(); //
-    void viewCheckInResult(); // chua lam
-    void viewSchedule(); // chua lam
-    void viewScore(); // chua lam
+    void StudentMenu(string _username);
+    void CheckIn(string _ID); //
+    void viewCheckInResult(string _ID); // chua lam
+    void viewSchedule(string _ID); // chua lam
+    void viewScore(string _ID); // chua lam
     
     void LecturerMenu();
     void viewCoursesofLecturer();
@@ -92,7 +92,7 @@ public:
     void editGradeOfAStudent(); // chua lam
     void viewAScoreBoard(); // chua lam
     
-    int Login();
+    void Login();
     bool isStudent(string _username, string _password);
     bool isLecturer(string _username, string _password);
     bool isStaff(string _username, string _password);

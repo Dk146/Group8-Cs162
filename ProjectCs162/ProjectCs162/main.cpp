@@ -38,23 +38,25 @@ int main(){
     Semester semester;
     ifstream fin;
     ofstream fout;
-    semester.loadStudentsFromCSV(fin);
-    semester.loadLecturersFromCSV(fin);
-    semester.loadCoursesFromCSV(fin);
-    int a;
-    a = semester.Login();
-    if(a == 1)
-        semester.StudentMenu();
-    else if(a == 2)
-        semester.LecturerMenu();
-    else if(a == 3)
-        semester.StaffMenu();
+    
+//    semester.loadStudentsFromCSV(fin);
+//    semester.loadLecturersFromCSV(fin);
+//    semester.loadCoursesFromCSV(fin);
+    
+    semester.loadStudentsFromTxt(fin);
+    semester.loadAllCoursesFromTxt(fin);
+    semester.loadEachCourseFromTxt(fin);
+    semester.loadLecturersFromTxt(fin);
+    
+    //semester.Login();
+    semester.StaffMenu();
     
     semester.loadStudentsToTxt(fout);
     semester.loadAllCoursesToTxt(fout);
     semester.loadEachCourseToTxt(fout);
+    semester.loadLecturersToTxt(fout);
     
-
+    cout << "Succeeded" << endl;
     return 0;
 }
 
