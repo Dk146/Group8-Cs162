@@ -38,6 +38,7 @@ public:
     
     Student(){
         status = true;
+        numberofCourse = 0;
     }
 };
 

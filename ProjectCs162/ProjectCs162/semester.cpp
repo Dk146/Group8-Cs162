@@ -594,9 +594,8 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
             getline(ss, _pass, ',');
             getline(ss, _name, ',');
             getline(ss, _degree, ',');
-            getline(ss, _gen, ',');
-            
-            if (_gen == "Male") _gender = true;
+            getline(ss, _gen, 'e');
+            if (_gen == "Mal") _gender = true;
             else _gender = false;
 
             // Lecturer &A = arrLecturer[total_lecturer++]; cai nay de neu bi loi ko load tu csv dc
@@ -871,6 +870,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
             a.setLName(l_name);
             a.setLGender(gender);
             a.setLDegree(l_degree);
+            a.setRoom(room);
             a.setTime(sday, eday, shour, smin, ehour, emin, doW);
             a.setStatus(true);
             a.setTotalStudent(0);
@@ -897,7 +897,7 @@ void Semester::loadStudentsToTxt(ofstream& fout)
                 fout << arrClass[i].student[j].getFullName() << ',';
                 fout << arrClass[i].getClassName() << ',';
                 if (arrClass[i].student[j].getGender() == true) fout << "Male" << ',';
-                else fout << "Female " << ',';
+                else fout << "Female" << ',';
                 fout << arrClass[i].student[j].getDoB() << ',';
                 fout << arrClass[i].student[j].getUsername() << ',';
                 fout << arrClass[i].student[j].getPass() << ',';
@@ -908,7 +908,9 @@ void Semester::loadStudentsToTxt(ofstream& fout)
                 {
                     fout << arrClass[i].student[j].s_ListCourse[z] << ',';
                 }
-                fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1] << '\n';
+                if(arrClass[i].student[j].numberofCourse >= 1)
+                    fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1];
+                fout << endl;
             }
         }
         fout.close();
@@ -958,8 +960,10 @@ void Semester::loadStudentsFromTxt(ifstream& fin)
                 getline(ss, course, ',');
                 a.s_ListCourse[i] = course;
             }
-            getline(ss, course, ',');
-            a.s_ListCourse[a.getNumberofCourse() - 1] = course;
+            if(a.getNumberofCourse() >= 1){
+                getline(ss, course, ',');
+                a.s_ListCourse[a.getNumberofCourse() - 1] = course;
+            }
             int exist = 0;
             for (int i = 0; i < total_class; ++i)
             {
@@ -979,6 +983,8 @@ void Semester::loadStudentsFromTxt(ifstream& fin)
         }
         fin.close(); 
     }
+    else
+        cout << "Cannot open file! \n";
 }
 
 void Semester::loadLecturersToTxt(ofstream& fout)
@@ -1015,7 +1021,8 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
         int total;
         fin >> total;
         total_lecturer = total;
-
+        fin.ignore();
+        
         string line, user, pass, name, degree, gen, course, num;
         int numofCourse, count = 0;
         bool gender;
@@ -1100,7 +1107,7 @@ void Semester::loadAllCoursesFromTxt(ifstream& fin)
 
         fin >> total;
         total_course = total;
-
+        fin.ignore();
         for (int i = 0; i < total_course; ++i) // co 2 cach input: while (getline) / for ...
         {
             getline(fin, line);
@@ -1181,9 +1188,10 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
         {
             fin >> total;
             arrCourse[i].c_totalStudent = total;
-            for (int j = 0; j < arrCourse[j].c_totalStudent; ++j)
+            fin.ignore();
+            for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
             {
-                getline(fin, arrCourse[i].c_ListStudent[j]);
+                getline(fin, arrCourse[i].c_ListStudent[j], '\n');
             }
             fin.close();
         }
@@ -1327,8 +1335,9 @@ void Semester::AttendenceListOption(){
     
 }
 
-void Semester::StudentMenu(){
+void Semester::StudentMenu(string _username){
     int choose;
+    string _ID = _username;
     do{
         cout << "\nStudent Menu: \n"
             << "0. Exit \n"
@@ -1340,16 +1349,16 @@ void Semester::StudentMenu(){
         cin >> choose;
         switch (choose) {
             case 1:
-                //CheckIn();
+                //CheckIn(string _ID);
                 break;
             case 2:
-                //viewCheckInResult();
+                //viewCheckInResult(string _ID);
                 break;
             case 3:
-                //viewSchedule();
+                //viewSchedule(string _ID);
                 break;
             case 4:
-                //viewScore();
+                //viewScore(string _ID);
                 break;
             default:
                 break;
@@ -1385,6 +1394,7 @@ void Semester::LecturerMenu(){
                 //editAnAttendance();
                 break;
             case 5:
+                //
                 break;
             case 6:
                 //editGradeOfAStudent();
@@ -1398,20 +1408,24 @@ void Semester::LecturerMenu(){
     }while(choose);
 }
 
-int Semester::Login(){
+void Semester::Login(){
     string _username, _password;
-    cout << "Username: " ;
+    cout << "\nUsername: " ;
     getline(cin, _username, '\n');
     cout << "Password: " ;
     getline(cin, _password, '\n');
-    if(isStudent(_username, _password) == true)
-        return 1;
+    if(isStudent(_username, _password) == true){
+        StudentMenu(_username);
+        return ;
+    }
     if(isLecturer(_username, _password) == true)
-        return 2;
+        LecturerMenu();
+        return ;
     if(isStaff(_username, _password) == true)
-        return 3;
+        StaffMenu();
+        return ;
     cout << "Wrong username or password, please try again! \n";
-    return 0;
+    Login();
 }
 
 bool Semester::isStudent(string _username, string _password){
@@ -1439,6 +1453,7 @@ bool Semester::isLecturer(string _username, string _password){
 }
             
 bool Semester::isStaff(string _username, string _password){
+    
     return false;
 }
 
