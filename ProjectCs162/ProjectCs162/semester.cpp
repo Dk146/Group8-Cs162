@@ -753,11 +753,6 @@ void Semester::viewListStudentOfCourse()
     }
 }
 
-
-
-Student Semester::getStudentForCourse(string _ID) {
-}
-
 void Semester::viewListLecturer(){
     for (int i = 0; i < total_lecturer; ++i)
         cout << arrLecturer[i].getName() << endl;
@@ -1418,12 +1413,14 @@ void Semester::Login(){
         StudentMenu(_username);
         return ;
     }
-    if(isLecturer(_username, _password) == true)
+    if(isLecturer(_username, _password) == true){
         LecturerMenu();
         return ;
-    if(isStaff(_username, _password) == true)
+    }
+    if(isStaff(_username, _password) == true){
         StaffMenu();
         return ;
+    }
     cout << "Wrong username or password, please try again! \n";
     Login();
 }
@@ -1453,7 +1450,13 @@ bool Semester::isLecturer(string _username, string _password){
 }
             
 bool Semester::isStaff(string _username, string _password){
-    
+    for (int i = 0; i < total_staff; ++i){
+        if (arrStaff[i].getUser() == _username){
+            if(arrStaff[i].getPass() == _password)
+                return true;
+            return false;
+        }
+    }
     return false;
 }
 
@@ -1482,7 +1485,7 @@ void Semester::loadStaffsFromTxt(ifstream& fin)
     if (fin.is_open())
     {
         fin >> total_staff;
-
+        fin.ignore();
         string line, user, name, pass, gen;
         bool gender;
         for (int i = 0; i < total_staff; ++i)

@@ -82,8 +82,6 @@ public:
     void StaffMenu();
     void ClassOption();
     void CourseOption();
-    void ScoreboardOption();
-    void AttendenceListOption();
     void ScoreboardOption(); // chua lam
     void AttendenceListOption(); // chua lam
     

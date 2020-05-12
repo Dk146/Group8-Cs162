@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EFD56540246A5BDA007BC621 /* staff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFD5653E246A5BDA007BC621 /* staff.cpp */; };
 		EFF89B922452D47400A9276F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89B912452D47400A9276F /* main.cpp */; };
 		EFF89BA62452DF8B00A9276F /* semester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89BA52452DF8B00A9276F /* semester.cpp */; };
 		EFF89BA8245331DA00A9276F /* class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF89BA7245331DA00A9276F /* class.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EFD5653E246A5BDA007BC621 /* staff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = staff.cpp; sourceTree = "<group>"; };
+		EFD5653F246A5BDA007BC621 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
 		EFF89B8E2452D47400A9276F /* ProjectCs162 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ProjectCs162; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFF89B912452D47400A9276F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EFF89B982452D48700A9276F /* class.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = class.h; sourceTree = "<group>"; };
@@ -74,17 +77,19 @@
 			isa = PBXGroup;
 			children = (
 				EFF89B912452D47400A9276F /* main.cpp */,
-				EFF89B982452D48700A9276F /* class.h */,
-				EFF89B992452D49800A9276F /* student.h */,
-				EFF89B9A2452D4A300A9276F /* course.h */,
-				EFF89B9B2452D4AF00A9276F /* lecturer.h */,
-				EFF89B9C2452D4CB00A9276F /* include.h */,
 				EFF89BA42452DAB600A9276F /* semester.h */,
 				EFF89BA52452DF8B00A9276F /* semester.cpp */,
+				EFF89B982452D48700A9276F /* class.h */,
 				EFF89BA7245331DA00A9276F /* class.cpp */,
+				EFF89B992452D49800A9276F /* student.h */,
 				EFF89BA92453325A00A9276F /* student.cpp */,
+				EFF89B9A2452D4A300A9276F /* course.h */,
 				EFF89BAB245333C100A9276F /* course.cpp */,
+				EFD5653F246A5BDA007BC621 /* Staff.h */,
+				EFD5653E246A5BDA007BC621 /* staff.cpp */,
+				EFF89B9B2452D4AF00A9276F /* lecturer.h */,
 				EFF89BAD245335A200A9276F /* lecturer.cpp */,
+				EFF89B9C2452D4CB00A9276F /* include.h */,
 			);
 			path = ProjectCs162;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 				EFF89B922452D47400A9276F /* main.cpp in Sources */,
 				EFF89BAE245335A200A9276F /* lecturer.cpp in Sources */,
 				EFF89BAA2453325A00A9276F /* student.cpp in Sources */,
+				EFD56540246A5BDA007BC621 /* staff.cpp in Sources */,
 				EFF89BAC245333C100A9276F /* course.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
