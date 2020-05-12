@@ -44,16 +44,13 @@ public:
     void removeAStudentFromACourse(); //18
     void addStudentToCourse(); //19
     void viewListOfCourses(); //20
-<<<<<<< HEAD
     void viewListStudentOfCourse(string _CourseName); //21
 
     Student getStudentForCourse(string _ID);    
 
-=======
     void viewListStudentOfCourse(); //21
     void viewListLecturer(); //23
     
->>>>>>> 499d399e696289bb9cdc340d9a0f3d0ea4af9ddc
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     Student getStudent(string _ID);
@@ -70,20 +67,17 @@ public:
     void loadLecturersToTxt(ofstream& fout); // ending 
     void loadStudentsFromTxt(ifstream& fin); // beginning, condition 2
     void loadLecturersFromTxt(ifstream& fin); // beginning, condition 2 
-<<<<<<< HEAD
     // void checkStaffsFromTxt(ifstream& fin); // check username + pass
     void loadAllCoursesToTxt(ofstream& fout); // ending, thong tin chung        
     void loadAllCoursesFromTxt(ifstream& fin); // load khai quat                 
     void loadEachCourseToTxt(ofstream& fout); // load cu the                     // khi nao biet diem danh thi  
     void loadEachCourseFromTxt(ifstream& fin); // load cu the                    // add vao 2 function nay
-=======
     
     void StaffMenu();
     void ClassOption();
     void CourseOption();
     void ScoreboardOption();
     void AttendenceListOption();
->>>>>>> 499d399e696289bb9cdc340d9a0f3d0ea4af9ddc
 
     Semester(){
         total_lecturer = 0;

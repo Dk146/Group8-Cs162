@@ -749,19 +749,16 @@ void Semester::viewListStudentOfCourse()
     }
 }
 
-<<<<<<< HEAD
 
 Student Semester::getStudentForCourse(string _ID) {
 }
 
 
-=======
 void Semester::viewListLecturer(){
     for (int i = 0; i < total_lecturer; ++i)
         cout << arrLecturer[i].getName() << endl;
 }
 
->>>>>>> 499d399e696289bb9cdc340d9a0f3d0ea4af9ddc
 Student Semester::getStudent(string _ID){
     Student a;
     for (int i = 0; i < total_class; ++i){
@@ -1053,7 +1050,6 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
     else cout << "Cannot open file input! ";    
 }
 
-<<<<<<< HEAD
 // file course chung (bao gom thong tin + total_course)
 void Semester::loadAllCoursesToTxt(ofstream& fout)
 {
@@ -1189,7 +1185,7 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
         else cout << "Cannot open file input! ";
     }
 }
-=======
+
 void Semester::StaffMenu(){
     int choose = 0;
     do{
@@ -1325,4 +1321,4 @@ void Semester::ScoreboardOption(){
 void Semester::AttendenceListOption(){
     
 }
->>>>>>> 499d399e696289bb9cdc340d9a0f3d0ea4af9ddc
+
