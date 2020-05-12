@@ -6,6 +6,7 @@
 #include "course.h"
 #include "lecturer.h"
 #include "include.h"
+#include "Staff.h"
 
 class Semester{
     string semesterName;
@@ -18,6 +19,9 @@ class Semester{
     
     int total_lecturer;
     Lecturer arrLecturer[50];
+
+    int total_staff;
+    Staff arrStaff[15];
     
 public:
     
@@ -60,7 +64,7 @@ public:
     // Ton
     void loadStudentsFromCSV(ifstream& fin); // beginning
     void loadLecturersFromCSV(ifstream& fin); //beginning
-    void loadStaffsFromCSV(ifstream& fin, ofstream& fout); // beginning 
+    void loadStaffsFromCSV(ifstream& fin); // beginning 
     void loadSingleClassFromCSV(ifstream& fin); // 6
     void loadCoursesFromCSV(ifstream& fin); // 14    
     void loadStudentsToTxt(ofstream& fout); // ending
@@ -72,17 +76,40 @@ public:
     void loadAllCoursesFromTxt(ifstream& fin); // load khai quat                 
     void loadEachCourseToTxt(ofstream& fout); // load cu the                     // khi nao biet diem danh thi  
     void loadEachCourseFromTxt(ifstream& fin); // load cu the                    // add vao 2 function nay
-    
+    void loadStaffsToTxt(ofstream& fout);
+    void loadStaffsFromTxt(ifstream& fin);
+
     void StaffMenu();
     void ClassOption();
     void CourseOption();
     void ScoreboardOption();
     void AttendenceListOption();
+    void ScoreboardOption(); // chua lam
+    void AttendenceListOption(); // chua lam
+    
+    void StudentMenu();
+    void CheckIn(); //
+    void viewCheckInResult(); // chua lam
+    void viewSchedule(); // chua lam
+    void viewScore(); // chua lam
+    
+    void LecturerMenu();
+    void viewCoursesofLecturer();
+    void viewAttendanceList(); // chua lam
+    void editAnAttendance(); // chua lam
+    void editGradeOfAStudent(); // chua lam
+    void viewAScoreBoard(); // chua lam
+    
+    int Login();
+    bool isStudent(string _username, string _password);
+    bool isLecturer(string _username, string _password);
+    bool isStaff(string _username, string _password);
 
     Semester(){
         total_lecturer = 0;
         total_class = 0;
         total_course = 0;
+        total_staff = 0;
     }
     
 };

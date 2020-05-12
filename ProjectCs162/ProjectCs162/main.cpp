@@ -41,8 +41,18 @@ int main(){
     semester.loadStudentsFromCSV(fin);
     semester.loadLecturersFromCSV(fin);
     semester.loadCoursesFromCSV(fin);
-    semester.StaffMenu();
+    int a;
+    a = semester.Login();
+    if(a == 1)
+        semester.StudentMenu();
+    else if(a == 2)
+        semester.LecturerMenu();
+    else if(a == 3)
+        semester.StaffMenu();
+    
     semester.loadStudentsToTxt(fout);
+    semester.loadAllCoursesToTxt(fout);
+    semester.loadEachCourseToTxt(fout);
     
 
     return 0;
