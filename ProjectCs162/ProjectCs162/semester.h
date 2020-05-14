@@ -41,7 +41,7 @@ public:
     void RemoveAStudent(); // 9
     void changeClass(); // 10
     void viewListOfClasses(); //11
-    void viewListOfStudent(); //12
+    void viewListOfStudent(int _pos); //12
     void ManuallyAddNewCourse(); //15
     void editAnExistingCourse(); //16
     void removeACourse(); //17
@@ -49,6 +49,10 @@ public:
     void addStudentToCourse(); //19
     void viewListOfCourses(); //20
     void viewListStudentOfCourse(string _CourseName); //21
+    void viewProfileStudent(string _studentID);
+    void viewProfileStaff(string _staffUser);
+    void viewProfileLecturer(string _lecturerID);
+
 
     Student getStudentForCourse(string _ID);    
 
@@ -57,9 +61,12 @@ public:
     
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
+    string getClassOfStudent(string _studentID);
     Student getStudent(string _ID);
     Course getCourse(string _courseID);
     Class getClass(string _ClassName);
+    Staff getStaff(string _StaffUser);
+    Lecturer getLecturer(string _LecturerUser);
 
     // Ton
     void loadStudentsFromCSV(ifstream& fin); // beginning
@@ -79,7 +86,7 @@ public:
     void loadStaffsToTxt(ofstream& fout);
     void loadStaffsFromTxt(ifstream& fin);
 
-    void StaffMenu();
+    void StaffMenu(string _username);
     void ClassOption();
     void CourseOption();
     void ScoreboardOption(); // chua lam
@@ -99,6 +106,12 @@ public:
     void viewAScoreBoard(); // chua lam
     
     void Login();
+    void StaffOption(string _username);
+    void StudentOption(string _username);
+    void LecturerOption(string _username);
+    void changePassStaff(string _username);
+    void changePassStudent(string _username);
+    void changePassLecturer(string _username);
     bool isStudent(string _username, string _password);
     bool isLecturer(string _username, string _password);
     bool isStaff(string _username, string _password);

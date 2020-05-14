@@ -18,6 +18,7 @@ class Class{
     void setClassName(string _className);
     string getClassName();
     void addStudent(Student new_student);
+    void viewStudent();
     
     Class(){
         totalStudent = 0;

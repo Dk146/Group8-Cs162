@@ -1,5 +1,5 @@
 4
-Dinh Ba Tien,dbtien,abcdef,Tien si,Male,1,CS162
+Dinh Ba Tien,dbtien,123456,Tien si,Male,1,CS162
 Nguyen Minh Huy,nmhuy,abcdef,Thac si,Female,0,
 Nguyen Huu Anh,nhanh,abcdef,Giao su,Male,1,MTH252
 Duong Nguyen Vu,dnvu,dnvu,Giao su,Male,0,

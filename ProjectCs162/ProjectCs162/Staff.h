@@ -17,6 +17,7 @@ public:
 	string getPass();
 	string getName();
 	bool getGender();
+    void viewProfile();
 };
 
 
