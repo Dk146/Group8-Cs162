@@ -57,6 +57,7 @@ public:
 
     Course(){
         c_totalStudent = 0;
+        setStatus(true);
     }
 };
 

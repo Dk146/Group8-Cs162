@@ -6,6 +6,7 @@
 #include "course.h"
 #include "lecturer.h"
 #include "include.h"
+#include "Staff.h"
 
 class Semester{
     string semesterName;
@@ -18,6 +19,9 @@ class Semester{
     
     int total_lecturer;
     Lecturer arrLecturer[50];
+
+    int total_staff;
+    Staff arrStaff[15];
     
 public:
     
@@ -37,7 +41,7 @@ public:
     void RemoveAStudent(); // 9
     void changeClass(); // 10
     void viewListOfClasses(); //11
-    void viewListOfStudent(); //12
+    void viewListOfStudent(int _pos); //12
     void ManuallyAddNewCourse(); //15
     void editAnExistingCourse(); //16
     void removeACourse(); //17
@@ -45,6 +49,10 @@ public:
     void addStudentToCourse(); //19
     void viewListOfCourses(); //20
     void viewListStudentOfCourse(string _CourseName); //21
+    void viewProfileStudent(string _studentID);
+    void viewProfileStaff(string _staffUser);
+    void viewProfileLecturer(string _lecturerID);
+
 
     Student getStudentForCourse(string _ID);    
 
@@ -53,14 +61,17 @@ public:
     
     bool isCourseActive(string _courseID); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
+    string getClassOfStudent(string _studentID);
     Student getStudent(string _ID);
     Course getCourse(string _courseID);
     Class getClass(string _ClassName);
+    Staff getStaff(string _StaffUser);
+    Lecturer getLecturer(string _LecturerUser);
 
     // Ton
     void loadStudentsFromCSV(ifstream& fin); // beginning
     void loadLecturersFromCSV(ifstream& fin); //beginning
-    void loadStaffsFromCSV(ifstream& fin, ofstream& fout); // beginning 
+    void loadStaffsFromCSV(ifstream& fin); // beginning 
     void loadSingleClassFromCSV(ifstream& fin); // 6
     void loadCoursesFromCSV(ifstream& fin); // 14    
     void loadStudentsToTxt(ofstream& fout); // ending
@@ -72,18 +83,20 @@ public:
     void loadAllCoursesFromTxt(ifstream& fin); // load khai quat                 
     void loadEachCourseToTxt(ofstream& fout); // load cu the                     // khi nao biet diem danh thi  
     void loadEachCourseFromTxt(ifstream& fin); // load cu the                    // add vao 2 function nay
-    
-    void StaffMenu();
+    void loadStaffsToTxt(ofstream& fout);
+    void loadStaffsFromTxt(ifstream& fin);
+
+    void StaffMenu(string _username);
     void ClassOption();
     void CourseOption();
     void ScoreboardOption(); // chua lam
     void AttendenceListOption(); // chua lam
     
-    void StudentMenu();
-    void CheckIn(); //
-    void viewCheckInResult(); // chua lam
-    void viewSchedule(); // chua lam
-    void viewScore(); // chua lam
+    void StudentMenu(string _username);
+    void CheckIn(string _ID); //
+    void viewCheckInResult(string _ID); // chua lam
+    void viewSchedule(string _ID); // chua lam
+    void viewScore(string _ID); // chua lam
     
     void LecturerMenu();
     void viewCoursesofLecturer();
@@ -92,7 +105,13 @@ public:
     void editGradeOfAStudent(); // chua lam
     void viewAScoreBoard(); // chua lam
     
-    int Login();
+    void Login();
+    void StaffOption(string _username);
+    void StudentOption(string _username);
+    void LecturerOption(string _username);
+    void changePassStaff(string _username);
+    void changePassStudent(string _username);
+    void changePassLecturer(string _username);
     bool isStudent(string _username, string _password);
     bool isLecturer(string _username, string _password);
     bool isStaff(string _username, string _password);
@@ -101,6 +120,7 @@ public:
         total_lecturer = 0;
         total_class = 0;
         total_course = 0;
+        total_staff = 0;
     }
     
 };

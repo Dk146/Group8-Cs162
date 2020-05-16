@@ -281,35 +281,30 @@ void Semester::changeClass()
 //11
 void Semester::viewListOfClasses()
 {
-    cout << "List of classes: " << endl;
-    for (int i = 0; i < total_class; i++)
-    {
-        cout << i << ": " << arrClass[i].getClassName() << endl;
-    }
-
+    int choose;
+    do{
+        cout << "\nList of classes: " << endl;
+        cout << "0. Exit" << endl;
+        for (int i = 0; i < total_class; i++)
+        {
+            cout << i+1 << ": " << arrClass[i].getClassName() << endl;
+        }
+        cout << "\nChoose a class to view students: ";
+        cin >> choose;
+        if(choose)
+            viewListOfStudent(choose);
+    }while(choose);
 }
 
 //12
-void Semester::viewListOfStudent()
+void Semester::viewListOfStudent(int _pos)
 {
-    string _ClassName;
-    cout << "View Class: " ;
-    cin >> _ClassName;
-    cout << "List of student in class " << _ClassName << ": \n";
-    for (int i = 0; i < total_class; ++i)
-    {
-        if (_ClassName==arrClass[i].getClassName())
+    for (int i = 0; i <arrClass[_pos].totalStudent; i++){
+        if (arrClass[_pos].student[i].getStatus() == true)
         {
-            for (int j = 0; j <arrClass[i].totalStudent; j++)
-            {
-                if (arrClass[i].student[j].getStatus() == true)
-                {
-                    cout << "Student " << j + 1 << " : " << arrClass[i].student[j].getID()  << " - " << arrClass[i].student[j].getFullName() << endl;
-                }
-            }
+            cout << "Student " << i + 1 << " : " << arrClass[_pos].student[i].getID()  << " - " << arrClass[_pos].student[i].getFullName() << endl;
         }
     }
-    
 }
 
 //15
@@ -594,9 +589,8 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
             getline(ss, _pass, ',');
             getline(ss, _name, ',');
             getline(ss, _degree, ',');
-            getline(ss, _gen, ',');
-            
-            if (_gen == "Male") _gender = true;
+            getline(ss, _gen, 'e');
+            if (_gen == "Mal") _gender = true;
             else _gender = false;
 
             // Lecturer &A = arrLecturer[total_lecturer++]; cai nay de neu bi loi ko load tu csv dc
@@ -614,7 +608,7 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
     }
 }
 
-void Semester::loadStaffsFromCSV(ifstream& fin, ofstream& fout)
+void Semester::loadStaffsFromCSV(ifstream& fin)
 {
     string link;
     cout << "Please input the link to Staffs.csv: ";
@@ -623,11 +617,11 @@ void Semester::loadStaffsFromCSV(ifstream& fin, ofstream& fout)
     fin.open(link + "Staffs.csv"); // khai quat
 
     string skip, _user, _pass, _name, _gen, line;
-    
+    bool gender;
+
     if (fin.is_open())
     {
         getline(fin, skip, '\n');
-        fout.open("Staffs.txt"); // khai quat
         
         while (getline(fin, line))
         {
@@ -636,14 +630,19 @@ void Semester::loadStaffsFromCSV(ifstream& fin, ofstream& fout)
             getline(ss, _pass, ',');
             getline(ss, _name, ',');
             getline(ss, _gen, ',');
+            if (_gen == "Male") gender = true;
+            else gender = false;
 
-            fout << _name << endl;
-            fout << _user << endl;
-            fout << _pass << endl;
-            fout << _gen << endl;
+            Staff a;
+            a.setName(_name);
+            a.setUser(_user);
+            a.setPass(_pass);
+            a.setGender(gender);
+
+            arrStaff[total_staff] = a;
+            ++total_staff;
         }
         fin.close();
-        fout.close();
     }
     else cout << "Cannot open file Staffs.csv";
 }
@@ -748,8 +747,6 @@ void Semester::viewListStudentOfCourse()
         }
     }
 }
-
-
 
 void Semester::viewListLecturer(){
     for (int i = 0; i < total_lecturer; ++i)
@@ -863,6 +860,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
             a.setLName(l_name);
             a.setLGender(gender);
             a.setLDegree(l_degree);
+            a.setRoom(room);
             a.setTime(sday, eday, shour, smin, ehour, emin, doW);
             a.setStatus(true);
             a.setTotalStudent(0);
@@ -889,7 +887,7 @@ void Semester::loadStudentsToTxt(ofstream& fout)
                 fout << arrClass[i].student[j].getFullName() << ',';
                 fout << arrClass[i].getClassName() << ',';
                 if (arrClass[i].student[j].getGender() == true) fout << "Male" << ',';
-                else fout << "Female " << ',';
+                else fout << "Female" << ',';
                 fout << arrClass[i].student[j].getDoB() << ',';
                 fout << arrClass[i].student[j].getUsername() << ',';
                 fout << arrClass[i].student[j].getPass() << ',';
@@ -900,7 +898,9 @@ void Semester::loadStudentsToTxt(ofstream& fout)
                 {
                     fout << arrClass[i].student[j].s_ListCourse[z] << ',';
                 }
-                fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1] << '\n';
+                if(arrClass[i].student[j].numberofCourse >= 1)
+                    fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1];
+                fout << endl;
             }
         }
         fout.close();
@@ -950,8 +950,10 @@ void Semester::loadStudentsFromTxt(ifstream& fin)
                 getline(ss, course, ',');
                 a.s_ListCourse[i] = course;
             }
-            getline(ss, course, ',');
-            a.s_ListCourse[a.getNumberofCourse() - 1] = course;
+            if(a.getNumberofCourse() >= 1){
+                getline(ss, course, ',');
+                a.s_ListCourse[a.getNumberofCourse() - 1] = course;
+            }
             int exist = 0;
             for (int i = 0; i < total_class; ++i)
             {
@@ -971,6 +973,8 @@ void Semester::loadStudentsFromTxt(ifstream& fin)
         }
         fin.close(); 
     }
+    else
+        cout << "Cannot open file! \n";
 }
 
 void Semester::loadLecturersToTxt(ofstream& fout)
@@ -1007,7 +1011,8 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
         int total;
         fin >> total;
         total_lecturer = total;
-
+        fin.ignore();
+        
         string line, user, pass, name, degree, gen, course, num;
         int numofCourse, count = 0;
         bool gender;
@@ -1046,7 +1051,6 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
     }
     else cout << "Cannot open file input! ";    
 }
-
 
 // file course chung (bao gom thong tin + total_course)
 void Semester::loadAllCoursesToTxt(ofstream& fout)
@@ -1093,7 +1097,7 @@ void Semester::loadAllCoursesFromTxt(ifstream& fin)
 
         fin >> total;
         total_course = total;
-
+        fin.ignore();
         for (int i = 0; i < total_course; ++i) // co 2 cach input: while (getline) / for ...
         {
             getline(fin, line);
@@ -1174,9 +1178,10 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
         {
             fin >> total;
             arrCourse[i].c_totalStudent = total;
-            for (int j = 0; j < arrCourse[j].c_totalStudent; ++j)
+            fin.ignore();
+            for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
             {
-                getline(fin, arrCourse[i].c_ListStudent[j]);
+                getline(fin, arrCourse[i].c_ListStudent[j], '\n');
             }
             fin.close();
         }
@@ -1184,7 +1189,8 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
     }
 }
 
-void Semester::StaffMenu(){
+void Semester::StaffMenu(string _username){
+    string _ID = _username;
     int choose = 0;
     do{
         cout << "\nStaff Menu: \n"
@@ -1192,7 +1198,7 @@ void Semester::StaffMenu(){
              << "1. Class \n"
              << "2. Course \n"
              << "3. Scoreboard \n"
-             << "4. Attendence list \n\n";
+            << "4. Attendence list \n\n";
         cout << "Please choose an option: ";
         cin >> choose;
         switch (choose) {
@@ -1225,8 +1231,7 @@ void Semester::ClassOption(){
              << "3. Edit an existing student. \n"
              << "4. Remove a student. \n"
              << "5. Change student from class A to class B. \n"
-             << "6. View list of classes. \n"
-             << "7. View list of student in class. \n\n";
+             << "6. View list of classes. \n\n";
         cout << "Choose an option: ";
         cin >> choose ;
         switch (choose) {
@@ -1248,10 +1253,6 @@ void Semester::ClassOption(){
             case 6:
                 viewListOfClasses();
                 break;
-            case 7:
-                viewListOfStudent();
-                break;
-                
             default:
                 break;
         }
@@ -1320,8 +1321,9 @@ void Semester::AttendenceListOption(){
     
 }
 
-void Semester::StudentMenu(){
+void Semester::StudentMenu(string _username){
     int choose;
+    string _ID = _username;
     do{
         cout << "\nStudent Menu: \n"
             << "0. Exit \n"
@@ -1333,16 +1335,16 @@ void Semester::StudentMenu(){
         cin >> choose;
         switch (choose) {
             case 1:
-                //CheckIn();
+                //CheckIn(string _ID);
                 break;
             case 2:
-                //viewCheckInResult();
+                //viewCheckInResult(string _ID);
                 break;
             case 3:
-                //viewSchedule();
+                //viewSchedule(string _ID);
                 break;
             case 4:
-                //viewScore();
+                //viewScore(string _ID);
                 break;
             default:
                 break;
@@ -1378,6 +1380,7 @@ void Semester::LecturerMenu(){
                 //editAnAttendance();
                 break;
             case 5:
+                //
                 break;
             case 6:
                 //editGradeOfAStudent();
@@ -1391,20 +1394,167 @@ void Semester::LecturerMenu(){
     }while(choose);
 }
 
-int Semester::Login(){
+void Semester::Login(){
     string _username, _password;
-    cout << "Username: " ;
+    cout << "\nUsername: " ;
     getline(cin, _username, '\n');
     cout << "Password: " ;
     getline(cin, _password, '\n');
-    if(isStudent(_username, _password) == true)
-        return 1;
-    if(isLecturer(_username, _password) == true)
-        return 2;
-    if(isStaff(_username, _password) == true)
-        return 3;
+    if(isStudent(_username, _password) == true){
+        StudentMenu(_username);
+        return ;
+    }
+    if(isLecturer(_username, _password) == true){
+        LecturerOption(_username);
+        return ;
+    }
+    if(isStaff(_username, _password) == true){
+        StaffOption(_username);
+        return ;
+    }
     cout << "Wrong username or password, please try again! \n";
-    return 0;
+    Login();
+}
+
+void Semester::StaffOption(string _username){
+    string _ID = _username;
+    int choose;
+    do{
+        cout << "\n1. Show menu \n"
+            << "2. View profile info \n"
+            << "3. Change password \n"
+            << "4. Logout \n\n" ;
+        cout << "Choose an option: ";
+        cin >> choose;
+        switch (choose) {
+            case 1:
+                StaffMenu(_ID);
+                break;
+            case 2:
+                viewProfileStaff(_ID);
+                break;
+            case 3:
+                changePassStaff(_ID);
+                break;
+            default:
+                break;
+        }
+    }while(choose != 4);
+
+}
+
+void Semester::StudentOption(string _username){
+    string _ID = _username;
+    int choose;
+    do{
+        cout << "\n1. Show menu \n"
+            << "2. View profile info \n"
+            << "3. Change password \n"
+            << "4. Logout \n\n" ;
+        cout << "Choose an option: ";
+        cin >> choose;
+        switch (choose) {
+            case 1:
+                StudentMenu(_ID);
+                break;
+            case 2:
+                viewProfileStudent(_ID);
+                break;
+            case 3:
+                changePassStudent(_ID);
+                break;
+            default:
+                break;
+        }
+    }while(choose != 4);
+}
+
+void Semester::LecturerOption(string _username){
+    string _ID = _username;
+    int choose;
+    do{
+        cout << "\n1. Show menu \n"
+            << "2. View profile info \n"
+            << "3. Change password \n"
+            << "4. Logout \n\n" ;
+        cout << "Choose an option: ";
+        cin >> choose;
+        switch (choose) {
+            case 1:
+                LecturerMenu();
+                break;
+            case 2:
+                viewProfileLecturer(_ID);
+                break;
+            case 3:
+                changePassLecturer(_ID);
+                break;
+            default:
+                break;
+        }
+    }while(choose != 4);
+}
+
+void Semester::changePassStaff(string _username){
+    string _newPassword, _confirmPass;
+    for (int i = 0; i < total_staff; ++i){
+        if(arrStaff[i].getUser() == _username){
+            do{
+                cout << "New Password: ";
+                cin.ignore();
+                getline(cin, _newPassword, '\n');
+                cout << "Confirm Password: ";
+                getline(cin, _confirmPass, '\n');
+                if (_newPassword != _confirmPass)
+                    cout << "Wrong confirm Password. Please try again! \n";
+                else
+                    arrStaff[i].setPass(_newPassword);
+                }while(_newPassword != _confirmPass);
+            return;
+        }
+    }
+}
+
+void Semester::changePassStudent(string _username){
+    string _newPassword, _confirmPass;
+    for (int i = 0; i < total_class; ++i){
+        for (int j = 0; j < arrClass[i].totalStudent; ++j){
+            if (arrClass[i].student[j].getID() == _username){
+                do{
+                    cout << "New Password: ";
+                    cin.ignore();
+                    getline(cin, _newPassword, '\n');
+                    cout << "Confirm Password: ";
+                    getline(cin, _confirmPass, '\n');
+                    if (_newPassword != _confirmPass)
+                        cout << "Wrong confirm Password. Please try again! \n";
+                    else
+                        arrClass[i].student[j].setPass(_newPassword);
+                }while(_newPassword != _confirmPass);
+                return;
+            }
+        }
+    }
+}
+
+void Semester::changePassLecturer(string _username){
+    string _newPassword, _confirmPass;
+    for (int i = 0; i < total_lecturer; ++i){
+        if (arrLecturer[i].getUserName() == _username){
+            do{
+                cout << "New Password: ";
+                cin.ignore();
+                getline(cin, _newPassword, '\n');
+                cout << "Confirm Password: ";
+                getline(cin, _confirmPass, '\n');
+                if (_newPassword != _confirmPass)
+                    cout << "Wrong confirm Password. Please try again! \n";
+                else
+                    arrLecturer[i].setPassword(_newPassword);
+            }while(_newPassword != _confirmPass);
+            return;
+        }
+    }
 }
 
 bool Semester::isStudent(string _username, string _password){
@@ -1432,6 +1582,123 @@ bool Semester::isLecturer(string _username, string _password){
 }
             
 bool Semester::isStaff(string _username, string _password){
+    for (int i = 0; i < total_staff; ++i){
+        if (arrStaff[i].getUser() == _username){
+            if(arrStaff[i].getPass() == _password)
+                return true;
+            return false;
+        }
+    }
     return false;
 }
 
+void Semester::viewProfileStudent(string _studentID){
+    string _ID = _studentID;
+    Student a = getStudent(_studentID);
+    cout << "\nYour profile: \n" ;
+    cout << "Name: " << a.getFullName() << endl;
+    cout << "ID: " << a.getID() << endl;
+    cout << "Class: " << getClassOfStudent(_ID) << endl;
+    cout << "Day of birth: " << a.getDoB() << endl;
+    cout << "Gender: " << a.getGender() << endl;
+}
+
+string Semester::getClassOfStudent(string _studentID){
+    for (int i = 0; i < total_class; ++i){
+        for (int j = 0; j < arrClass[i].totalStudent; ++j){
+            if (arrClass[i].student[j].getID() == _studentID)
+                return arrClass[i].getClassName();
+        }
+    }
+    return "None";
+}
+
+void Semester::viewProfileLecturer(string _lecturerID){
+    string _ID = _lecturerID;
+    Lecturer a = getLecturer(_ID);
+    cout << "\nName: " << a.getName() << endl;
+    cout << "Degree: " << a.getDegree() << endl;
+    cout << "Username: " << a.getUserName() << endl;
+    cout << "Gender: " << a.getGender() << endl;
+}
+
+Lecturer Semester::getLecturer(string _LecturerUser){
+    Lecturer a;
+    for (int i = 0; i < total_lecturer; ++i){
+        if (arrLecturer[i].getUserName() == _LecturerUser){
+            a = arrLecturer[i];
+            return a;
+        }
+    }
+    return a;
+}
+
+void Semester::viewProfileStaff(string _staffUser){
+    string _ID = _staffUser;
+    Staff a = getStaff(_ID);
+    cout << "\nYour profile: \n";
+    cout << "Name: " << a.getName() << endl;
+    cout << "Username: " << a.getUser() << endl;
+    cout << "Gender: " << a.getGender() << endl;
+}
+
+Staff Semester::getStaff(string _StaffUser){
+    Staff a;
+    for (int i = 0 ; i < total_staff; ++ i){
+        if(arrStaff[i].getUser() == _StaffUser){
+            a = arrStaff[i];
+            return a;
+        }
+    }
+    return a;
+}
+
+void Semester::loadStaffsToTxt(ofstream& fout)
+{
+    fout.open("Staffs.txt");
+    if (fout.is_open())
+    {
+        fout << total_staff << '\n';
+
+        for (int i = 0; i < total_staff; ++i)
+        {
+            fout << arrStaff[i].getName() << ',';
+            fout << arrStaff[i].getUser() << ',';
+            fout << arrStaff[i].getPass() << ',';
+            fout << arrStaff[i].getGender() << '\n';
+        }
+        fout.close();
+    }
+    else cout << "Cannot open file staff.txt";
+}
+
+void Semester::loadStaffsFromTxt(ifstream& fin)
+{
+    fin.open("Staffs.txt");
+    if (fin.is_open())
+    {
+        fin >> total_staff;
+        fin.ignore();
+        string line, user, name, pass, gen;
+        bool gender;
+        for (int i = 0; i < total_staff; ++i)
+        {
+            getline(fin, line);
+            stringstream ss(line);
+            getline(ss, name, ',');
+            getline(ss, user, ',');
+            getline(ss, pass, ',');
+            getline(ss, gen, ',');
+
+            if (gen == "Male") gender = true;
+            else gender = false;
+
+            arrStaff[i].setName(name);
+            arrStaff[i].setUser(user);
+            arrStaff[i].setPass(pass);
+            arrStaff[i].setGender(gender);
+        }
+        fin.close();
+    }
+    else cout << "Cannot open file input! ";
+}
