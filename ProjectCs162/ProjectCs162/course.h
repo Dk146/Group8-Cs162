@@ -53,6 +53,7 @@ public:
     string geteMin();
     string getDoW();
     int getTotalStudent();
+    string getRoom();
 
     Course(){
         c_totalStudent = 0;

@@ -11,6 +11,8 @@ using namespace std;
 int main(){
     
 //  Note: Khi tao semester moi, phai set day du moi thu bat dau = 0
+//   Phai chay loop set all total (total student, total class, ...) = 0
+
 
 //    ifstream fin;
 //    ofstream fout;
@@ -33,6 +35,25 @@ int main(){
 //        // loadLecturersFromTxt (fin);
 //        // loadStaffFromCsv (fin);
 //    }
+    Semester semester;
+    ifstream fin;
+    ofstream fout;
+    semester.loadStudentsFromCSV(fin);
+    semester.loadLecturersFromCSV(fin);
+    semester.loadCoursesFromCSV(fin);
+    int a;
+    a = semester.Login();
+    if(a == 1)
+        semester.StudentMenu();
+    else if(a == 2)
+        semester.LecturerMenu();
+    else if(a == 3)
+        semester.StaffMenu();
+    
+    semester.loadStudentsToTxt(fout);
+    semester.loadAllCoursesToTxt(fout);
+    semester.loadEachCourseToTxt(fout);
+    
 
     return 0;
 }
