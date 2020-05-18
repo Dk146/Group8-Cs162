@@ -38,54 +38,60 @@ void Semester::loadStudentsFromCSV(ifstream& fin)
     cout << "Please input the link to csv file: ";
     getline(cin, link);
 
-    fin.open(link + "Students.csv"); // cai nay sua tuy theo hoan canh, t de dang khai quat cho de hieu
-
+    int exist;
     string skipfirstline, line;
     string _No, _ID, _gen;
     string _fullname, _class, _doB;
     bool _gender;
-    getline(fin, skipfirstline, '\n');
 
-    while (getline(fin, line))
+    fin.open(link + "Students.csv"); // cai nay sua tuy theo hoan canh, t de dang khai quat cho de hieu
+
+    if (fin.is_open())
     {
-        stringstream ss(line);
-        getline(ss, _No, ',');
-        getline(ss, _ID, ',');
-        getline(ss, _fullname, ',');
-        getline(ss, _class, ',');
-        getline(ss, _doB, ',');
-        getline(ss, _gen, ',');
+        getline(fin, skipfirstline);
 
-        if (_gen == "Male") _gender = true;
-        else _gender = false;
-
-        Student A;
-        A.setID(_ID);
-        A.setFullName(_fullname);
-        A.setDoB(_doB);
-        A.setGender(_gender);
-        A.setStatus(true);
-
-        A.createAccount();
-
-        int exist = 0;
-        for (int i = 0; i < total_class; ++i)
+        while (getline(fin, line))
         {
-            if (arrClass[i].getClassName() == _class)
+            stringstream ss(line);
+            getline(ss, _No, ',');
+            getline(ss, _ID, ',');
+            getline(ss, _fullname, ',');
+            getline(ss, _class, ',');
+            getline(ss, _doB, ',');
+            getline(ss, _gen, ',');
+
+            if (_gen == "Male") _gender = true;
+            else _gender = false;
+
+            Student A;
+            A.setID(_ID);
+            A.setFullName(_fullname);
+            A.setDoB(_doB);
+            A.setGender(_gender);
+            A.setStatus(true);
+
+            A.createAccount();
+
+            exist = 0;
+            for (int i = 0; i < total_class; ++i)
             {
-                arrClass[i].addStudent(A);
-                exist = 1;
+                if (arrClass[i].getClassName() == _class)
+                {
+                    arrClass[i].addStudent(A);
+                    exist = 1;
+                }
+            }
+
+            if (exist == 0)
+            {
+                arrClass[total_class].setClassName(_class);
+                arrClass[total_class].addStudent(A);
+                ++total_class;
             }
         }
-
-        if (exist == 0)
-        {
-            arrClass[total_class].setClassName(_class);
-            arrClass[total_class].addStudent(A);
-            ++total_class;
-        }
+        fin.close();
     }
-    fin.close();
+    else cout << "Cannot open file input!";
 }
 
 // for loading file (Ton)
@@ -299,10 +305,10 @@ void Semester::viewListOfClasses()
 //12
 void Semester::viewListOfStudent(int _pos)
 {
-    for (int i = 0; i <arrClass[_pos].totalStudent; i++){
-        if (arrClass[_pos].student[i].getStatus() == true)
+    for (int i = 0; i <arrClass[_pos -1].totalStudent; i++){
+        if (arrClass[_pos - 1].student[i].getStatus() == true)
         {
-            cout << "Student " << i + 1 << " : " << arrClass[_pos].student[i].getID()  << " - " << arrClass[_pos].student[i].getFullName() << endl;
+            cout << "Student " << i + 1 << " : " << arrClass[_pos - 1].student[i].getID()  << " - " << arrClass[_pos - 1].student[i].getFullName() << endl;
         }
     }
 }
@@ -991,12 +997,16 @@ void Semester::loadLecturersToTxt(ofstream& fout)
             fout << arrLecturer[i].getDegree() << ',';
             if (arrLecturer[i].getGender() == true) fout << "Male" << ',';
             else fout << "Female" << ',';
-            fout << arrLecturer[i].L_totalCourse << ',';
-            for (int j = 0; j < arrLecturer[i].L_totalCourse - 1; ++j)
+            if (arrLecturer[i].L_totalCourse > 0)
             {
-                fout << arrLecturer[i].L_ListCourse[j] << ',';
+                fout << arrLecturer[i].L_totalCourse << ',';
+                for (int j = 0; j < arrLecturer[i].L_totalCourse - 1; ++j)
+                {
+                    fout << arrLecturer[i].L_ListCourse[j] << ',';
+                }
+                fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1] << '\n';
             }
-            fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1] << '\n';
+            else fout << 0 << '\n';
         }
         fout.close();
     }
