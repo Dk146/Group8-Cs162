@@ -24,6 +24,12 @@ int main(){
     //semester.loadEachCourseFromTxt(fin);
     //semester.loadLecturersFromTxt(fin);
     //semester.loadStaffsFromTxt(fin);
+
+  /*  semester.loadStudentsFromTxt(fin);
+    semester.loadAllCoursesFromTxt(fin);
+    semester.loadEachCourseFromTxt(fin);
+    semester.loadLecturersFromTxt(fin);
+    semester.loadStaffsFromTxt(fin);*/
     
     semester.Login();
     //semester.StaffMenu();
