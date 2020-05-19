@@ -387,10 +387,11 @@ void Semester::ManuallyAddNewCourse(){
 //16
 void Semester::editAnExistingCourse(){
     int choose;
-    string _courseID, all;
-    cout << "Course's ID: ";
+    string _courseID, _classCourse, all;
+    cout << "Course ID: ";
     cin >> _courseID;
-    if(isCourseActive(_courseID) == false){
+	cout << "Class of Course: ";
+    if(isCourseActive(_courseID, _classCourse) == false){
         cout << "This course does not exist! \n";
         return;
     }
@@ -494,12 +495,12 @@ void Semester::removeAStudentFromACourse(){
     }
     cout << "Course ID: ";
     cin >> _courseID;
-    if(isCourseActive(_courseID) == false){
-        cout << "This course is not exist! \n" ;
-        return;
-    }
     cout << "Class's Course: ";
     cin >> _classCourse;
+	if (isCourseActive(_courseID, _classCourse) == false) {
+		cout << "This course is not exist! \n";
+		return;
+	}
     int pos_c = 0;
     int pos_s = 0;
     int k = 0;
@@ -544,21 +545,22 @@ void Semester::removeAStudentFromACourse(){
 
 //19
 void Semester::addStudentToCourse(){
-    string _studentID, _courseID, class_name;
+    string _studentID, _courseID, class_name, _classCourse;
     cout << "Student ID: ";
     cin >> _studentID;
+	class_name = getClassOfStudent(_studentID);
     if(isStudentActive(_studentID) == false){
         cout << "This student does not exist! \n" ;
         return;
     }
     cout << "Course ID: " ;
     cin >> _courseID;
-    if(isCourseActive(_courseID) == false){
-        cout << "This course does not exist! \n" ;
-        return;
-    }
-    cout << "Class name: " ;
-    cin >> class_name;
+	cout << "Of Class: ";
+	cin >> _classCourse;
+	if (isCourseActive(_courseID, _classCourse) == false) {
+		cout << "This course does not exist! \n";
+		return;
+	}
     for (int i = 0; i < total_class; ++i){
         if(arrClass[i].getClassName() == class_name){
             for (int j = 0; j < arrClass[i].totalStudent; ++j){
@@ -574,7 +576,7 @@ void Semester::addStudentToCourse(){
         }
     }
     for (int i = 0; i < total_course; ++i){
-        if(arrCourse[i].getID() == _courseID){
+        if(arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _classCourse){
             int h = arrCourse[i].c_totalStudent;
             arrCourse[i].c_ListStudent[h] = _studentID;
             ++h;
@@ -740,10 +742,12 @@ void Semester::viewListOfCourses()
 //21
 void Semester::viewListStudentOfCourse()
 {
-    string _courseID;
+	string _courseID, _classCourse;
     cout << "View Course: " ;
     cin >> _courseID;
-    if(isCourseActive(_courseID) == false){
+	cout << "Of Class: ";
+	cin >> _classCourse;
+    if(isCourseActive(_courseID, _classCourse) == false){
         cout << "This course does not exist! \n" ;
         return;
     }
@@ -807,9 +811,9 @@ Class Semester::getClass(string _ClassName){
 
 
 //check
-bool Semester::isCourseActive(string _courseID) {
+bool Semester::isCourseActive(string _courseID, string _classCourse) {
     for (int i = 0; i < total_course; ++i) {
-        if (arrCourse[i].getID() == _courseID) {
+        if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _classCourse) {
             if (arrCourse[i].getStatus() == true)
                 return true;
             return false;
@@ -1296,12 +1300,15 @@ void Semester::ClassOption(){
 			system("cls");
             case 1:
                 loadSingleClassFromCSV(fin);
+				system("cls");
                 break;
             case 2:
                 ManuallyaddStudentToClass();
+				system("cls");
                 break;
             case 3:
                 editAnExistingStudent();
+				system("cls");
                 break;
             case 4:
                 RemoveAStudent();
@@ -1309,9 +1316,11 @@ void Semester::ClassOption(){
                 break;
             case 5:
                 changeClass();
+				system("cls");
                 break;
             case 6:
                 viewListOfClasses();
+				system("cls");
                 break;
             default:
                 break;
@@ -1323,6 +1332,7 @@ void Semester::CourseOption(){
     int choose;
     ifstream fin;
         do{
+		system("cls");
         cout << "\nCOURSE: \n"
              << "0. Exit \n"
              << "1. Import courses from a csv file \n"
@@ -1340,37 +1350,46 @@ void Semester::CourseOption(){
         switch (choose) {
             case 1:
                 loadCoursesFromCSV(fin);
+				system("pause");
                 break;
             case 2:
                 ManuallyAddNewCourse();
-                break;
+				system("pause");
+				break;
             case 3:
                 editAnExistingCourse();
-                break;
+				system("pause");
+				break;
             case 4:
                 removeACourse();
-                break;
+				system("pause");
+				break;
             case 5:
                 removeAStudentFromACourse();
-                break;
+				system("pause");
+				break;
             case 6:
                 addStudentToCourse();
-                break;
+				system("pause");
+				break;
             case 7:
                 viewListOfCourses();
-                break;
+				system("pause");
+				break;
             case 8:
                 viewListStudentOfCourse();
-                break;
+				system("pause");
+				break;
             case 9:
                 viewListLecturer();
-                break;
+				system("pause");
+				break;
             case 10:
                 break;
             default:
                 break;
         }
-    }while(choose);
+		}while(choose);
 }
 
 void Semester::ScoreboardOption(){
@@ -1473,20 +1492,27 @@ void Semester::LecturerMenu(){
 }
 
 void Semester::Login(){
+	system("cls");
     string _username, _password;
     cout << "\nUsername: " ;
     getline(cin, _username, '\n');
     cout << "Password: " ;
     getline(cin, _password, '\n');
     if(isStudent(_username, _password) == true){
+		cout << "\nLogin successful \n\n";
+		system("pause");
         StudentMenu(_username);
         return ;
     }
     if(isLecturer(_username, _password) == true){
+		cout << "\nLogin successful \n\n";
+		system("pause");
         LecturerOption(_username);
         return ;
     }
     if(isStaff(_username, _password) == true){
+		cout << "\nLogin successful \n\n";
+		system("pause");
         StaffOption(_username);
         return ;
     }

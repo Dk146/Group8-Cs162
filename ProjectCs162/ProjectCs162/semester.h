@@ -56,7 +56,7 @@ public:
     void viewListStudentOfCourse(); //21
     void viewListLecturer(); //23
     
-    bool isCourseActive(string _courseID); // check Course's status
+    bool isCourseActive(string _courseID, string _classCourse); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     string getClassOfStudent(string _studentID);
     Student getStudent(string _ID);
