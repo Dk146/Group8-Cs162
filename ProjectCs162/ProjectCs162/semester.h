@@ -53,9 +53,6 @@ public:
     void viewProfileStaff(string _staffUser);
     void viewProfileLecturer(string _lecturerID);
 
-
-    Student getStudentForCourse(string _ID);    
-
     void viewListStudentOfCourse(); //21
     void viewListLecturer(); //23
     

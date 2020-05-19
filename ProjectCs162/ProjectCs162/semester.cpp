@@ -228,6 +228,10 @@ void Semester::RemoveAStudent(){
         if(k == 1)
             break;
     }
+	if (isStudentActive(_studentID) == false)
+		cout << "Remove successful \n";
+	else
+		cout << "Removed unsuccessful! \n";
 }
 
 // 10
@@ -293,7 +297,9 @@ void Semester::viewListOfClasses()
         cin >> choose;
         if(choose)
             viewListOfStudent(choose);
+		system("pause");
     }while(choose);
+	
 }
 
 //12
@@ -572,8 +578,7 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
     string link;
     cout << "Please input the link to Lecturers.csv file: ";
     getline(cin, link);
-    
-    fin.open(link + "Lecturers.csv"); // khai quat
+	fin.open(link + "Lecturers.csv"); // khai quat
 
     string skipfirstline, _user, _pass, _name, _gen, _degree, line;
     bool _gender;
@@ -589,8 +594,8 @@ void Semester::loadLecturersFromCSV(ifstream& fin)
             getline(ss, _pass, ',');
             getline(ss, _name, ',');
             getline(ss, _degree, ',');
-            getline(ss, _gen, 'e');
-            if (_gen == "Mal") _gender = true;
+            getline(ss, _gen, '\n');
+            if (_gen == "Male") _gender = true;
             else _gender = false;
 
             // Lecturer &A = arrLecturer[total_lecturer++]; cai nay de neu bi loi ko load tu csv dc
@@ -996,7 +1001,8 @@ void Semester::loadLecturersToTxt(ofstream& fout)
             {
                 fout << arrLecturer[i].L_ListCourse[j] << ',';
             }
-            fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1] << '\n';
+			if(arrLecturer[i].L_totalCourse > 0)
+				fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1] << '\n';
         }
         fout.close();
     }
@@ -1193,6 +1199,7 @@ void Semester::StaffMenu(string _username){
     string _ID = _username;
     int choose = 0;
     do{
+		system("cls");
         cout << "\nStaff Menu: \n"
              << "0. Exit \n"
              << "1. Class \n"
@@ -1202,6 +1209,7 @@ void Semester::StaffMenu(string _username){
         cout << "Please choose an option: ";
         cin >> choose;
         switch (choose) {
+			system("cls");
             case 1:
                 ClassOption();
                 break;
@@ -1224,6 +1232,7 @@ void Semester::ClassOption(){
     int choose;
     ifstream fin;
     do{
+		system("cls");
         cout << "\nCLASS: \n"
              << "0. Exit \n"
              << "1. Import students of a class. \n"
@@ -1235,6 +1244,7 @@ void Semester::ClassOption(){
         cout << "Choose an option: ";
         cin >> choose ;
         switch (choose) {
+			system("cls");
             case 1:
                 loadSingleClassFromCSV(fin);
                 break;
@@ -1246,6 +1256,7 @@ void Semester::ClassOption(){
                 break;
             case 4:
                 RemoveAStudent();
+				system("pause");
                 break;
             case 5:
                 changeClass();
@@ -1420,6 +1431,7 @@ void Semester::StaffOption(string _username){
     string _ID = _username;
     int choose;
     do{
+		system("cls");
         cout << "\n1. Show menu \n"
             << "2. View profile info \n"
             << "3. Change password \n"
@@ -1434,6 +1446,7 @@ void Semester::StaffOption(string _username){
                 viewProfileStaff(_ID);
                 break;
             case 3:
+				system("cls");
                 changePassStaff(_ID);
                 break;
             default:
@@ -1640,6 +1653,7 @@ void Semester::viewProfileStaff(string _staffUser){
     cout << "Name: " << a.getName() << endl;
     cout << "Username: " << a.getUser() << endl;
     cout << "Gender: " << a.getGender() << endl;
+	system("pause");
 }
 
 Staff Semester::getStaff(string _StaffUser){
