@@ -3,12 +3,12 @@
 
 #include "include.h"
 
-struct List
+struct check
 {
-    string id;
-    string scoreboard[4];
-    string attendance[10];
+    string attendace[10];
+    string score[4];
 };
+
 class Course{
 private:
     string c_No;
@@ -21,7 +21,9 @@ private:
 public:
     
     int c_totalStudent;
-    List c_ListStudent[100];
+    string c_ListStudent[50];
+    check Check[50];
+    bool point;
     
     void setStatus(bool _status);
     void setNo(string _No);
@@ -64,6 +66,7 @@ public:
     Course(){
         c_totalStudent = 0;
         setStatus(true);
+        point = false;
     }
 };
 

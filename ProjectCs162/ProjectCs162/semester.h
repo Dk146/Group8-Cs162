@@ -15,13 +15,13 @@ class Semester{
     Class arrClass[15];
     
     int total_course;
-    Course arrCourse[50];
+    Course arrCourse[20];
     
     int total_lecturer;
-    Lecturer arrLecturer[50];
+    Lecturer arrLecturer[20];
 
     int total_staff;
-    Staff arrStaff[15];
+    Staff arrStaff[10];
     
 public:
     
@@ -85,6 +85,9 @@ public:
     void loadEachCourseFromTxt(ifstream& fin); // load cu the                    // add vao 2 function nay
     void loadStaffsToTxt(ofstream& fout);
     void loadStaffsFromTxt(ifstream& fin);
+    void loadScoreBoard(ifstream& fin);
+    void viewScoreOfACourse();
+
 
     void StaffMenu(string _username);
     void ClassOption();
