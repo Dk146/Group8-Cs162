@@ -467,10 +467,13 @@ void Semester::editAnExistingCourse(){
 //17
 void Semester::removeACourse(){
     string _courseID;
+	string _classCourse;
     cout << "Remove course: ";
     cin >> _courseID;
+	cout << "Of Class: ";
+	cin >> _classCourse;
     for (int i = 0; i < total_course; ++i){
-        if (arrCourse[i].getID() == _courseID){
+        if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _classCourse){
             arrCourse[i].setStatus(0);
             break;
         }
@@ -481,9 +484,10 @@ void Semester::removeACourse(){
 void Semester::removeAStudentFromACourse(){
     string _courseID;
     string _studentID;
-    string _className;
+    string _classCourse;
     cout << "Student ID: " ;
     cin >> _studentID;
+	string _classStudent = getClassOfStudent(_studentID);
     if(isStudentActive(_studentID) == false){
         cout << "This student is not exist! \n" ;
         return;
@@ -494,13 +498,13 @@ void Semester::removeAStudentFromACourse(){
         cout << "This course is not exist! \n" ;
         return;
     }
-    cout << "Class Name: ";
-    cin >> _className;
+    cout << "Class's Course: ";
+    cin >> _classCourse;
     int pos_c = 0;
     int pos_s = 0;
     int k = 0;
     for (int i = 0; i < total_class; ++i){
-        if (arrClass[i].getClassName() == _className){
+        if (arrClass[i].getClassName() == _classStudent){
             pos_c = i;
             for (int j = 0; j < arrClass[i].totalStudent; ++j){
                 if (arrClass[i].student[j].getID() == _studentID){
@@ -522,7 +526,7 @@ void Semester::removeAStudentFromACourse(){
         }
     }
     for (int i = 0; i < total_course; ++i){
-        if (arrCourse[i].getID() == _courseID){
+        if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _classCourse){
             for (int j = 0; j < arrCourse[i].c_totalStudent; ++j){
                 if (arrCourse[i].c_ListStudent[j] == _studentID){
                     for (int z = j; z < arrCourse[i].c_totalStudent-1; ++z){
