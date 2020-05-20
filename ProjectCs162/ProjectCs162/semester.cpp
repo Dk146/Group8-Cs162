@@ -250,7 +250,7 @@ void Semester::changeClass()
     }
 
     string _newclass;
-    int x = 0, y = 0;
+    int x = 0, y = 0, newc = 0;
     cout << "Which class does this student move to? ";
     cin.ignore();
     getline(cin, _newclass);
@@ -268,6 +268,7 @@ void Semester::changeClass()
                     {
                         arrClass[z].addStudent(arrClass[i].student[j]);
                         k = 1;
+                        newc = z;
                         break;
                     }
                 }
@@ -283,6 +284,28 @@ void Semester::changeClass()
     {
         arrClass[x].student[y] = arrClass[x].student[y+1];
         ++y;
+    }
+
+    for (int i = 0; i < total_course; ++i)
+    {
+        int index;
+        if (arrCourse[i].getClass() == arrClass[x].getClassName())
+        {
+            for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
+                if (arrCourse[i].c_ListStudent[j] == _ID) index = j;
+            arrCourse[i].c_totalStudent -= 1;
+            while (index < arrCourse[i].c_totalStudent)
+            {
+                arrCourse[i].c_ListStudent[index] = arrCourse[i].c_ListStudent[index + 1];
+                ++index;
+            }
+        }
+
+        if (arrCourse[i].getClass() == arrClass[newc].getClassName())
+        {
+            arrCourse[i].c_ListStudent[arrCourse[i].c_totalStudent] = _ID;
+            ++arrCourse[i].c_totalStudent;
+        }
     }
 }
 
@@ -307,7 +330,7 @@ void Semester::viewListOfClasses()
 //12
 void Semester::viewListOfStudent(int _pos)
 {
-    for (int i = 0; i <arrClass[_pos -1].totalStudent; i++){
+    for (int i = 0; i <arrClass[_pos - 1].totalStudent; i++){
         if (arrClass[_pos - 1].student[i].getStatus() == true)
         {
             cout << "Student " << i + 1 << " : " << arrClass[_pos - 1].student[i].getID()  << " - " << arrClass[_pos - 1].student[i].getFullName() << endl;
@@ -1168,7 +1191,7 @@ void Semester::loadEachCourseToTxt(ofstream& fout)
     for (int i = 0; i < total_course; ++i)
     {
         string _coursename, _class;
-        _coursename = arrCourse[i].getCourseName();
+        _coursename = arrCourse[i].getID();
         _class = arrCourse[i].getClass();
 
         fout.open(_coursename + "-" + _class + ".txt");
@@ -1202,7 +1225,7 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
     string line, mid, final, bonus, total;
     for (int i = 0; i < total_course; ++i)
     {
-        fin.open(arrCourse[i].getCourseName() + "-" + arrCourse[i].getClass() + ".txt");
+        fin.open(arrCourse[i].getID() + "-" + arrCourse[i].getClass() + ".txt");
         if (fin.is_open())
         {
             fin >> arrCourse[i].c_totalStudent;
@@ -1854,4 +1877,6 @@ void Semester::viewScoreOfACourse()
             << arrCourse[index].Check[i].score[1] << " " << arrCourse[index].Check[i].score[2] << " "
             << arrCourse[index].Check[i].score[3] << endl;
     }
+
+    delete[] ptr;
 }

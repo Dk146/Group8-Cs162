@@ -19,7 +19,7 @@ int main(){
     semester.loadCoursesFromCSV(fin);
     semester.loadStaffsFromCSV(fin);
     
-  /*  semester.loadStudentsFromTxt(fin);
+   /* semester.loadStudentsFromTxt(fin);
     semester.loadAllCoursesFromTxt(fin);
     semester.loadEachCourseFromTxt(fin);
     semester.loadLecturersFromTxt(fin);
