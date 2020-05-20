@@ -731,42 +731,41 @@ void Semester::loadSingleClassFromCSV(ifstream& fin)
 //20
 void Semester::viewListOfCourses()
 {
-    for (int i = 0; i < total_course; i++)
-    {
-        if (arrCourse[i].getStatus() == true)
-        {
-            cout << i + 1 << " : " << arrCourse[i].getID() << " - " << arrCourse[i].getCourseName() << endl;
-        }
-    }
+	int _pos;
+	do {
+		system("cls");
+		cout << "List of Course: \n\n";
+		cout << "0 : Exit \n";
+		for (int i = 0; i < total_course; i++)
+		{
+			if (arrCourse[i].getStatus() == true)
+			{
+				cout << i + 1 << " : " << arrCourse[i].getID() << " - " << arrCourse[i].getCourseName() << " - " << arrCourse[i].getClass() << endl;
+			}
+			else
+				cout << i + 1 << " : " << "This course has been removed \n";
+		}
+		cout << "Choose a course to view students: ";
+		cin >> _pos;
+		if(_pos)
+			viewListStudentOfCourse(_pos-1);
+		system("pause");
+	} while (_pos);
+
 }
 //21
-void Semester::viewListStudentOfCourse()
+void Semester::viewListStudentOfCourse(int _pos)
 {
-	string _courseID, _classCourse;
-    cout << "View Course: " ;
-    cin >> _courseID;
-	cout << "Of Class: ";
-	cin >> _classCourse;
-    if(isCourseActive(_courseID, _classCourse) == false){
-        cout << "This course does not exist! \n" ;
-        return;
-    }
-    Student a;
-    cout << "List of student in course " << _courseID << " : \n";
-    for (int i = 0; i < total_course; i++)
-    {
-        if (arrCourse[i].getID() == _courseID)
+	Student a;
+	cout << "List of student in course " << arrCourse[_pos].getID() << " - " << arrCourse[_pos].getClass() << " : \n";
+		for (int j = 0; j < arrCourse[_pos].getTotalStudent(); j++)
         {
-            for (int j = 0; j < arrCourse[i].getTotalStudent(); j++)
-            {
-                a = getStudent(arrCourse[i].c_ListStudent[j]);
-                if (a.getStatus() == true)
-                    cout << j+1 << ": " << a.getFullName() << " - " << a.getID() << endl;
-                else
-                    cout << j+1 << ": " << endl;
-            }
+	        a = getStudent(arrCourse[_pos].c_ListStudent[j]);
+            if (a.getStatus() == true)
+				cout << j+1 << ": " << a.getFullName() << " - " << a.getID() << endl;
+            else
+                cout << j+1 << ": " << endl;
         }
-    }
 }
 
 void Semester::viewListLecturer(){
@@ -840,9 +839,8 @@ bool Semester::isStudentActive(string _studentID) {
 void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
-    cout << "Please input the link to Courses.csv";
+    cout << "Please input the link to Courses.csv: ";
     getline(cin, link);
-
     fin.open(link + "Courses.csv"); // khai quat
     if (fin.is_open())
     {
@@ -1300,15 +1298,15 @@ void Semester::ClassOption(){
 			system("cls");
             case 1:
                 loadSingleClassFromCSV(fin);
-				system("cls");
+				system("pause");
                 break;
             case 2:
                 ManuallyaddStudentToClass();
-				system("cls");
+				system("pause");
                 break;
             case 3:
                 editAnExistingStudent();
-				system("cls");
+				system("pause");
                 break;
             case 4:
                 RemoveAStudent();
@@ -1316,11 +1314,11 @@ void Semester::ClassOption(){
                 break;
             case 5:
                 changeClass();
-				system("cls");
+				system("pause");
                 break;
             case 6:
                 viewListOfClasses();
-				system("cls");
+				system("pause");
                 break;
             default:
                 break;
@@ -1342,15 +1340,15 @@ void Semester::CourseOption(){
              << "5. Remove a specific student from a course \n"
              << "6. Add a specific student to a course \n"
              << "7. View list of course in current semester \n"
-             << "8. View students of a course \n"
-             << "9. View list of lecturer \n"
-             << "10. \n\n" ;
+             << "8. View list of lecturer \n"
+             << "9. \n\n" ;
         cout << "Choose an option: ";
         cin >> choose;
         switch (choose) {
+			system("cls");
             case 1:
                 loadCoursesFromCSV(fin);
-				system("pause");
+				//system("pause");
                 break;
             case 2:
                 ManuallyAddNewCourse();
@@ -1374,13 +1372,8 @@ void Semester::CourseOption(){
 				break;
             case 7:
                 viewListOfCourses();
-				system("pause");
 				break;
             case 8:
-                viewListStudentOfCourse();
-				system("pause");
-				break;
-            case 9:
                 viewListLecturer();
 				system("pause");
 				break;

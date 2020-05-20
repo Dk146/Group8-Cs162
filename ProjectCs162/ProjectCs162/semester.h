@@ -48,7 +48,7 @@ public:
     void removeAStudentFromACourse(); //18
     void addStudentToCourse(); //19
     void viewListOfCourses(); //20
-    void viewListStudentOfCourse(string _CourseName); //21
+    void viewListStudentOfCourse(int _pos); //21
     void viewProfileStudent(string _studentID);
     void viewProfileStaff(string _staffUser);
     void viewProfileLecturer(string _lecturerID);
