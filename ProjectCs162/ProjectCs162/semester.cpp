@@ -315,6 +315,8 @@ void Semester::viewListOfStudent(int _pos)
 {
     for (int i = 0; i <arrClass[_pos -1].totalStudent; i++){
         if (arrClass[_pos - 1].student[i].getStatus() == true)
+    for (int i = 0; i < arrClass[_pos].totalStudent; i++){
+        if (arrClass[_pos].student[i].getStatus() == true)
         {
             cout << "Student " << i + 1 << " : " << arrClass[_pos - 1].student[i].getID()  << " - " << arrClass[_pos - 1].student[i].getFullName() << endl;
         }
