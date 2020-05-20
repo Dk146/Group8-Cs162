@@ -382,6 +382,9 @@ void Semester::ManuallyAddNewCourse(){
     cout << "Day of week: ";
     cin >> _DoW;
     new_course.setDoW(_DoW);
+
+	addCourseToClass(new_course.getID(), new_course.getClass());
+
 }
 
 //16
