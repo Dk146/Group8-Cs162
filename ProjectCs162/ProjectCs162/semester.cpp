@@ -288,6 +288,10 @@ void Semester::changeClass()
         arrClass[x].student[y] = arrClass[x].student[y+1];
         ++y;
     }
+	if (getClassOfStudent(_ID) == _newclass)
+		cout << "Change successful \n";
+	else
+		cout << "Change unsuccessful \n";
 }
 
 //11
@@ -295,6 +299,7 @@ void Semester::viewListOfClasses()
 {
     int choose;
     do{
+		system("cls");
         cout << "\nList of classes: " << endl;
         cout << "0. Exit" << endl;
         for (int i = 0; i < total_class; i++)
@@ -307,7 +312,6 @@ void Semester::viewListOfClasses()
             viewListOfStudent(choose);
 		system("pause");
     }while(choose);
-	
 }
 
 //12
@@ -843,6 +847,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
     cout << "Please input the link to Courses.csv: ";
+	cin.ignore();
     getline(cin, link);
     fin.open(link + "Courses.csv"); // khai quat
     if (fin.is_open())
@@ -1321,7 +1326,6 @@ void Semester::ClassOption(){
                 break;
             case 6:
                 viewListOfClasses();
-				system("pause");
                 break;
             default:
                 break;
@@ -1401,9 +1405,11 @@ void Semester::ScoreboardOption(){
     {
     case 1:
         loadScoreBoard(fin);
+		system("pause");
         break;
     case 2:
         viewScoreOfACourse();
+		system("pause");
         break;
     case 3: 
         // export
@@ -1513,6 +1519,7 @@ void Semester::Login(){
         return ;
     }
     cout << "Wrong username or password, please try again! \n";
+	system("pause");
     Login();
 }
 
