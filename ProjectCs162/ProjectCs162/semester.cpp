@@ -309,7 +309,7 @@ void Semester::viewListOfClasses()
         cout << "\nChoose a class to view students: ";
         cin >> choose;
         if(choose)
-            viewListOfStudent(choose);
+            viewListOfStudent(choose - 1);
 		system("pause");
     }while(choose);
 }
@@ -317,14 +317,16 @@ void Semester::viewListOfClasses()
 //12
 void Semester::viewListOfStudent(int _pos)
 {
-    for (int i = 0; i <arrClass[_pos -1].totalStudent; i++){
-        if (arrClass[_pos - 1].student[i].getStatus() == true)
-    for (int i = 0; i < arrClass[_pos].totalStudent; i++){
-        if (arrClass[_pos].student[i].getStatus() == true)
-        {
-            cout << "Student " << i + 1 << " : " << arrClass[_pos - 1].student[i].getID()  << " - " << arrClass[_pos - 1].student[i].getFullName() << endl;
-        }
-    }
+	for (int i = 0; i < arrClass[_pos].totalStudent; i++) {
+		if (arrClass[_pos].student[i].getStatus() == true) {
+			for (int i = 0; i < arrClass[_pos].totalStudent; i++) {
+				if (arrClass[_pos].student[i].getStatus() == true)
+				{
+					cout << "Student " << i + 1 << " : " << arrClass[_pos].student[i].getID() << " - " << arrClass[_pos].student[i].getFullName() << endl;
+				}
+			}
+		}
+	}
 }
 
 //15
