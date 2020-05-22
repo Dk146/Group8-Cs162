@@ -30,3 +30,12 @@ string Lecturer::getPassword(){
 bool Lecturer::getGender(){
     return l_gender;
 }
+void Lecturer::resizeLecturer() {
+	L_maxCourse += 5;
+	string* new_ListCourse = new string[L_maxCourse];
+	for (int i = 0; i < L_totalCourse; ++i) {
+		new_ListCourse[i] = L_ListCourse[i];
+	}
+	delete[] L_ListCourse;
+	L_ListCourse = new_ListCourse;
+}

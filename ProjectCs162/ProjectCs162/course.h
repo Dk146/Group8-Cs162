@@ -21,8 +21,9 @@ private:
 public:
     
     int c_totalStudent;
-    string c_ListStudent[50];
-    check Check[50];
+	int c_maxStudent;
+	string* c_ListStudent;
+	check* Check;
     bool point;
     
     void setStatus(bool _status);
@@ -63,10 +64,15 @@ public:
     int getTotalStudent();
     string getRoom();
 
+	void resizeCourse();
+
     Course(){
         c_totalStudent = 0;
         setStatus(true);
         point = false;
+		c_maxStudent = 40;
+		c_ListStudent = new string[c_maxStudent];
+		Check = new check[c_maxStudent];
     }
 };
 

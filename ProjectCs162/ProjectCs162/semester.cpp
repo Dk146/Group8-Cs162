@@ -318,14 +318,8 @@ void Semester::viewListOfClasses()
 void Semester::viewListOfStudent(int _pos)
 {
 	for (int i = 0; i < arrClass[_pos].totalStudent; i++) {
-		if (arrClass[_pos].student[i].getStatus() == true) {
-			for (int i = 0; i < arrClass[_pos].totalStudent; i++) {
-				if (arrClass[_pos].student[i].getStatus() == true)
-				{
-					cout << "Student " << i + 1 << " : " << arrClass[_pos].student[i].getID() << " - " << arrClass[_pos].student[i].getFullName() << endl;
-				}
-			}
-		}
+		if (arrClass[_pos].student[i].getStatus() == true)
+			cout << "Student " << i + 1 << " : " << arrClass[_pos].student[i].getID() << " - " << arrClass[_pos].student[i].getFullName() << endl;
 	}
 }
 
