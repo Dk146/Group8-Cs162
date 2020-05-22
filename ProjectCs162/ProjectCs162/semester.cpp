@@ -165,6 +165,7 @@ void Semester::ManuallyaddStudentToClass()
     cin.ignore();
     getline(cin, _className);
 
+
     for (int i = 0; i < total_class; ++i){
         if (arrClass[i].getClassName() == _className){
             arrClass[i].addStudent(a);
@@ -1900,4 +1901,37 @@ void Semester::viewScoreOfACourse()
             << arrCourse[index].Check[i].score[1] << " " << arrCourse[index].Check[i].score[2] << " "
             << arrCourse[index].Check[i].score[3] << endl;
     }
+}
+
+void Semester::resizeArrClass() {
+	max_class += 5;
+	Class* new_arrClass = new Class[max_class];
+	for (int i = 0; i < total_class; ++i) 
+		new_arrClass[i] = arrClass[i];
+	delete[] arrClass;
+	arrClass = new_arrClass;
+}
+void Semester::resizeArrCourse() {
+	max_course += 5;
+	Course* new_arrCourse = new Course[max_course];
+	for (int i = 0; i < total_course; ++i)
+		new_arrCourse[i] = arrCourse[i];
+	delete[] arrCourse;
+	arrCourse = new_arrCourse;
+}
+void Semester::resizeArrStaff() {
+	max_staff += 5;
+	Staff* new_arrStaff = new Staff[max_staff];
+	for (int i = 0; i < total_staff; ++i)
+		new_arrStaff[i] = arrStaff[i];
+	delete[] arrStaff;
+	arrStaff = new_arrStaff;
+}
+void Semester::resizeArrLecturer() {
+	max_lecturer += 5;
+	Lecturer* new_arrLecturer = new Lecturer[max_lecturer];
+	for (int i = 0; i < total_lecturer; ++i)
+		new_arrLecturer[i] = arrLecturer[i];
+	delete[] arrLecturer;
+	arrLecturer = new_arrLecturer;
 }

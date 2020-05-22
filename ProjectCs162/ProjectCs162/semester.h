@@ -118,6 +118,11 @@ public:
     bool isLecturer(string _username, string _password);
     bool isStaff(string _username, string _password);
 
+	void resizeArrClass();
+	void resizeArrCourse();
+	void resizeArrStaff();
+	void resizeArrLecturer();
+
     Semester(){
         total_lecturer = 0;
         total_class = 0;
