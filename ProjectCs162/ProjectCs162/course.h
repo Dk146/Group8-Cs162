@@ -5,7 +5,7 @@
 
 struct check
 {
-    string attendace[10];
+    string attendance[10];
     string score[4];
 };
 
@@ -73,6 +73,12 @@ public:
 		c_maxStudent = 40;
 		c_ListStudent = new string[c_maxStudent];
 		Check = new check[c_maxStudent];
+		for (int i = 0; i < c_maxStudent; ++i) {
+			for (int j = 0; j < 10; ++j)
+				Check[i].attendance[j] = "0";
+			for (int j = 0; j < 4; ++j)
+				Check[i].score[j] = "-1";
+		}
     }
 };
 

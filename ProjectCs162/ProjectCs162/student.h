@@ -3,6 +3,11 @@
 
 #include "include.h"
 
+struct ListCourse {
+	string ID;
+	string className;
+};
+
 class Student{
 private:
     int No;
@@ -14,7 +19,7 @@ private:
 public:
     
     int numberofCourse;
-    string s_ListCourse[10];
+    ListCourse s_ListCourse[10];
     
     void setID(string _ID);
     void setNo(int _No);
