@@ -126,6 +126,9 @@ public:
 	void resizeArrStaff();
 	void resizeArrLecturer();
 
+	//attendance
+
+
     Semester(){
         total_lecturer = 0;
         total_class = 0;
@@ -140,7 +143,6 @@ public:
 		arrStaff = new Staff[max_staff];
 		arrCourse = new Course[max_course];
     }
-    
 };
 
 #endif
