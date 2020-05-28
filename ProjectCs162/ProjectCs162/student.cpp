@@ -58,4 +58,3 @@
         username = ID;
         password = doB;
     }
-    

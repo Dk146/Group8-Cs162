@@ -9,7 +9,8 @@ private:
     bool l_gender;
 public:
     int L_totalCourse;
-    string L_ListCourse[10];
+	int L_maxCourse;
+    string*L_ListCourse;
     
     void setName(string _name);
     void setDegree(string _degree);
@@ -22,8 +23,12 @@ public:
     string getPassword();
     bool getGender();
     
+	void resizeLecturer();
+
     Lecturer(){
         L_totalCourse = 0;
+		L_maxCourse = 10;
+		L_ListCourse = new string[L_maxCourse];
     }
 };
 

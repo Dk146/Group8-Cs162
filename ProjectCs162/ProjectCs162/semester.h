@@ -12,16 +12,20 @@ class Semester{
     string semesterName;
     
     int total_class;
-    Class arrClass[15];
+	int max_class;
+    Class* arrClass;
     
     int total_course;
-    Course arrCourse[20];
+	int max_course;
+	Course* arrCourse;
     
     int total_lecturer;
-    Lecturer arrLecturer[20];
+	int max_lecturer;
+	Lecturer* arrLecturer;
 
     int total_staff;
-    Staff arrStaff[10];
+	int max_staff;
+	Staff* arrStaff;
     
 public:
     
@@ -39,7 +43,7 @@ public:
     void ManuallyaddStudentToClass(); // 7
     void editAnExistingStudent(); //8
     void RemoveAStudent(); // 9
-    void changeClass(); // 10
+    void changeClass(); // 10                     // da sua
     void viewListOfClasses(); //11
     void viewListOfStudent(int _pos); //12
     void ManuallyAddNewCourse(); //15
@@ -48,18 +52,13 @@ public:
     void removeAStudentFromACourse(); //18
     void addStudentToCourse(); //19
     void viewListOfCourses(); //20
-    void viewListStudentOfCourse(string _CourseName); //21
+    void viewListStudentOfCourse(int _pos); //21
     void viewProfileStudent(string _studentID);
     void viewProfileStaff(string _staffUser);
     void viewProfileLecturer(string _lecturerID);
-
-
-    Student getStudentForCourse(string _ID);    
-
-    void viewListStudentOfCourse(); //21
     void viewListLecturer(); //23
     
-    bool isCourseActive(string _courseID); // check Course's status
+    bool isCourseActive(string _courseID, string _classCourse); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     string getClassOfStudent(string _studentID);
     Student getStudent(string _ID);
@@ -69,14 +68,17 @@ public:
     Lecturer getLecturer(string _LecturerUser);
 
     // Ton
-    void loadStudentsFromCSV(ifstream& fin); // beginning
-    void loadLecturersFromCSV(ifstream& fin); //beginning
-    void loadStaffsFromCSV(ifstream& fin); // beginning 
-    void loadSingleClassFromCSV(ifstream& fin); // 6
-    void loadCoursesFromCSV(ifstream& fin); // 14    
-    void loadStudentsToTxt(ofstream& fout); // ending
+    void loadStudentsFromCSV(ifstream& fin); // beginning // da sua
+    void loadLecturersFromCSV(ifstream& fin); //beginning // da sua
+    void loadStaffsFromCSV(ifstream& fin); // beginning   // da sua
+    void loadSingleClassFromCSV(ifstream& fin); // 6      // da sua
+    void loadCoursesFromCSV(ifstream& fin); // 14         // da sua
+
+    void loadClassesToTxt(ofstream& fout); // ending    
+    void loadEachClassToTxt(ofstream& fout);
+    void loadClassesFromTxt(ifstream& fin);
     void loadLecturersToTxt(ofstream& fout); // ending 
-    void loadStudentsFromTxt(ifstream& fin); // beginning, condition 2
+    void loadEachClassFromTxt(ifstream& fin); // beginning, condition 2
     void loadLecturersFromTxt(ifstream& fin); // beginning, condition 2 
     // void checkStaffsFromTxt(ifstream& fin); // check username + pass
     void loadAllCoursesToTxt(ofstream& fout); // ending, thong tin chung        
@@ -87,7 +89,7 @@ public:
     void loadStaffsFromTxt(ifstream& fin);
     void loadScoreBoard(ifstream& fin);
     void viewScoreOfACourse();
-
+    void exportScore(ofstream& fout);
 
     void StaffMenu(string _username);
     void ClassOption();
@@ -119,11 +121,24 @@ public:
     bool isLecturer(string _username, string _password);
     bool isStaff(string _username, string _password);
 
+	void resizeArrClass();
+	void resizeArrCourse();
+	void resizeArrStaff();
+	void resizeArrLecturer();
+
     Semester(){
         total_lecturer = 0;
         total_class = 0;
         total_course = 0;
         total_staff = 0;
+		max_class = 15;
+		max_staff = 10;
+		max_course = 15;
+		max_lecturer = 15;
+		arrLecturer = new Lecturer[max_lecturer];
+		arrClass = new Class[max_class];
+		arrStaff = new Staff[max_staff];
+		arrCourse = new Course[max_course];
     }
     
 };
