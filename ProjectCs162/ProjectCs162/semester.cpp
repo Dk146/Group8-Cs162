@@ -1016,12 +1016,11 @@ void Semester::loadEachClassToTxt(ofstream& fout)
                     fout << arrClass[i].student[j].getNumberofCourse() << ',';
                     for (int z = 0; z < arrClass[i].student[j].getNumberofCourse() - 1; ++z)
                     {
-                        fout << arrClass[i].student[j].s_ListCourse[z] << ',';
+						fout << arrClass[i].student[j].s_ListCourse[z].ID << ',';
+						fout << arrClass[i].student[j].s_ListCourse[z].className << ',';
                     }
-                    fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1] << '\n';
-                }
-                    fout << arrClass[i].student[j].s_ListCourse[z].ID << ',';
-					fout << arrClass[i].student[j].s_ListCourse[z].className << ',';
+                    fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].ID << ',';
+					fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].className << ',';
                 }
 				if (arrClass[i].student[j].numberofCourse >= 1) {
 					fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].ID << ",";
@@ -1051,10 +1050,6 @@ void Semester::loadClassesFromTxt(ifstream& fin)
             stringstream ss(line);
             getline(ss, _name, ',');
             getline(ss, _totalstudent, ',');
-        string line, id, name, _class, gen, dob, user, pass, stat, num, courseID, className;
-        bool status, gender;
-        int numofCourses;
-        
             arrClass[i].setClassName(_name);
             num = stoi(_totalstudent);
             arrClass[i].settotalStudent(num);
@@ -1066,9 +1061,9 @@ void Semester::loadClassesFromTxt(ifstream& fin)
 
 void Semester::loadEachClassFromTxt(ifstream& fin)
 {
-    string line, id, name, dob, gen, user, pass, stat, num, course;
-    int number;
-    bool gender, status;
+	string line, id, name, _class, gen, dob, user, pass, stat, num, courseID, className;
+	bool status, gender;
+	int numofCourses;
 
     for (int i = 0; i < total_class; ++i)
     {
@@ -1089,7 +1084,7 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
             if (stat == "1") status = true;
             else status = false;
             getline(ss, num, ',');
-            number = stoi(num);
+            int number = stoi(num);
 
             Student a;
             a.setID(id);
@@ -1103,7 +1098,7 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 
             if (a.getNumberofCourse() > 0)
             {
-                for (int z = 0; z < a.getNumberofCourse(); ++z)
+                for (int z = 0; z < a.getNumberofCourse() - 1; ++z)
                 getline(ss, courseID, ',');
                 a.s_ListCourse[i].ID = courseID;
 				getline(ss, className, ',');
@@ -1120,7 +1115,7 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
             {
                 if (arrClass[i].getClassName() == _class)
                 {
-                    getline(ss, a.s_ListCourse[i], ',');
+                    getline(ss, a.s_ListCourse[i].className, ',');
                 }
             }
 
