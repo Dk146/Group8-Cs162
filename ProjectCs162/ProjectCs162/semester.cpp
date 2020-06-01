@@ -1061,66 +1061,52 @@ void Semester::loadClassesFromTxt(ifstream& fin)
 
 void Semester::loadEachClassFromTxt(ifstream& fin)
 {
-	string line, id, name, _class, gen, dob, user, pass, stat, num, courseID, className;
-	bool status, gender;
-	int numofCourses;
+	string line, id, name, dob, gen, user, pass, stat, num, course, _class;
+	int number;
+	bool gender, status;
 
     for (int i = 0; i < total_class; ++i)
     {
         fin.open(arrClass[i].getClassName() + "-Students.txt");
-        for (int j = 0; j < arrClass[i].totalStudent; ++j)
-        {
-            getline(fin, line);
-            stringstream ss(line);
-            getline(ss, id, ',');
-            getline(ss, name, ',');
-            getline(ss, gen, ',');
-            if (gen == "Male") gender = true;
-            else gender = false;
-            getline(ss, dob, ',');
-            getline(ss, user, ',');
-            getline(ss, pass, ',');
-            getline(ss, stat, ',');
-            if (stat == "1") status = true;
-            else status = false;
-            getline(ss, num, ',');
-            int number = stoi(num);
+		for (int j = 0; j < arrClass[i].totalStudent; ++j)
+		{
+			getline(fin, line);
+			stringstream ss(line);
+			getline(ss, id, ',');
+			getline(ss, name, ',');
+			getline(ss, gen, ',');
+			if (gen == "Male") gender = true;
+			else gender = false;
+			getline(ss, dob, ',');
+			getline(ss, user, ',');
+			getline(ss, pass, ',');
+			getline(ss, stat, ',');
+			if (stat == "1") status = true;
+			else status = false;
+			getline(ss, num, ',');
+			number = stoi(num);
 
-            Student a;
-            a.setID(id);
-            a.setFullName(name);
-            a.setGender(gender);
-            a.setDoB(dob);
-            a.setUsername(user);
-            a.setPass(pass);
-            a.setStatus(status);
-            a.setNumberofCourse(number);
+			Student a;
+			a.setID(id);
+			a.setFullName(name);
+			a.setGender(gender);
+			a.setDoB(dob);
+			a.setUsername(user);
+			a.setPass(pass);
+			a.setStatus(status);
+			a.setNumberofCourse(number);
 
-            if (a.getNumberofCourse() > 0)
-            {
-                for (int z = 0; z < a.getNumberofCourse() - 1; ++z)
-                getline(ss, courseID, ',');
-                a.s_ListCourse[i].ID = courseID;
-				getline(ss, className, ',');
-				a.s_ListCourse[i].className = className;
-            }
-            if(a.getNumberofCourse() >= 1){
-                getline(ss, courseID, ',');
-                a.s_ListCourse[a.getNumberofCourse() - 1].ID = courseID;
-				getline(ss, className, ',');
-				a.s_ListCourse[a.getNumberofCourse() - 1].className = className;
-            }
-            int exist = 0;
-            for (int i = 0; i < total_class; ++i)
-            {
-                if (arrClass[i].getClassName() == _class)
-                {
-                    getline(ss, a.s_ListCourse[i].className, ',');
-                }
-            }
-
-            arrClass[i].student[j] = a;
-        }
+			if (a.getNumberofCourse() > 0)
+			{
+				for (int z = 0; z < a.getNumberofCourse() - 1; ++z) {
+					getline(ss, course, ',');
+					a.s_ListCourse[i].ID = course;
+					getline(ss, _class, ',');
+					a.s_ListCourse[i].className = _class;
+				}
+			}
+			arrClass[i].student[j] = a;
+		}
         fin.close();
     }
 }
