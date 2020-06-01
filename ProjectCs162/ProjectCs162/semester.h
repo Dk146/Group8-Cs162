@@ -43,7 +43,7 @@ public:
     void ManuallyaddStudentToClass(); // 7
     void editAnExistingStudent(); //8
     void RemoveAStudent(); // 9
-    void changeClass(); // 10
+    void changeClass(); // 10                     // da sua
     void viewListOfClasses(); //11
     void viewListOfStudent(int _pos); //12
     void ManuallyAddNewCourse(); //15
@@ -69,14 +69,17 @@ public:
 	Course getCourseOfLecturer(string _courseID, string _LUsername);
 
     // Ton
-    void loadStudentsFromCSV(ifstream& fin); // beginning
-    void loadLecturersFromCSV(ifstream& fin); //beginning
-    void loadStaffsFromCSV(ifstream& fin); // beginning 
-    void loadSingleClassFromCSV(ifstream& fin); // 6
-    void loadCoursesFromCSV(ifstream& fin); // 14    
-    void loadStudentsToTxt(ofstream& fout); // ending
+    void loadStudentsFromCSV(ifstream& fin); // beginning // da sua
+    void loadLecturersFromCSV(ifstream& fin); //beginning // da sua
+    void loadStaffsFromCSV(ifstream& fin); // beginning   // da sua
+    void loadSingleClassFromCSV(ifstream& fin); // 6      // da sua
+    void loadCoursesFromCSV(ifstream& fin); // 14         // da sua
+
+    void loadClassesToTxt(ofstream& fout); // ending    
+    void loadEachClassToTxt(ofstream& fout);
+    void loadClassesFromTxt(ifstream& fin);
     void loadLecturersToTxt(ofstream& fout); // ending 
-    void loadStudentsFromTxt(ifstream& fin); // beginning, condition 2
+    void loadEachClassFromTxt(ifstream& fin); // beginning, condition 2
     void loadLecturersFromTxt(ifstream& fin); // beginning, condition 2 
     // void checkStaffsFromTxt(ifstream& fin); // check username + pass
     void loadAllCoursesToTxt(ofstream& fout); // ending, thong tin chung        
@@ -87,7 +90,7 @@ public:
     void loadStaffsFromTxt(ifstream& fin);
     void loadScoreBoard(ifstream& fin);
     void viewScoreOfACourse();
-
+    void exportScore(ofstream& fout);
 
     void StaffMenu(string _username);
     void ClassOption();
@@ -150,7 +153,6 @@ public:
 		arrStaff = new Staff[max_staff];
 		arrCourse = new Course[max_course];
     }
-    
 };
 
 #endif

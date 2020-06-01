@@ -19,28 +19,18 @@ int main(){
     semester.loadCoursesFromCSV(fin);
     semester.loadStaffsFromCSV(fin);
     
-    //semester.loadStudentsFromTxt(fin);
-    //semester.loadAllCoursesFromTxt(fin);
-    //semester.loadEachCourseFromTxt(fin);
-    //semester.loadLecturersFromTxt(fin);
-    //semester.loadStaffsFromTxt(fin);
-
-  /*  semester.loadStudentsFromTxt(fin);
+    /*semester.loadClassesFromTxt(fin);
+    semester.loadEachClassFromTxt(fin);
     semester.loadAllCoursesFromTxt(fin);
     semester.loadEachCourseFromTxt(fin);
     semester.loadLecturersFromTxt(fin);
     semester.loadStaffsFromTxt(fin);*/
 
-//    semester.loadStudentsFromTxt(fin);
-//    semester.loadAllCoursesFromTxt(fin);
-//    semester.loadEachCourseFromTxt(fin);
-//    semester.loadLecturersFromTxt(fin);
-//    semester.loadStaffsFromTxt(fin);
-    
     semester.Login();
     //semester.StaffMenu();
     
-    semester.loadStudentsToTxt(fout);
+    semester.loadClassesToTxt(fout);
+    semester.loadEachClassToTxt(fout);
     semester.loadAllCoursesToTxt(fout);
     semester.loadEachCourseToTxt(fout);
     semester.loadLecturersToTxt(fout);
