@@ -62,10 +62,11 @@ public:
     bool isStudentActive(string _studentID); // check Student's status
     string getClassOfStudent(string _studentID);
     Student getStudent(string _ID);
-    Course getCourse(string _courseID);
+    Course getCourse(string _courseID, string _className);
     Class getClass(string _ClassName);
     Staff getStaff(string _StaffUser);
     Lecturer getLecturer(string _LecturerUser);
+	Course getCourseOfLecturer(string _courseID, string _LUsername);
 
     // Ton
     void loadStudentsFromCSV(ifstream& fin); // beginning
@@ -95,15 +96,24 @@ public:
     void AttendenceListOption(); // chua lam
     
     void StudentMenu(string _username);
-    void CheckIn(string _ID); //
-    void viewCheckInResult(string _ID); // chua lam
-    void viewSchedule(string _ID); // chua lam
+    void CheckIn(string _studentID); 
+    void viewCheckInResult(string _ID); 
+    void viewScheduleOfStudent(string _ID); 
     void viewScore(string _ID); // chua lam
+	bool isCourseNow(string _courseID, string _classCourse);
+	void viewStudentCourseNow(string _studentID);
+	int rdn(int y, int m, int d);
+	int getDaysBetween(string sDate, string _Dow);
+	int lengthCourse(string _courseID, string _className);
+	void getTomorow(int& day, int& month, int& year);
+	void getWeekAfter(int& day, int& month, int& year);
+	void viewAStudentAttendanceOfACourse(string _studentID, string _courseID, string _className);
     
-    void LecturerMenu();
-    void viewCoursesofLecturer();
-    void viewAttendanceList(); // chua lam
-    void editAnAttendance(); // chua lam
+    void LecturerMenu(string _LUsername);
+    void viewCoursesofLecturer(string _LUsername);
+    void viewAttendanceList(string _LUsername);
+	void viewAttendanceListOfACourse(string _courseID, string _className);
+    void editAnAttendance(string _courseID, string _className, string _studentID); // chua lam
     void editGradeOfAStudent(); // chua lam
     void viewAScoreBoard(); // chua lam
     
@@ -123,7 +133,7 @@ public:
 	void resizeArrStaff();
 	void resizeArrLecturer();
 
-	//attendance
+	void DeallocateAll();
 
 
     Semester(){
@@ -133,7 +143,7 @@ public:
         total_staff = 0;
 		max_class = 15;
 		max_staff = 10;
-		max_course = 15;
+		max_course = 30;
 		max_lecturer = 15;
 		arrLecturer = new Lecturer[max_lecturer];
 		arrClass = new Class[max_class];

@@ -116,7 +116,7 @@ void Semester::addCourseToClass(string _courseID, string _className){
     Class &_class(arrClass[pos_Class]);
     
     for (int i = 0; i < total_lecturer; ++i){
-        if(arrLecturer[i].getName() == _course.getLName()){
+        if(arrLecturer[i].getUserName() == _course.getUsername()){
             pos_Lecturer = i;
             break;
         }
@@ -803,10 +803,10 @@ Student Semester::getStudent(string _ID){
     return a;
 }
 
-Course Semester::getCourse(string _courseID){
+Course Semester::getCourse(string _courseID, string _className){
     Course a;
     for (int i = 0; i < total_course; ++i){
-        if (arrCourse[i].getID() == _courseID){
+        if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className){
             a = arrCourse[i];
             return a;
         }
@@ -1449,15 +1449,20 @@ void Semester::StudentMenu(string _username){
             << "4. View score of a course \n\n";
         cout << "Choose an option: ";
         cin >> choose;
-        switch (choose) {
-            case 1:
-                //CheckIn(string _ID);
-                break;
-            case 2:
-                //viewCheckInResult(string _ID);
+		switch (choose) {
+			case 1:
+				system("cls");
+				CheckIn(_ID);
+				system("pause");
+				;
+			case 2:
+				system("cls");
+				viewCheckInResult(_ID);
+				system("pause");
                 break;
             case 3:
-                //viewSchedule(string _ID);
+				system("cls");
+				viewScheduleOfStudent(_ID);
                 break;
             case 4:
                 //viewScore(string _ID);
@@ -1468,46 +1473,74 @@ void Semester::StudentMenu(string _username){
     }while(choose);
 }
 
-void Semester::LecturerMenu(){
+void Semester::LecturerMenu(string _LUsername){
     int choose;
     do{
+		system("cls");
         cout << "\nLecturer Menu: \n"
             << "0. Exit \n"
             << "1. View list of courses in the current semester \n"
-            << "2. View list of students of a course \n"
-            << "3. View attendance list of a course \n"
-            << "4. Edit an attendance \n"
-            << "5. Import scoreboard of a course (midterm, final, lab, bonus) from a csv file \n"
-            << "6. Edit grade of a student \n"
-            << "7. View a scoreboard \n";
+            << "2. View attendance list of a course \n"
+            << "3. Import scoreboard of a course (midterm, final, lab, bonus) from a csv file \n"
+            << "4. Edit grade of a student \n"
+            << "5. View a scoreboard \n";
         cout << "Choose an option: ";
         cin >> choose;
         switch (choose) {
             case 1:
-                //viewCoursesofLecturer();
+				system("cls");
+                viewCoursesofLecturer(_LUsername);
+				system("pause");
                 break;
             case 2:
-                //viewListStudentOfCourse();
+				system("cls");
+                viewAttendanceList(_LUsername);
+				system("pause");
                 break;
             case 3:
-                //viewAttendanceList();
-                break;
-            case 4:
-                //editAnAttendance();
-                break;
-            case 5:
                 //
                 break;
-            case 6:
+            case 4:
                 //editGradeOfAStudent();
                 break;
-            case 7:
+            case 5:
                 //viewAScoreBoard();
                 break;
             default:
                 break;
         }
     }while(choose);
+}
+
+
+
+void Semester::viewCoursesofLecturer(string _LUsername) {
+	Lecturer L = getLecturer(_LUsername);
+	int choose;
+	do {
+		system("cls");
+		cout << "NO  " << "Course ID    " << "Class     " << "Day of week    " << "Time start    " << "Time finish" << endl;
+		for (int i = 0; i < L.L_totalCourse; ++i) {
+			Course c = getCourseOfLecturer(L.L_ListCourse[i], _LUsername);
+			if (c.getStatus() == true) {
+				cout << setw(4) << left << i + 1 << setw(13) << left << c.getID() << setw(10) << left << c.getClass() << setw(15) << left << c.getDoW() << c.getsHour() << ":" << setw(11) << left << c.getsMin() << c.geteHour() << ":" << c.geteMin() << endl;
+			}
+		}
+		cout << "\n0. Exit\n";
+		cout << "\nChoose a course to view list of student: ";
+		cin >> choose;
+		if(choose == 1)
+		if (choose) {
+			Course c = getCourseOfLecturer(L.L_ListCourse[choose - 1], _LUsername);
+			for (int i = 0; i < c.c_totalStudent; ++i) {
+				Student s = getStudent(c.c_ListStudent[i]);
+				if (s.getStatus() == true)
+					cout << s.getID() << " - " << s.getFullName() << endl;
+			}
+		}
+		if (choose)
+			system("pause");
+	} while (choose);
 }
 
 void Semester::Login(){
@@ -1539,6 +1572,154 @@ void Semester::Login(){
 	system("pause");
     Login();
 }
+
+void Semester::viewAttendanceList(string _LUsername) {
+	Lecturer L = getLecturer(_LUsername);
+	int choose;
+	do {
+		system("cls");
+		cout << "No   " << "Course ID    " << "Class" << endl;
+		for (int i = 0; i < L.L_totalCourse; ++i) {
+			Course c = getCourseOfLecturer(L.L_ListCourse[i], _LUsername);
+			if (c.getStatus() == true)
+				cout << setw(5) << left << i + 1 << setw(13) << left << c.getID() << c.getClass() << endl;
+		}
+		cout << "\n0. Exit\n";
+		cout << "\nChoose a course to view attendance list: ";
+		cin >> choose;
+		if (choose) {
+			Course realC = getCourseOfLecturer(L.L_ListCourse[choose - 1], _LUsername);
+			cout << endl;
+			viewAttendanceListOfACourse(realC.getID(), realC.getClass());
+			system("pause");
+		}
+	} while (choose);
+}
+
+void Semester::viewAttendanceListOfACourse(string _courseID, string _className) {
+	Course c = getCourse(_courseID, _className);
+	int s_Day, s_Month, s_Year;
+	int length = lengthCourse(_courseID, _className);
+	int days = length / 7;
+	days++;
+	stringstream ss(c.getStartDate());
+	int startDate = 0;
+	ss >> startDate;
+	s_Day = startDate % 100;
+	startDate /= 100;
+	s_Month = startDate % 100;
+	startDate /= 100;
+	s_Year = startDate;  
+	stringstream convert(c.getDoW());
+	int DoW = 2;
+	convert >> DoW;
+	int between = DoW - 2;
+	for (int j = 0; j < between; ++j)
+		getTomorow(s_Day, s_Month, s_Year);
+	cout << c.getID() << " - " << c.getClass() << endl;
+	cout << "\nStudent ID   ";
+	for (int j = 0; j < days; ++j) {
+		if (s_Day >= 10)
+			cout << s_Day << "/";
+		else
+			cout << "0" << s_Day << "/";
+		if (s_Month >= 10)
+			cout << s_Month << "/";
+		else
+			cout << "0" << s_Month << "/";
+		cout << s_Year << "   ";
+		getWeekAfter(s_Day, s_Month, s_Year);
+	}
+	cout << endl;
+	for (int i = 0; i < c.c_totalStudent; ++i) {
+		Student s = getStudent(c.c_ListStudent[i]);
+		if (s.getStatus() == true) {
+			cout << setw(13) << left << s.getID();
+			for (int j = 0; j < days; ++j) {
+				cout << setw(13) << left << c.Check[i].attendance[j];
+			}
+			cout << endl;
+		}
+	}
+	int choose;
+	cout << "\n0. Exit\n";
+	cout << "1. Edit An attendance\n";
+	cout << "\nChoose an option: ";
+	cin >> choose;
+	string EditID;
+	if (choose == 1) {
+		cout << "Choose a student to edit\n"
+			<< "Student ID: ";
+		cin >> EditID;
+		if (isStudentActive(EditID) == true)
+			editAnAttendance(c.getID(), c.getClass(), EditID);
+	}
+}
+
+void Semester::editAnAttendance(string _courseID, string _className, string _studentID) {
+	int k = 0;
+	for (int i = 0; i < total_course; ++i) {
+		if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className) {
+			int s_Day, s_Month, s_Year;
+			int length = lengthCourse(_courseID, _className);
+			int days = length / 7;
+			days++;
+			stringstream ss(arrCourse[i].getStartDate());
+			int startDate = 0;
+			ss >> startDate;
+			s_Day = startDate % 100;
+			startDate /= 100;
+			s_Month = startDate % 100;
+			startDate /= 100;
+			s_Year = startDate;
+			stringstream convert(arrCourse[i].getDoW());
+			int DoW = 2;
+			convert >> DoW;
+			int between = DoW - 2;
+			for (int j = 0; j < between; ++j)
+				getTomorow(s_Day, s_Month, s_Year);
+			for (int j = 0; j < days; ++j) {
+				cout << j+1 << ": " << s_Day << "/" << s_Month << "/" << s_Year << endl;
+				getWeekAfter(s_Day, s_Month, s_Year);
+			}
+			cout << "Choose the date to edit: ";
+			int date;
+			cin >> date;
+			cout << "\n0: Absent\n1: Attended\n2: Exit\n\n";
+			int edit;
+			cin >> edit;
+			if (edit == 0) {
+				arrCourse[i].Check[i].attendance[date - 1] = "0";
+				cout << "Edit successful\n";
+				system("pause");
+			}
+			else if (edit == 1) {
+				arrCourse[i].Check[i].attendance[date - 1] = "1";
+				cout << "Edit successful\n";
+				system("pause");
+			}
+			break;
+		}
+	}
+
+}
+
+void Semester::DeallocateAll() {
+	for (int i = 0; i < total_class; ++i)
+		delete[] arrClass[i].student;
+	for (int i = 0; i < total_course; ++i) {
+		delete[] arrCourse[i].c_ListStudent;
+		delete[] arrCourse[i].Check;
+	}
+	for (int i = 0; i < total_lecturer; ++i) {
+		delete[] arrLecturer[i].L_ListCourse;
+	}
+	delete[] arrClass;
+	delete[] arrCourse;
+	delete[] arrLecturer;
+	delete[] arrStaff;
+}
+
 
 void Semester::StaffOption(string _username){
     string _ID = _username;
@@ -1598,6 +1779,7 @@ void Semester::LecturerOption(string _username){
     string _ID = _username;
     int choose;
     do{
+		system("cls");
         cout << "\n1. Show menu \n"
             << "2. View profile info \n"
             << "3. Change password \n"
@@ -1606,7 +1788,7 @@ void Semester::LecturerOption(string _username){
         cin >> choose;
         switch (choose) {
             case 1:
-                LecturerMenu();
+                LecturerMenu(_ID);
                 break;
             case 2:
                 viewProfileLecturer(_ID);
@@ -1756,6 +1938,14 @@ Lecturer Semester::getLecturer(string _LecturerUser){
         }
     }
     return a;
+}
+
+Course Semester::getCourseOfLecturer(string _courseID, string _LUsername) {
+	for (int i = 0; i < total_course; ++i) {
+		if (arrCourse[i].getID() == _courseID && arrCourse[i].getUsername() == _LUsername)
+			return arrCourse[i];
+	}
+	return arrCourse[0];
 }
 
 void Semester::viewProfileStaff(string _staffUser){
@@ -1952,4 +2142,276 @@ void Semester::resizeArrLecturer() {
 		new_arrLecturer[i] = arrLecturer[i];
 	delete[] arrLecturer;
 	arrLecturer = new_arrLecturer;
+}
+bool Semester::isCourseNow(string _courseID, string _classCourse) {
+	int s_Day, e_Day, s_Month, e_Month, s_Year, e_Year, s_Hour, e_Hour, s_Min, e_Min, DoW;
+	for (int i = 0; i < total_course; ++i) {
+		if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _classCourse) {
+			stringstream ss(arrCourse[i].getStartDate());
+			int startDate = 0;
+			ss >> startDate;
+			s_Day = startDate % 100;
+			startDate /= 100;
+			s_Month = startDate % 100;
+			startDate /= 100;
+			s_Year = startDate;
+			
+			ss.clear();
+			ss << arrCourse[i].getEndDate();
+			int endDate = 0;
+			ss >> endDate;
+			e_Day = endDate % 100;
+			endDate /= 100;
+			e_Month = endDate % 100;
+			endDate /= 100;
+			e_Year = endDate;
+
+			ss.clear();
+			ss << arrCourse[i].getsHour();
+			ss >> s_Hour;
+			ss.clear();
+			ss << arrCourse[i].geteHour();
+			ss >> e_Hour;
+			ss.clear();
+			ss << arrCourse[i].getsMin();
+			ss >> s_Min;
+			ss.clear();
+			ss << arrCourse[i].geteMin();
+			ss >> e_Min;
+			ss.clear();
+			ss << arrCourse[i].getDoW();
+			ss >> DoW;
+			
+			time_t t = time(0);   // get time now
+			tm* now = localtime(&t);
+			int n = rdn(now->tm_year + 1900, now->tm_mon + 1, now->tm_mday) - rdn(s_Year, s_Month, s_Day) - DoW + 2;
+			if (n % 7 == 0) {
+				if (now->tm_hour > s_Hour && now->tm_hour < e_Hour)
+					return true;
+				else if (now->tm_hour > s_Hour&& now->tm_hour == e_Hour) {
+					if (now->tm_min <= e_Min)
+						return true;
+					return false;
+				}
+				else if (now->tm_hour == s_Hour && now->tm_hour < e_Hour) {
+					if (now->tm_min >= s_Min)
+						return true;
+					return false;
+				}
+				else if (now->tm_hour == s_Hour && now->tm_hour == e_Hour) {
+					if (now->tm_min >= s_Min && now->tm_min <= e_Min)
+						return true;
+					return false;
+				}
+			}
+			return false;
+		}
+	}
+	return false;
+}
+
+int Semester::rdn(int y, int m, int d) {
+	if (m < 3)
+		y--, m += 12;
+	return 365 * y + y / 4 - y / 100 + y / 400 + (153 * m - 457) / 5 + d - 306;
+}
+
+int Semester::getDaysBetween(string sDate, string _Dow) {
+	int s_Day, s_Month, s_Year, DoW = 0;
+	stringstream ss(sDate);
+	int startDate = 0;
+	ss >> startDate;
+	s_Day = startDate % 100;
+	startDate /= 100;
+	s_Month = startDate % 100;
+	startDate /= 100;
+	s_Year = startDate;
+	stringstream convert(_Dow);
+	convert >> DoW;
+	time_t t = time(0);   // get time now
+	tm* now = localtime(&t);
+	int n = (rdn(now->tm_year + 1900, now->tm_mon + 1, now->tm_mday) - rdn(s_Year, s_Month, s_Day) - DoW + 2);
+	return n;
+}
+
+int Semester::lengthCourse(string _courseID, string _className) {
+	int s_Day, e_Day, s_Month, e_Month, s_Year, e_Year;
+	for (int i = 0; i < total_course; ++i) {
+		if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className) {
+			stringstream ss(arrCourse[i].getStartDate());
+			int startDate = 0;
+			ss >> startDate;
+			s_Day = startDate % 100;
+			startDate /= 100;
+			s_Month = startDate % 100;
+			startDate /= 100;
+			s_Year = startDate;
+
+			stringstream convert(arrCourse[i].getEndDate());
+			int endDate = 0;
+			convert >> endDate;
+			e_Day = endDate % 100;
+			endDate /= 100;
+			e_Month = endDate % 100;
+			endDate /= 100;
+			e_Year = endDate;
+
+			return rdn(e_Year, e_Month, e_Day) - rdn(s_Year, s_Month, s_Day);
+		}
+	}
+	return 0;
+}
+
+void Semester::getTomorow(int& day, int& month, int& year) {
+	if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+	{
+		if (day >= 1 && day <= 30)
+			day++;
+		if (day == 31 && month == 12) {
+			day = 1;
+			month = 1;
+			year++;
+		}
+		if (day == 31 && month != 12)
+			month++;
+	}
+	if (month == 4 || month == 6 || month == 9 || month == 11)
+	{
+		if (day >= 1 && day <= 29)
+			day++;
+		if (day == 30)
+			month++;
+	}
+	if (month == 2) {
+		if (year % 4 == 0)
+			if (year % 100 == 0 and year % 400 != 0)
+				if (day >= 1 and day <= 27)
+					day++;
+				else
+					month++;
+			else
+				if (day >= 1 and day <= 28)
+					day++;
+				else
+					month++;
+		else
+			if (day >= 1 and day <= 27)
+				day++;
+			else {
+				day = 1;
+				month++;
+			}
+	}
+}
+
+void Semester::getWeekAfter(int& day, int& month, int& year) {
+	for (int i = 0; i < 7; ++i)
+		getTomorow(day, month, year);
+}
+
+
+void Semester::viewStudentCourseNow(string _studentID) {
+	int choose;
+	Student a = getStudent(_studentID);
+	int k = 0;
+	for (int i = 0; i < a.getNumberofCourse(); ++i) {
+		if (isCourseActive(a.s_ListCourse[i].ID, a.s_ListCourse[i].className) == true) {
+			if (isCourseNow(a.s_ListCourse[i].ID, a.s_ListCourse[i].className) == true) {
+				Course c = getCourse(a.s_ListCourse[i].ID, a.s_ListCourse[i].className);
+				++k;
+				cout << k << ": " <<  c.getID() << " - " << c.getClass() << ": " << c.getsHour() << "h" << c.getsMin() << " to " << c.geteHour() << "h" << c.geteMin() << endl;
+			}
+		}
+	}
+	if (k == 0)
+		cout << "You do not have any classtime right now \n";
+	else {
+		int k = 0;
+		cout << "Choose a course to check in: ";
+		cin >> choose;
+		for (int i = 0; i < a.getNumberofCourse(); ++i) {
+			if (isCourseActive(a.s_ListCourse[i].ID, a.s_ListCourse[i].className) == true) {
+				if (isCourseNow(a.s_ListCourse[i].ID, a.s_ListCourse[i].className) == true) {
+					Course c = getCourse(a.s_ListCourse[i].ID, a.s_ListCourse[i].className);
+					++k;
+					if (k == choose) {
+						for (int x = 0; x < total_course; ++x) {
+							if (arrCourse[x].getID() == a.s_ListCourse[i].ID && arrCourse[x].getClass() == a.s_ListCourse[i].className) {
+								int days = getDaysBetween(arrCourse[x].getStartDate(), arrCourse[x].getDoW());
+								cout << days << endl;
+								int pos = days / 7;
+								for (int y = 0; y < arrCourse[x].c_totalStudent; ++y)
+									if (arrCourse[x].c_ListStudent[y] == _studentID)
+										arrCourse[x].Check[y].attendance[pos] = "1";
+							}
+						}
+						break;
+					}
+				}
+			}
+		}
+
+	}
+}
+
+void Semester::CheckIn(string _ID) {
+	viewStudentCourseNow(_ID);
+	system("pause");
+}
+
+void Semester::viewCheckInResult(string _studentID) {
+	Student s = getStudent(_studentID);
+	for (int i = 0; i < s.numberofCourse; ++i) {
+		if (isCourseActive(s.s_ListCourse[i].ID, s.s_ListCourse[i].className))
+			cout << i+1 << ". " << s.s_ListCourse[i].ID << " - " << s.s_ListCourse[i].className << endl;
+		else
+			cout << i+1 << ". This course has been removed" << endl;
+	}
+	int choose;
+	cout << "Choose a course to view attendance status: ";
+	cin >> choose;
+	choose--;
+	viewAStudentAttendanceOfACourse(_studentID, s.s_ListCourse[choose].ID, s.s_ListCourse[choose].className);
+}
+
+void Semester::viewAStudentAttendanceOfACourse(string _studentID, string _courseID, string _className){
+	Course c = getCourse(_courseID, _className);
+	int s_Day, s_Month, s_Year;
+	for (int i = 0; i < c.c_totalStudent; ++i) {
+		if (c.c_ListStudent[i] == _studentID) {
+			int length = lengthCourse(_courseID, _className);
+			int days = length / 7;
+			days++;
+			stringstream ss(c.getStartDate());
+			int startDate = 0;
+			ss >> startDate;
+			s_Day = startDate % 100;
+			startDate /= 100;
+			s_Month = startDate % 100;
+			startDate /= 100;
+			s_Year = startDate;
+			stringstream convert(c.getDoW());
+			int DoW = 2;
+			convert >> DoW;
+			int between = DoW - 2;
+			for (int j = 0; j < between; ++j)
+				getTomorow(s_Day, s_Month, s_Year);
+			for (int j = 0; j < days; ++j) {
+				cout << s_Day << "/" << s_Month << "/" << s_Year << ": " << c.Check[i].attendance[j] << endl;
+				getWeekAfter(s_Day, s_Month, s_Year);
+			}
+		}
+	}
+}
+
+
+void Semester::viewScheduleOfStudent(string _ID) {
+	Student s = getStudent(_ID);
+	cout << "NO  " << "Course ID    " << "Course name             " << "Start Date    " << "End Date    " << "Day of week    " << "Time start    " << "Time finish" << endl;
+	for (int i = 0; i < s.numberofCourse; ++i) {
+		if (isCourseActive(s.s_ListCourse[i].ID, s.s_ListCourse[i].className) == true) {
+			Course c = getCourse(s.s_ListCourse[i].ID, s.s_ListCourse[i].className);
+			cout << setw(4) << left << i+1 << setw(13) << left << c.getID() << setw(24) << left << c.getCourseName() << setw(14) << left << c.getStartDate() << setw(12) << left << c.getEndDate() << setw(15) << left << c.getDoW() <<  c.getsHour() << ":" << setw(11) << left << c.getsMin() << c.geteHour() << ":" << c.geteMin() << endl;
+		}
+	}
 }

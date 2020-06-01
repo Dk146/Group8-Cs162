@@ -46,6 +46,7 @@ int main(){
     semester.loadLecturersToTxt(fout);
     semester.loadStaffsToTxt(fout);
     
+	semester.DeallocateAll();
     cout << "\nSucceeded\n" << endl;
     return 0;
 }
