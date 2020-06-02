@@ -13,31 +13,9 @@ int main(){
     Semester semester;
     ifstream fin;
     ofstream fout;
-    
-    semester.loadStudentsFromCSV(fin);
-    semester.loadLecturersFromCSV(fin);
-    semester.loadCoursesFromCSV(fin);
-    semester.loadStaffsFromCSV(fin);
-    
-    /*semester.loadClassesFromTxt(fin);
-    semester.loadEachClassFromTxt(fin);
-    semester.loadAllCoursesFromTxt(fin);
-    semester.loadEachCourseFromTxt(fin);
-    semester.loadLecturersFromTxt(fin);
-    semester.loadStaffsFromTxt(fin);*/
 
-    semester.Login();
-    //semester.StaffMenu();
-    
-    semester.loadClassesToTxt(fout);
-    semester.loadEachClassToTxt(fout);
-    semester.loadAllCoursesToTxt(fout);
-    semester.loadEachCourseToTxt(fout);
-    semester.loadLecturersToTxt(fout);
-    semester.loadStaffsToTxt(fout);
-    
-	semester.DeallocateAll();
-    cout << "\nSucceeded\n" << endl;
+	semester.runProgram(fin, fout);
+
     return 0;
 }
 

@@ -139,6 +139,7 @@ public:
 
 	void DeallocateAll();
 
+	void runProgram(ifstream& fin, ofstream& fout);
 
     Semester(){
         total_lecturer = 0;

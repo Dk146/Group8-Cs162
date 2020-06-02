@@ -32,7 +32,7 @@ bool Lecturer::getGender(){
 }
 void Lecturer::resizeLecturer() {
 	L_maxCourse += 5;
-	string* new_ListCourse = new string[L_maxCourse];
+	ListCourse_L* new_ListCourse = new ListCourse_L[L_maxCourse];
 	for (int i = 0; i < L_totalCourse; ++i) {
 		new_ListCourse[i] = L_ListCourse[i];
 	}
