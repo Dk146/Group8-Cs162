@@ -103,7 +103,7 @@ void Semester::addCourseToClass(string _courseID, string _className){
     int pos_Lecturer = 0;
 
     for (int i = 0; i < total_course; ++i){
-        if (arrCourse[i].getID() == _courseID){
+        if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className){
             pos_Course = i;
             break;
         }
@@ -127,6 +127,8 @@ void Semester::addCourseToClass(string _courseID, string _className){
     }
     
     Lecturer &_lecturer(arrLecturer[pos_Lecturer]);
+	if (_lecturer.L_totalCourse == _lecturer.L_maxCourse)
+		_lecturer.resizeLecturer();
     _lecturer.L_ListCourse[_lecturer.L_totalCourse].courseID = _courseID;
 	_lecturer.L_ListCourse[_lecturer.L_totalCourse++].className = _className;
 
@@ -194,7 +196,7 @@ void Semester::ManuallyaddStudentToClass()
         if (arrCourse[i].getClass() == _className)
         {
             if (arrCourse[i].c_totalStudent == arrCourse[i].c_maxStudent) arrCourse[i].resizeCourse();
-            arrCourse[i].c_ListStudent[arrCourse[i].getTotalStudent()] == _ID;
+            arrCourse[i].c_ListStudent[arrCourse[i].getTotalStudent()] = _ID;
             ++arrCourse[i].c_totalStudent;
         }
     }
@@ -918,7 +920,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
     cout << "Please input the link to Courses.csv: ";
-	cin.ignore();
+	fin.ignore();
     getline(cin, link);
     fin.open(link + "Courses.csv"); // khai quat
     if (fin.is_open())
@@ -962,7 +964,6 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
             a.setTime(sday, eday, shour, smin, ehour, emin, doW);
             a.setStatus(true);
             a.setTotalStudent(0);
-
             if (total_course == max_course) resizeArrCourse();
 
             arrCourse[total_course] = a;
@@ -1029,6 +1030,7 @@ void Semester::loadEachClassToTxt(ofstream& fout)
         }
         else cout << "Cannot open file output! ";
     }
+	system("pause");
 }
 
 void Semester::loadClassesFromTxt(ifstream& fin)
@@ -1101,16 +1103,15 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 			{
 				for (int z = 0; z < a.getNumberofCourse(); ++z) {
 					getline(ss, course, ',');
-					a.s_ListCourse[i].ID = course;
+					a.s_ListCourse[z].ID = course;
 					getline(ss, _class, ',');
-					a.s_ListCourse[i].className = _class;
+					a.s_ListCourse[z].className = _class;
 				}
 			}
 			arrClass[i].student[j] = a;
 		}
 		fin.close();
 	}
-	system("pause");
 }
 
 void Semester::loadLecturersToTxt(ofstream& fout)
