@@ -1045,6 +1045,8 @@ void Semester::loadClassesFromTxt(ifstream& fin)
     {
         getline(fin, n);
         total_class = stoi(n);
+		while (total_class > max_class)
+			resizeArrClass();
         for (int i = 0; i < total_class; ++i)
         {
             getline(fin, line);
@@ -1069,6 +1071,8 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
     for (int i = 0; i < total_class; ++i)
     {
         fin.open(arrClass[i].getClassName() + "-Students.txt");
+		while (arrClass[i].totalStudent > arrClass[i].max_student)
+			arrClass[i].resizeClass();
 		for (int j = 0; j < arrClass[i].totalStudent; ++j)
 		{
 			getline(fin, line);
@@ -1154,12 +1158,9 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
         int total;
         fin >> total;
         total_lecturer = total;
-			max_lecturer += 5;
-	Lecturer* new_arrLecturer = new Lecturer[max_lecturer];
-	for (int i = 0; i < total_lecturer; ++i)
-		new_arrLecturer[i] = arrLecturer[i];
-	delete[] arrLecturer;
-	arrLecturer = new_arrLecturer;
+		while (total_lecturer > max_lecturer)
+			resizeArrLecturer();
+		
         fin.ignore();
         
         string line, user, pass, name, degree, gen, course, num, _class;
@@ -1250,6 +1251,8 @@ void Semester::loadAllCoursesFromTxt(ifstream& fin)
 
         fin >> total;
         total_course = total;
+		while (total_course > max_course)
+			resizeArrCourse();
         fin.ignore();
         for (int i = 0; i < total_course; ++i) // co 2 cach input: while (getline) / for ...
         {
@@ -1344,6 +1347,8 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
         if (fin.is_open())
         {
             fin >> arrCourse[i].c_totalStudent;
+			while (arrCourse[i].c_totalStudent > arrCourse[i].c_maxStudent)
+				arrCourse[i].resizeCourse();
             fin.ignore();
             if (arrCourse[i].point == true)
             {
@@ -1578,7 +1583,7 @@ void Semester::StudentMenu(string _username){
 				system("cls");
 				CheckIn(_ID);
 				system("pause");
-				;
+				break;
 			case 2:
 				system("cls");
 				viewCheckInResult(_ID);
@@ -2122,6 +2127,8 @@ void Semester::loadStaffsFromTxt(ifstream& fin)
     if (fin.is_open())
     {
         fin >> total_staff;
+		while (total_staff > max_staff)
+			resizeArrStaff();
         fin.ignore();
         string line, user, name, pass, gen;
         bool gender;
@@ -2399,22 +2406,24 @@ void Semester::getTomorow(int& day, int& month, int& year) {
 	{
 		if (day >= 1 && day <= 30)
 			day++;
-		if (day == 31 && month == 12) {
+		else if (day == 31 && month == 12) {
 			day = 1;
 			month = 1;
 			year++;
 		}
-		if (day == 31 && month != 12)
+		else if (day == 31 && month != 12) {
+			day = 1;
 			month++;
+		}
 	}
-	if (month == 4 || month == 6 || month == 9 || month == 11)
+	else if(month == 4 || month == 6 || month == 9 || month == 11)
 	{
 		if (day >= 1 && day <= 29)
 			day++;
-		if (day == 30)
+		else if (day == 30)
 			month++;
 	}
-	if (month == 2) {
+	else if (month == 2) {
 		if (year % 4 == 0)
 			if (year % 100 == 0 and year % 400 != 0)
 				if (day >= 1 and day <= 27)
@@ -2470,7 +2479,6 @@ void Semester::viewStudentCourseNow(string _studentID) {
 						for (int x = 0; x < total_course; ++x) {
 							if (arrCourse[x].getID() == a.s_ListCourse[i].ID && arrCourse[x].getClass() == a.s_ListCourse[i].className) {
 								int days = getDaysBetween(arrCourse[x].getStartDate(), arrCourse[x].getDoW());
-								cout << days << endl;
 								int pos = days / 7;
 								for (int y = 0; y < arrCourse[x].c_totalStudent; ++y)
 									if (arrCourse[x].c_ListStudent[y] == _studentID)
