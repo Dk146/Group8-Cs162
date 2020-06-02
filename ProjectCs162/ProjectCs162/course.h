@@ -24,7 +24,7 @@ public:
 	int c_maxStudent;
 	string* c_ListStudent;
 	check* Check;
-    bool point;
+    bool point, attend;
     
     void setStatus(bool _status);
     void setNo(string _No);
@@ -70,6 +70,7 @@ public:
         c_totalStudent = 0;
         setStatus(true);
         point = false;
+        attend = false;
 		c_maxStudent = 40;
 		c_ListStudent = new string[c_maxStudent];
 		Check = new check[c_maxStudent];

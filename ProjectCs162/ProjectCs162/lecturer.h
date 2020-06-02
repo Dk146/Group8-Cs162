@@ -3,6 +3,8 @@
 
 #include "include.h"
 
+
+
 class Lecturer{
 private:
     string l_name, l_degree, l_userName, l_password;
@@ -10,7 +12,7 @@ private:
 public:
     int L_totalCourse;
 	int L_maxCourse;
-    string*L_ListCourse;
+    string* L_ListCourse;
     
     void setName(string _name);
     void setDegree(string _degree);
