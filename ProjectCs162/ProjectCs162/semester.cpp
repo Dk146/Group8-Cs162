@@ -288,12 +288,6 @@ void Semester::changeClass()
 
     for (int i = 0; i < total_class; ++i)
     {
-        if (arrClass[i].getClassName() == _newclass)
-            if (arrClass[i].totalStudent == arrClass[i].max_student) arrClass[i].resizeClass();
-    }
-
-    for (int i = 0; i < total_class; ++i)
-    {
         for (int j = 0; j < arrClass[i].totalStudent; ++j)
         {
             if (arrClass[i].student[j].getID() == _ID)
@@ -333,13 +327,15 @@ void Semester::changeClass()
         if (arrCourse[i].getClass() == arrClass[x].getClassName())
         {
             for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
-                if (arrCourse[i].c_ListStudent[j] == _ID) index = j;
-            arrCourse[i].c_totalStudent -= 1;
-            while (index < arrCourse[i].c_totalStudent)
-            {
-                arrCourse[i].c_ListStudent[index] = arrCourse[i].c_ListStudent[index + 1];
-                ++index;
-            }
+				if (arrCourse[i].c_ListStudent[j] == _ID) {
+					index = j;
+					arrCourse[i].c_totalStudent -= 1;
+					while (index < arrCourse[i].c_totalStudent)
+					{
+						arrCourse[i].c_ListStudent[index] = arrCourse[i].c_ListStudent[index + 1];
+						++index;
+					}
+				}
         }
 
         if (arrCourse[i].getClass() == arrClass[newc].getClassName())
@@ -385,9 +381,10 @@ void Semester::viewListOfClasses()
 //12
 void Semester::viewListOfStudent(int _pos)
 {
+	cout << "ID           " << "Full Name             " << "Gender      " << "Day of birth" << endl;
 	for (int i = 0; i < arrClass[_pos].totalStudent; i++) {
 		if (arrClass[_pos].student[i].getStatus() == true)
-			cout << "Student " << i + 1 << " : " << arrClass[_pos].student[i].getID() << " - " << arrClass[_pos].student[i].getFullName() << endl;
+			cout << setw(13) << left << arrClass[_pos].student[i].getID() << setw(22) << left << arrClass[_pos].student[i].getFullName() << setw(12) << left << arrClass[_pos].student[i].getGender() << setw(13) << left << arrClass[_pos].student[i].getDoB() << endl;
 	}
 }
 
@@ -850,8 +847,9 @@ void Semester::viewListStudentOfCourse(int _pos)
 }
 
 void Semester::viewListLecturer(){
-    for (int i = 0; i < total_lecturer; ++i)
-        cout << arrLecturer[i].getName() << endl;
+	cout << "Name                     " << "Gender      " << "Degree      " << "Username" << endl;
+	for (int i = 0; i < total_lecturer; ++i)
+		cout << setw(25) << left << arrLecturer[i].getName() << setw(12) << left << arrLecturer[i].getGender() << setw(12) << left << arrLecturer[i].getDegree() << setw(16) << left << arrLecturer[i].getUserName() << endl;
 }
 
 Student Semester::getStudent(string _ID){
@@ -1011,7 +1009,7 @@ void Semester::loadEachClassToTxt(ofstream& fout)
                 fout << arrClass[i].student[j].getPass() << ',';
                 if (arrClass[i].student[j].getStatus() == true) fout << "1" << ',';
                 else fout << "0" << ',';
-                if (arrClass[i].student[j].getNumberofCourse() == 0) fout << "0" << '\n';
+                if (arrClass[i].student[j].getNumberofCourse() == 0) fout << "0";
                 else
                 {
                     fout << arrClass[i].student[j].getNumberofCourse() << ',';
@@ -1020,13 +1018,11 @@ void Semester::loadEachClassToTxt(ofstream& fout)
 						fout << arrClass[i].student[j].s_ListCourse[z].ID << ',';
 						fout << arrClass[i].student[j].s_ListCourse[z].className << ',';
                     }
-                    fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].ID << ',';
-					fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].className << ',';
+					if (arrClass[i].student[j].numberofCourse >= 1) {
+						fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].ID << ",";
+						fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].className;
+					}
                 }
-				if (arrClass[i].student[j].numberofCourse >= 1) {
-					fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].ID << ",";
-					fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].className;
-				}
                 fout << endl;
             }
             fout.close();
@@ -1068,13 +1064,14 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 	int number;
 	bool gender, status;
 
-    for (int i = 0; i < total_class; ++i)
-    {
-        fin.open(arrClass[i].getClassName() + "-Students.txt");
+	for (int i = 0; i < total_class; ++i)
+	{
+		fin.open(arrClass[i].getClassName() + "-Students.txt");
 		while (arrClass[i].totalStudent > arrClass[i].max_student)
 			arrClass[i].resizeClass();
 		for (int j = 0; j < arrClass[i].totalStudent; ++j)
 		{
+			cout << arrClass[i].getClassName();
 			getline(fin, line);
 			stringstream ss(line);
 			getline(ss, id, ',');
@@ -1103,17 +1100,21 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 
 			if (a.getNumberofCourse() > 0)
 			{
-				for (int z = 0; z < a.getNumberofCourse() - 1; ++z) {
+				for (int z = 0; z < a.getNumberofCourse(); ++z) {
 					getline(ss, course, ',');
 					a.s_ListCourse[i].ID = course;
+					cout << course << ",";
 					getline(ss, _class, ',');
+					cout << _class << ",";
 					a.s_ListCourse[i].className = _class;
+					system("pause");
 				}
 			}
 			arrClass[i].student[j] = a;
 		}
-        fin.close();
-    }
+		fin.close();
+	}
+	system("pause");
 }
 
 void Semester::loadLecturersToTxt(ofstream& fout)
@@ -1299,7 +1300,6 @@ void Semester::loadAllCoursesFromTxt(ifstream& fin)
             if (point == "1") arrCourse[i].point = true;
             else arrCourse[i].point = false;
         }
-        system("pause");
         fin.close();
     }
     else cout << "Cannot open file input! ";
@@ -1478,7 +1478,7 @@ void Semester::CourseOption(){
 			system("cls");
             case 1:
                 loadCoursesFromCSV(fin);
-				//system("pause");
+				system("pause");
                 break;
             case 2:
                 ManuallyAddNewCourse();
