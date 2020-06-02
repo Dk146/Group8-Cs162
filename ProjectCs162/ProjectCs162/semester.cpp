@@ -1071,7 +1071,6 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 			arrClass[i].resizeClass();
 		for (int j = 0; j < arrClass[i].totalStudent; ++j)
 		{
-			cout << arrClass[i].getClassName();
 			getline(fin, line);
 			stringstream ss(line);
 			getline(ss, id, ',');
@@ -1103,11 +1102,8 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 				for (int z = 0; z < a.getNumberofCourse(); ++z) {
 					getline(ss, course, ',');
 					a.s_ListCourse[i].ID = course;
-					cout << course << ",";
 					getline(ss, _class, ',');
-					cout << _class << ",";
 					a.s_ListCourse[i].className = _class;
-					system("pause");
 				}
 			}
 			arrClass[i].student[j] = a;
