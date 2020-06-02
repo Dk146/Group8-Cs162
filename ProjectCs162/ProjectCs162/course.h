@@ -5,7 +5,7 @@
 
 struct check
 {
-    string attendace[10];
+    string attendance[10];
     string score[4];
 };
 
@@ -21,8 +21,9 @@ private:
 public:
     
     int c_totalStudent;
-    string c_ListStudent[50];
-    check Check[50];
+	int c_maxStudent;
+	string* c_ListStudent;
+	check* Check;
     bool point;
     
     void setStatus(bool _status);
@@ -63,10 +64,21 @@ public:
     int getTotalStudent();
     string getRoom();
 
+	void resizeCourse();
+
     Course(){
         c_totalStudent = 0;
         setStatus(true);
         point = false;
+		c_maxStudent = 40;
+		c_ListStudent = new string[c_maxStudent];
+		Check = new check[c_maxStudent];
+		for (int i = 0; i < c_maxStudent; ++i) {
+			for (int j = 0; j < 10; ++j)
+				Check[i].attendance[j] = "0";
+			for (int j = 0; j < 4; ++j)
+				Check[i].score[j] = "-1";
+		}
     }
 };
 

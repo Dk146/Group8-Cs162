@@ -117,3 +117,17 @@ int Course::getTotalStudent(){
 string Course::getRoom() {
     return c_Room;
 }
+void Course::resizeCourse() {
+	c_maxStudent += 5;
+	string* new_listStudent = new string[c_maxStudent];
+	check* new_Check = new check[c_maxStudent];
+	for (int i = 0; i < c_totalStudent; ++i) {
+		new_Check[i] = Check[i];
+		new_listStudent[i] = c_ListStudent[i];
+	}
+	delete[] Check;
+	delete[] c_ListStudent;
+
+	Check = new_Check;
+	c_ListStudent = new_listStudent;
+}
