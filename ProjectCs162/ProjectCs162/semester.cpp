@@ -1525,7 +1525,29 @@ void Semester::ScoreboardOption(){
     }
 }
 void Semester::AttendenceListOption(){
-    
+	int choose;
+	ofstream fout;
+	string _courseID, _className;
+	do {
+		system("cls");
+		cout << "0. Exit\n"
+			<< "1. View attendance list\n"
+			<< "2. Export a attendance list to a csv file\n";
+		cout << "Choose an option: ";
+		cin >> choose;
+		if (choose == 1) {
+			cout << "Which course do you want to view score of? ";
+			cin >> _courseID;
+			cout << "Of Class? ";
+			cin >> _className;
+			viewAttendanceListOfACourse(_courseID, _className);
+			system("pause");
+		}
+		else if (choose == 2) {
+			exportAttendanceList(fout);
+			system("pause");
+		}
+	} while (choose);
 }
 
 void Semester::StudentMenu(string _username){
@@ -1688,6 +1710,10 @@ void Semester::viewAttendanceList(string _LUsername) {
 }
 
 void Semester::viewAttendanceListOfACourse(string _courseID, string _className) {
+	if (isCourseActive(_courseID, _className) == false) {
+		cout << "This course does not exist!" << endl;
+		return;
+	}
 	Course c = getCourse(_courseID, _className);
 	int s_Day, s_Month, s_Year;
 	int length = lengthCourse(_courseID, _className);
@@ -2543,4 +2569,66 @@ void Semester::exportScore(ofstream& fout)
         }
     }
     if (exist == 0) cout << "This course has no scoreboard yet! ";
+}
+
+void Semester::exportAttendanceList(ofstream& fout) {
+	string _courseID, _className;
+	cout << "Which course do you want to export scoreboard? ";
+	cin >> _courseID;
+	cout << "Of which class? ";
+	cin >> _className;
+	Course c = getCourse(_courseID, _className);
+	if (c.getStatus() == false) {
+		cout << "This course does not exist!" << endl;
+		return;
+	}
+	string link = _courseID + "-" + _className + "-attendance.csv";
+	fout.open(link);
+	fout << " ", ",";
+	int s_Day, s_Month, s_Year;
+	int length = lengthCourse(_courseID, _className);
+	int days = length / 7;
+	days++;
+	stringstream ss(c.getStartDate());
+	int startDate = 0;
+	ss >> startDate;
+	s_Day = startDate % 100;
+	startDate /= 100;
+	s_Month = startDate % 100;
+	startDate /= 100;
+	s_Year = startDate;
+	stringstream convert(c.getDoW());
+	int DoW = 2;
+	convert >> DoW;
+	int between = DoW - 2;
+	for (int j = 0; j < between; ++j)
+		getTomorow(s_Day, s_Month, s_Year);
+	fout << "Student ID " << ",";
+	for (int j = 0; j < days; ++j) {
+		if (s_Day >= 10)
+			fout << s_Day << "/";
+		else
+			fout << "0" << s_Day << "/";
+		if (s_Month >= 10)
+			fout << s_Month << "/";
+		else
+			fout << "0" << s_Month << "/";
+		if (j == days - 1) {
+			fout << s_Year << "\n";
+			break;
+		}
+		fout << s_Year << ",";
+		getWeekAfter(s_Day, s_Month, s_Year);
+	}
+	for (int i = 0; i < c.c_totalStudent; ++i) {
+		fout << c.c_ListStudent[i] << ",";
+		for (int j = 0; j < days; ++j) {
+			if (j == days - 1) {
+				fout << c.Check[i].attendance[j] << "\n";
+				break;
+			}
+			fout << c.Check[i].attendance[j] << ",";
+		}
+	}
+	fout.close();
 }
