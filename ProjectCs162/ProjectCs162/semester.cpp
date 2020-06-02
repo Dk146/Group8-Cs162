@@ -1137,8 +1137,6 @@ void Semester::loadLecturersToTxt(ofstream& fout)
 				if (arrLecturer[i].L_totalCourse >= 1) {
 					fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1].courseID << ',';
 					fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1].className << '\n';
-					cout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1].courseID << ',';
-					cout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1].className << '\n';
 				}
             }
             else fout << 0 << '\n';
@@ -1156,6 +1154,12 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
         int total;
         fin >> total;
         total_lecturer = total;
+			max_lecturer += 5;
+	Lecturer* new_arrLecturer = new Lecturer[max_lecturer];
+	for (int i = 0; i < total_lecturer; ++i)
+		new_arrLecturer[i] = arrLecturer[i];
+	delete[] arrLecturer;
+	arrLecturer = new_arrLecturer;
         fin.ignore();
         
         string line, user, pass, name, degree, gen, course, num, _class;
@@ -2245,6 +2249,7 @@ void Semester::resizeArrClass() {
 	delete[] arrClass;
 	arrClass = new_arrClass;
 }
+
 void Semester::resizeArrCourse() {
 	max_course += 5;
 	Course* new_arrCourse = new Course[max_course];
