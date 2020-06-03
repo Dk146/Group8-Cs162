@@ -103,19 +103,29 @@ void Semester::addCourseToClass(string _courseID, string _className)
     int pos_Class = 0;
     int pos_Lecturer = 0;
 
+<<<<<<< HEAD
     for (int i = 0; i < total_course; ++i)
     {
         if (arrCourse[i].getID() == _courseID)
         {
+=======
+    for (int i = 0; i < total_course; ++i){
+        if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className){
+>>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
             pos_Course = i;
             break;
         }
     }
 
+<<<<<<< HEAD
     for (int i = 0; i < total_class; ++i)
     {
         if (arrClass[i].getClassName() == _className)
         {
+=======
+    for (int i = 0; i < total_class; ++i){
+        if (arrClass[i].getClassName() == _className ){
+>>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
             pos_Class = i;
             break;
         }
@@ -138,7 +148,12 @@ void Semester::addCourseToClass(string _courseID, string _className)
     }
 
     Lecturer &_lecturer(arrLecturer[pos_Lecturer]);
+<<<<<<< HEAD
     if (_lecturer.L_totalCourse == _lecturer.L_maxCourse) _lecturer.resizeLecturer(); 
+=======
+	if (_lecturer.L_totalCourse == _lecturer.L_maxCourse)
+		_lecturer.resizeLecturer();
+>>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
     _lecturer.L_ListCourse[_lecturer.L_totalCourse].courseID = _courseID;
 	_lecturer.L_ListCourse[_lecturer.L_totalCourse++].className = _className;
 
@@ -200,7 +215,7 @@ void Semester::ManuallyaddStudentToClass()
         if (arrCourse[i].getClass() == _className)
         {
             if (arrCourse[i].c_totalStudent == arrCourse[i].c_maxStudent) arrCourse[i].resizeCourse();
-            arrCourse[i].c_ListStudent[arrCourse[i].getTotalStudent()] == _ID;
+            arrCourse[i].c_ListStudent[arrCourse[i].getTotalStudent()] = _ID;
             ++arrCourse[i].c_totalStudent;
         }
     }
@@ -294,12 +309,6 @@ void Semester::changeClass()
 
     for (int i = 0; i < total_class; ++i)
     {
-        if (arrClass[i].getClassName() == _newclass)
-            if (arrClass[i].totalStudent == arrClass[i].max_student) arrClass[i].resizeClass();
-    }
-
-    for (int i = 0; i < total_class; ++i)
-    {
         for (int j = 0; j < arrClass[i].totalStudent; ++j)
         {
             if (arrClass[i].student[j].getID() == _ID)
@@ -338,13 +347,15 @@ void Semester::changeClass()
         if (arrCourse[i].getClass() == arrClass[x].getClassName())
         {
             for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
-                if (arrCourse[i].c_ListStudent[j] == _ID) index = j;
-            arrCourse[i].c_totalStudent -= 1;
-            while (index < arrCourse[i].c_totalStudent)
-            {
-                arrCourse[i].c_ListStudent[index] = arrCourse[i].c_ListStudent[index + 1];
-                ++index;
-            }
+				if (arrCourse[i].c_ListStudent[j] == _ID) {
+					index = j;
+					arrCourse[i].c_totalStudent -= 1;
+					while (index < arrCourse[i].c_totalStudent)
+					{
+						arrCourse[i].c_ListStudent[index] = arrCourse[i].c_ListStudent[index + 1];
+						++index;
+					}
+				}
         }
 
         if (arrCourse[i].getClass() == arrClass[newc].getClassName())
@@ -390,9 +401,10 @@ void Semester::viewListOfClasses()
 //12
 void Semester::viewListOfStudent(int _pos)
 {
+	cout << "ID           " <<static_cast<char>(179)<< "Full Name             " << static_cast<char>(179)<< "Gender      " << static_cast<char>(179)<< "Day of birth" << endl;
 	for (int i = 0; i < arrClass[_pos].totalStudent; i++) {
 		if (arrClass[_pos].student[i].getStatus() == true)
-			cout << "Student " << i + 1 << " : " << arrClass[_pos].student[i].getID() << " - " << arrClass[_pos].student[i].getFullName() << endl;
+			cout << setw(13) << left << arrClass[_pos].student[i].getID() << static_cast<char>(179) << setw(22) << left << arrClass[_pos].student[i].getFullName() << static_cast<char>(179) << setw(12) << left << arrClass[_pos].student[i].getGender() << static_cast<char>(179) << setw(13) << left << arrClass[_pos].student[i].getDoB() << endl;
 	}
 }
 
@@ -854,8 +866,9 @@ void Semester::viewListStudentOfCourse(int _pos)
 }
 
 void Semester::viewListLecturer(){
-    for (int i = 0; i < total_lecturer; ++i)
-        cout << arrLecturer[i].getName() << endl;
+	cout << "Name                     " << "Gender      " << "Degree      " << "Username" << endl;
+	for (int i = 0; i < total_lecturer; ++i)
+		cout << setw(25) << left << arrLecturer[i].getName() << setw(12) << left << arrLecturer[i].getGender() << setw(12) << left << arrLecturer[i].getDegree() << setw(16) << left << arrLecturer[i].getUserName() << endl;
 }
 
 Student Semester::getStudent(string _ID){
@@ -924,7 +937,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
     cout << "Please input the link to Courses.csv: ";
-	cin.ignore();
+	fin.ignore();
     getline(cin, link);
     fin.open(link + "Courses.csv"); // khai quat
     if (fin.is_open())
@@ -968,7 +981,6 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
             a.setTime(sday, eday, shour, smin, ehour, emin, doW);
             a.setStatus(true);
             a.setTotalStudent(0);
-
             if (total_course == max_course) resizeArrCourse();
 
             arrCourse[total_course] = a;
@@ -1015,7 +1027,7 @@ void Semester::loadEachClassToTxt(ofstream& fout)
                 fout << arrClass[i].student[j].getPass() << ',';
                 if (arrClass[i].student[j].getStatus() == true) fout << "1" << ',';
                 else fout << "0" << ',';
-                if (arrClass[i].student[j].getNumberofCourse() == 0) fout << "0" << '\n';
+                if (arrClass[i].student[j].getNumberofCourse() == 0) fout << "0";
                 else
                 {
                     fout << arrClass[i].student[j].getNumberofCourse() << ',';
@@ -1024,14 +1036,24 @@ void Semester::loadEachClassToTxt(ofstream& fout)
                         fout << arrClass[i].student[j].s_ListCourse[z].ID << ',';
                         fout << arrClass[i].student[j].s_ListCourse[z].className << ',';
                     }
+<<<<<<< HEAD
                     fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].ID << ',';
                     fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].className << '\n';
                 }
+=======
+					if (arrClass[i].student[j].numberofCourse >= 1) {
+						fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].ID << ",";
+						fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].className;
+					}
+                }
+                fout << endl;
+>>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
             }
             fout.close();
         }
         else cout << "Cannot open file output! ";
     }
+	system("pause");
 }
 
 void Semester::loadClassesFromTxt(ifstream& fin)
@@ -1068,6 +1090,7 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
     int number;
     bool gender, status;
 
+<<<<<<< HEAD
     for (int i = 0; i < total_class; ++i)
     {
         while (arrClass[i].totalStudent > arrClass[i].max_student)
@@ -1115,6 +1138,54 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
         }
         fin.close();
     }
+=======
+	for (int i = 0; i < total_class; ++i)
+	{
+		fin.open(arrClass[i].getClassName() + "-Students.txt");
+		while (arrClass[i].totalStudent > arrClass[i].max_student)
+			arrClass[i].resizeClass();
+		for (int j = 0; j < arrClass[i].totalStudent; ++j)
+		{
+			getline(fin, line);
+			stringstream ss(line);
+			getline(ss, id, ',');
+			getline(ss, name, ',');
+			getline(ss, gen, ',');
+			if (gen == "Male") gender = true;
+			else gender = false;
+			getline(ss, dob, ',');
+			getline(ss, user, ',');
+			getline(ss, pass, ',');
+			getline(ss, stat, ',');
+			if (stat == "1") status = true;
+			else status = false;
+			getline(ss, num, ',');
+			number = stoi(num);
+
+			Student a;
+			a.setID(id);
+			a.setFullName(name);
+			a.setGender(gender);
+			a.setDoB(dob);
+			a.setUsername(user);
+			a.setPass(pass);
+			a.setStatus(status);
+			a.setNumberofCourse(number);
+
+			if (a.getNumberofCourse() > 0)
+			{
+				for (int z = 0; z < a.getNumberofCourse(); ++z) {
+					getline(ss, course, ',');
+					a.s_ListCourse[z].ID = course;
+					getline(ss, _class, ',');
+					a.s_ListCourse[z].className = _class;
+				}
+			}
+			arrClass[i].student[j] = a;
+		}
+		fin.close();
+	}
+>>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
 }
 
 void Semester::loadLecturersToTxt(ofstream& fout)
@@ -1500,7 +1571,7 @@ void Semester::CourseOption(){
 			system("cls");
             case 1:
                 loadCoursesFromCSV(fin);
-				//system("pause");
+				system("pause");
                 break;
             case 2:
                 ManuallyAddNewCourse();

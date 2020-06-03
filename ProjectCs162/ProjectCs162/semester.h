@@ -79,7 +79,7 @@ public:
     void loadEachClassToTxt(ofstream& fout);
     void loadClassesFromTxt(ifstream& fin);
     void loadLecturersToTxt(ofstream& fout); // ending 
-    void loadEachClassFromTxt(ifstream& fin); // beginning, condition 2
+    void loadEachClassFromTxt(ifstream& fin); // beginning, condition 2q
     void loadLecturersFromTxt(ifstream& fin); // beginning, condition 2 
     // void checkStaffsFromTxt(ifstream& fin); // check username + pass
     void loadAllCoursesToTxt(ofstream& fout); // ending, thong tin chung        
@@ -146,10 +146,10 @@ public:
         total_class = 0;
         total_course = 0;
         total_staff = 0;
-		max_class = 15;
+		max_class = 20;
 		max_staff = 10;
 		max_course = 30;
-		max_lecturer = 15;
+		max_lecturer = 20;
 		arrLecturer = new Lecturer[max_lecturer];
 		arrClass = new Class[max_class];
 		arrStaff = new Staff[max_staff];
