@@ -1022,7 +1022,7 @@ void Semester::loadEachClassToTxt(ofstream& fout)
                         fout << arrClass[i].student[j].s_ListCourse[z].className << ',';
                     }
                     fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].ID << ',';
-                    fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].className << '\n';
+                    fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].className;
                 }
                 fout << endl;
             }
@@ -1069,7 +1069,7 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 
     for (int i = 0; i < total_class; ++i)
     {
-        while (arrClass[i].totalStudent > arrClass[i].max_student)
+        while (arrClass[i].totalStudent >= arrClass[i].max_student)
             arrClass[i].resizeClass();
         fin.open(arrClass[i].getClassName() + "-Students.txt");
         for (int j = 0; j < arrClass[i].totalStudent; ++j)
@@ -1234,6 +1234,8 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
             a.setGender(gender);
             a.L_totalCourse = numofCourse;
 
+            while (a.L_totalCourse >= a.L_maxCourse) a.resizeLecturer();
+
             for (int i = 0; i < a.L_totalCourse; ++i)
             {
                 getline(ss, course, ',');
@@ -1297,8 +1299,8 @@ void Semester::loadAllCoursesFromTxt(ifstream& fin)
 
         fin >> total;
         total_course = total;
-		while (total_course > max_course)
-			resizeArrCourse();
+
+		while (total_course >= max_course) resizeArrCourse();
         fin.ignore();
 
         for (int i = 0; i < total_course; ++i) // co 2 cach input: while (getline) / for ...
@@ -1405,7 +1407,7 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
         if (fin.is_open())
         {
             fin >> arrCourse[i].c_totalStudent;
-			while (arrCourse[i].c_totalStudent > arrCourse[i].c_maxStudent)
+			while (arrCourse[i].c_totalStudent >= arrCourse[i].c_maxStudent)
 				arrCourse[i].resizeCourse();
             fin.ignore();
             if (arrCourse[i].point == true)
@@ -1708,8 +1710,6 @@ void Semester::LecturerMenu(string _LUsername){
         }
     }while(choose);
 }
-
-
 
 void Semester::viewCoursesofLecturer(string _LUsername) {
 	Lecturer L = getLecturer(_LUsername);
@@ -2319,7 +2319,7 @@ void Semester::viewScoreOfACourse()
 void Semester::resizeArrClass() {
 	max_class += 5;
 	Class* new_arrClass = new Class[max_class];
-	for (int i = 0; i < total_class; ++i) 
+	for (int i = 0; i < max_class - 5; ++i) 
 		new_arrClass[i] = arrClass[i];
 	delete[] arrClass;
 	arrClass = new_arrClass;
@@ -2328,7 +2328,7 @@ void Semester::resizeArrClass() {
 void Semester::resizeArrCourse() {
 	max_course += 5;
 	Course* new_arrCourse = new Course[max_course];
-	for (int i = 0; i < total_course; ++i)
+	for (int i = 0; i < max_course - 5; ++i)
 		new_arrCourse[i] = arrCourse[i];
 	delete[] arrCourse;
 	arrCourse = new_arrCourse;
@@ -2336,7 +2336,7 @@ void Semester::resizeArrCourse() {
 void Semester::resizeArrStaff() {
 	max_staff += 5;
 	Staff* new_arrStaff = new Staff[max_staff];
-	for (int i = 0; i < total_staff; ++i)
+	for (int i = 0; i < max_staff - 5; ++i)
 		new_arrStaff[i] = arrStaff[i];
 	delete[] arrStaff;
 	arrStaff = new_arrStaff;
@@ -2344,7 +2344,7 @@ void Semester::resizeArrStaff() {
 void Semester::resizeArrLecturer() {
 	max_lecturer += 5;
 	Lecturer* new_arrLecturer = new Lecturer[max_lecturer];
-	for (int i = 0; i < total_lecturer; ++i)
+	for (int i = 0; i < max_lecturer - 5; ++i)
 		new_arrLecturer[i] = arrLecturer[i];
 	delete[] arrLecturer;
 	arrLecturer = new_arrLecturer;
