@@ -138,9 +138,10 @@ void Semester::addCourseToClass(string _courseID, string _className)
     }
 
     Lecturer &_lecturer(arrLecturer[pos_Lecturer]);
-    if (_lecturer.L_totalCourse == _lecturer.L_maxCourse) _lecturer.resizeLecturer();
-    _lecturer.L_ListCourse[_lecturer.L_totalCourse++] = _courseID;
-    
+    if (_lecturer.L_totalCourse == _lecturer.L_maxCourse) _lecturer.resizeLecturer(); 
+    _lecturer.L_ListCourse[_lecturer.L_totalCourse].courseID = _courseID;
+	_lecturer.L_ListCourse[_lecturer.L_totalCourse++].className = _className;
+
     for (int i = 0; i < _class.totalStudent; ++i){
         _class.student[i].s_ListCourse[_class.student[i].numberofCourse].ID = _courseID;
 		_class.student[i].s_ListCourse[_class.student[i].numberofCourse].className = _className;
@@ -649,7 +650,7 @@ void Semester::addStudentToCourse(){
 					arrClass[i].student[j].s_ListCourse[k].className = _classCourse;
                     k++;
                     arrClass[i].student[j].numberofCourse = k;
-                    break;;
+                    break;
                 }
             }
             break;
@@ -1043,6 +1044,8 @@ void Semester::loadClassesFromTxt(ifstream& fin)
     {
         getline(fin, n);
         total_class = stoi(n);
+		while (total_class > max_class)
+			resizeArrClass();
         for (int i = 0; i < total_class; ++i)
         {
             getline(fin, line);
@@ -1067,6 +1070,8 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 
     for (int i = 0; i < total_class; ++i)
     {
+        while (arrClass[i].totalStudent > arrClass[i].max_student)
+            arrClass[i].resizeClass();
         fin.open(arrClass[i].getClassName() + "-Students.txt");
         for (int j = 0; j < arrClass[i].totalStudent; ++j)
         {
@@ -1131,12 +1136,14 @@ void Semester::loadLecturersToTxt(ofstream& fout)
                 fout << arrLecturer[i].L_totalCourse << ',';
                 for (int j = 0; j < arrLecturer[i].L_totalCourse - 1; ++j)
                 {
-                    fout << arrLecturer[i].L_ListCourse[j] << ',';
+                    fout << arrLecturer[i].L_ListCourse[j].courseID << ',';
+					fout << arrLecturer[i].L_ListCourse[j].className << ',';
                 }
-                fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1] << '\n';
+				if (arrLecturer[i].L_totalCourse >= 1) {
+					fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1].courseID << ',';
+					fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1].className << '\n';
+				}
             }
-			if(arrLecturer[i].L_totalCourse > 0)
-				fout << arrLecturer[i].L_ListCourse[arrLecturer[i].L_totalCourse - 1] << '\n';
             else fout << 0 << '\n';
         }
         fout.close();
@@ -1152,9 +1159,12 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
         int total;
         fin >> total;
         total_lecturer = total;
+		while (total_lecturer > max_lecturer)
+			resizeArrLecturer();
+		
         fin.ignore();
         
-        string line, user, pass, name, degree, gen, course, num;
+        string line, user, pass, name, degree, gen, course, num, _class;
         int numofCourse, count = 0;
         bool gender;
         
@@ -1182,7 +1192,9 @@ void Semester::loadLecturersFromTxt(ifstream& fin)
             for (int i = 0; i < a.L_totalCourse; ++i)
             {
                 getline(ss, course, ',');
-                a.L_ListCourse[i] = course; // co the bug o day
+                a.L_ListCourse[i].courseID = course; // co the bug o day
+				getline(ss, _class, ',');
+				a.L_ListCourse[i].className = _class; // co the bug o day
             }
 
             arrLecturer[count] = a;
@@ -1240,7 +1252,10 @@ void Semester::loadAllCoursesFromTxt(ifstream& fin)
 
         fin >> total;
         total_course = total;
+		while (total_course > max_course)
+			resizeArrCourse();
         fin.ignore();
+
         for (int i = 0; i < total_course; ++i) // co 2 cach input: while (getline) / for ...
         {
             getline(fin, line);
@@ -1308,16 +1323,27 @@ void Semester::loadEachCourseToTxt(ofstream& fout)
                 for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
                 {
                     fout << arrCourse[i].c_ListStudent[j] << ',' << arrCourse[i].Check[j].score[0] << ',' << arrCourse[i].Check[j].score[1]
-                        << ',' << arrCourse[i].Check[j].score[2] << ',' << arrCourse[i].Check[j].score[3] << '\n';
+                        << ',' << arrCourse[i].Check[j].score[2] << ',' << arrCourse[i].Check[j].score[3] << ',';
+                    for (int z = 0; z < 9; ++z)
+                    {
+                        fout << arrCourse[i].Check[j].attendance[z] << ',';
+                    }
+                    fout << arrCourse[i].Check[j].attendance[9] << '\n';
                 }
             }
             else
             {
                 for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
                 {
-                    fout << arrCourse[i].c_ListStudent[j] << '\n';
+                    fout << arrCourse[i].c_ListStudent[j] << ',';
+                    for (int z = 0; z < 9; ++z)
+                    {
+                        fout << arrCourse[i].Check[j].attendance[z] << ',';
+                    }
+                    fout << arrCourse[i].Check[j].attendance[9] << '\n';
                 }
             }
+
             fout.close();
         }
         else cout << "Cannot open file output! ";
@@ -1334,6 +1360,8 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
         if (fin.is_open())
         {
             fin >> arrCourse[i].c_totalStudent;
+			while (arrCourse[i].c_totalStudent > arrCourse[i].c_maxStudent)
+				arrCourse[i].resizeCourse();
             fin.ignore();
             if (arrCourse[i].point == true)
             {
@@ -1345,14 +1373,24 @@ void Semester::loadEachCourseFromTxt(ifstream& fin)
                     getline(ss, arrCourse[i].Check[j].score[0], ',');
                     getline(ss, arrCourse[i].Check[j].score[1], ',');
                     getline(ss, arrCourse[i].Check[j].score[2], ',');
-                    getline(ss, arrCourse[i].Check[j].score[3], '\n');
+                    getline(ss, arrCourse[i].Check[j].score[3], ',');
+                    for (int z = 0; z < 10; ++z)
+                    {
+                        getline(ss, arrCourse[i].Check[j].attendance[z], ',');
+                    }
                 }
             }
             else
             {
                 for (int j = 0; j < arrCourse[i].c_totalStudent; ++j)
                 {
-                    getline(fin, arrCourse[i].c_ListStudent[j], '\n');
+                    getline(fin, line);
+                    stringstream ss (line);
+                    getline(ss, arrCourse[i].c_ListStudent[j], ',');
+                    for (int z = 0; z < 10; ++z)
+                    {
+                        getline(ss, arrCourse[i].Check[j].attendance[z], ',');
+                    }
                 }
             }
             fin.close();
@@ -1491,7 +1529,7 @@ void Semester::CourseOption(){
                 viewListLecturer();
 				system("pause");
 				break;
-            case 10:
+            case 9:
                 break;
             default:
                 break;
@@ -1526,7 +1564,29 @@ void Semester::ScoreboardOption(){
     }
 }
 void Semester::AttendenceListOption(){
-    
+	int choose;
+	ofstream fout;
+	string _courseID, _className;
+	do {
+		system("cls");
+		cout << "0. Exit\n"
+			<< "1. View attendance list\n"
+			<< "2. Export a attendance list to a csv file\n";
+		cout << "Choose an option: ";
+		cin >> choose;
+		if (choose == 1) {
+			cout << "Which course do you want to view score of? ";
+			cin >> _courseID;
+			cout << "Of Class? ";
+			cin >> _className;
+			viewAttendanceListOfACourse(_courseID, _className);
+			system("pause");
+		}
+		else if (choose == 2) {
+			exportAttendanceList(fout);
+			system("pause");
+		}
+	} while (choose);
 }
 
 void Semester::StudentMenu(string _username){
@@ -1546,7 +1606,7 @@ void Semester::StudentMenu(string _username){
 				system("cls");
 				CheckIn(_ID);
 				system("pause");
-				;
+				break;
 			case 2:
 				system("cls");
 				viewCheckInResult(_ID);
@@ -1613,7 +1673,7 @@ void Semester::viewCoursesofLecturer(string _LUsername) {
 		system("cls");
 		cout << "NO  " << "Course ID    " << "Class     " << "Day of week    " << "Time start    " << "Time finish" << endl;
 		for (int i = 0; i < L.L_totalCourse; ++i) {
-			Course c = getCourseOfLecturer(L.L_ListCourse[i], _LUsername);
+			Course c = getCourseOfLecturer(L.L_ListCourse[i].courseID, _LUsername);
 			if (c.getStatus() == true) {
 				cout << setw(4) << left << i + 1 << setw(13) << left << c.getID() << setw(10) << left << c.getClass() << setw(15) << left << c.getDoW() << c.getsHour() << ":" << setw(11) << left << c.getsMin() << c.geteHour() << ":" << c.geteMin() << endl;
 			}
@@ -1623,7 +1683,7 @@ void Semester::viewCoursesofLecturer(string _LUsername) {
 		cin >> choose;
 		if(choose == 1)
 		if (choose) {
-			Course c = getCourseOfLecturer(L.L_ListCourse[choose - 1], _LUsername);
+			Course c = getCourseOfLecturer(L.L_ListCourse[choose - 1].courseID, _LUsername);
 			for (int i = 0; i < c.c_totalStudent; ++i) {
 				Student s = getStudent(c.c_ListStudent[i]);
 				if (s.getStatus() == true)
@@ -1672,7 +1732,7 @@ void Semester::viewAttendanceList(string _LUsername) {
 		system("cls");
 		cout << "No   " << "Course ID    " << "Class" << endl;
 		for (int i = 0; i < L.L_totalCourse; ++i) {
-			Course c = getCourseOfLecturer(L.L_ListCourse[i], _LUsername);
+			Course c = getCourseOfLecturer(L.L_ListCourse[i].courseID, _LUsername);
 			if (c.getStatus() == true)
 				cout << setw(5) << left << i + 1 << setw(13) << left << c.getID() << c.getClass() << endl;
 		}
@@ -1680,7 +1740,7 @@ void Semester::viewAttendanceList(string _LUsername) {
 		cout << "\nChoose a course to view attendance list: ";
 		cin >> choose;
 		if (choose) {
-			Course realC = getCourseOfLecturer(L.L_ListCourse[choose - 1], _LUsername);
+			Course realC = getCourseOfLecturer(L.L_ListCourse[choose - 1].courseID, _LUsername);
 			cout << endl;
 			viewAttendanceListOfACourse(realC.getID(), realC.getClass());
 			system("pause");
@@ -1689,6 +1749,10 @@ void Semester::viewAttendanceList(string _LUsername) {
 }
 
 void Semester::viewAttendanceListOfACourse(string _courseID, string _className) {
+	if (isCourseActive(_courseID, _className) == false) {
+		cout << "This course does not exist!" << endl;
+		return;
+	}
 	Course c = getCourse(_courseID, _className);
 	int s_Day, s_Month, s_Year;
 	int length = lengthCourse(_courseID, _className);
@@ -2086,6 +2150,8 @@ void Semester::loadStaffsFromTxt(ifstream& fin)
     if (fin.is_open())
     {
         fin >> total_staff;
+		while (total_staff > max_staff)
+			resizeArrStaff();
         fin.ignore();
         string line, user, name, pass, gen;
         bool gender;
@@ -2128,7 +2194,7 @@ void Semester::loadScoreBoard(ifstream& fin)
 
     int ind = 0;
 
-    fin.open(ptr[1] + "-" + ptr[0] + "-" + "Scoreboard.csv");
+    fin.open(ptr[0] + "-" + ptr[1] + "-" + "Scoreboard.csv");
     if (fin.is_open())
     {
         getline(fin, ptr[2], '\n');
@@ -2213,6 +2279,7 @@ void Semester::resizeArrClass() {
 	delete[] arrClass;
 	arrClass = new_arrClass;
 }
+
 void Semester::resizeArrCourse() {
 	max_course += 5;
 	Course* new_arrCourse = new Course[max_course];
@@ -2362,22 +2429,24 @@ void Semester::getTomorow(int& day, int& month, int& year) {
 	{
 		if (day >= 1 && day <= 30)
 			day++;
-		if (day == 31 && month == 12) {
+		else if (day == 31 && month == 12) {
 			day = 1;
 			month = 1;
 			year++;
 		}
-		if (day == 31 && month != 12)
+		else if (day == 31 && month != 12) {
+			day = 1;
 			month++;
+		}
 	}
-	if (month == 4 || month == 6 || month == 9 || month == 11)
+	else if(month == 4 || month == 6 || month == 9 || month == 11)
 	{
 		if (day >= 1 && day <= 29)
 			day++;
-		if (day == 30)
+		else if (day == 30)
 			month++;
 	}
-	if (month == 2) {
+	else if (month == 2) {
 		if (year % 4 == 0)
 			if (year % 100 == 0 and year % 400 != 0)
 				if (day >= 1 and day <= 27)
@@ -2433,7 +2502,6 @@ void Semester::viewStudentCourseNow(string _studentID) {
 						for (int x = 0; x < total_course; ++x) {
 							if (arrCourse[x].getID() == a.s_ListCourse[i].ID && arrCourse[x].getClass() == a.s_ListCourse[i].className) {
 								int days = getDaysBetween(arrCourse[x].getStartDate(), arrCourse[x].getDoW());
-								cout << days << endl;
 								int pos = days / 7;
 								for (int y = 0; y < arrCourse[x].c_totalStudent; ++y)
 									if (arrCourse[x].c_ListStudent[y] == _studentID)
@@ -2544,4 +2612,107 @@ void Semester::exportScore(ofstream& fout)
         }
     }
     if (exist == 0) cout << "This course has no scoreboard yet! ";
+}
+
+void Semester::exportAttendanceList(ofstream& fout) {
+	string _courseID, _className;
+	cout << "Which course do you want to export scoreboard? ";
+	cin >> _courseID;
+	cout << "Of which class? ";
+	cin >> _className;
+	Course c = getCourse(_courseID, _className);
+	if (c.getStatus() == false) {
+		cout << "This course does not exist!" << endl;
+		return;
+	}
+	string link = _courseID + "-" + _className + "-attendance.csv";
+	fout.open(link);
+	fout << " ", ",";
+	int s_Day, s_Month, s_Year;
+	int length = lengthCourse(_courseID, _className);
+	int days = length / 7;
+	days++;
+	stringstream ss(c.getStartDate());
+	int startDate = 0;
+	ss >> startDate;
+	s_Day = startDate % 100;
+	startDate /= 100;
+	s_Month = startDate % 100;
+	startDate /= 100;
+	s_Year = startDate;
+	stringstream convert(c.getDoW());
+	int DoW = 2;
+	convert >> DoW;
+	int between = DoW - 2;
+	for (int j = 0; j < between; ++j)
+		getTomorow(s_Day, s_Month, s_Year);
+	fout << "Student ID " << ",";
+	for (int j = 0; j < days; ++j) {
+		if (s_Day >= 10)
+			fout << s_Day << "/";
+		else
+			fout << "0" << s_Day << "/";
+		if (s_Month >= 10)
+			fout << s_Month << "/";
+		else
+			fout << "0" << s_Month << "/";
+		if (j == days - 1) {
+			fout << s_Year << "\n";
+			break;
+		}
+		fout << s_Year << ",";
+		getWeekAfter(s_Day, s_Month, s_Year);
+	}
+	for (int i = 0; i < c.c_totalStudent; ++i) {
+		fout << c.c_ListStudent[i] << ",";
+		for (int j = 0; j < days; ++j) {
+			if (j == days - 1) {
+				fout << c.Check[i].attendance[j] << "\n";
+				break;
+			}
+			fout << c.Check[i].attendance[j] << ",";
+		}
+	}
+	fout.close();
+}
+
+void Semester::runProgram(ifstream& fin, ofstream& fout) {
+	ifstream f1;
+	ofstream f2;
+	f1.open("-.txt");
+	string check;
+	if (f1.is_open() == false) cout << "Can not open file to check!\n";
+	else {
+		f1 >> check;
+		if (check == "0") {
+			loadStudentsFromCSV(fin);
+			loadLecturersFromCSV(fin);
+			loadCoursesFromCSV(fin);
+			loadStaffsFromCSV(fin);
+		}
+		else {
+			loadLecturersFromTxt(fin);
+			loadClassesFromTxt(fin);
+			loadEachClassFromTxt(fin);
+			loadAllCoursesFromTxt(fin);
+			loadEachCourseFromTxt(fin);
+			loadStaffsFromTxt(fin);
+		}
+		Login();
+		loadClassesToTxt(fout);
+		loadEachClassToTxt(fout);
+		loadAllCoursesToTxt(fout);
+		loadEachCourseToTxt(fout);
+		loadLecturersToTxt(fout);
+		loadStaffsToTxt(fout);
+
+		DeallocateAll();
+
+		f1.close();
+		f2.open("-.txt");
+		f2 << "1";
+		f2.close();
+
+		cout << "\nSucceeded\n" << endl;
+	}
 }

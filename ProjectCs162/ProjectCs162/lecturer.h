@@ -3,7 +3,10 @@
 
 #include "include.h"
 
-
+struct ListCourse_L {
+	string courseID;
+	string className;
+};
 
 class Lecturer{
 private:
@@ -12,7 +15,7 @@ private:
 public:
     int L_totalCourse;
 	int L_maxCourse;
-    string* L_ListCourse;
+    ListCourse_L* L_ListCourse;
     
     void setName(string _name);
     void setDegree(string _degree);
@@ -30,7 +33,7 @@ public:
     Lecturer(){
         L_totalCourse = 0;
 		L_maxCourse = 10;
-		L_ListCourse = new string[L_maxCourse];
+		L_ListCourse = new ListCourse_L[L_maxCourse];
     }
 };
 

@@ -91,6 +91,7 @@ public:
     void loadScoreBoard(ifstream& fin);
     void viewScoreOfACourse();
     void exportScore(ofstream& fout);
+	void exportAttendanceList(ofstream& fout);
 
     void StaffMenu(string _username);
     void ClassOption();
@@ -138,6 +139,7 @@ public:
 
 	void DeallocateAll();
 
+	void runProgram(ifstream& fin, ofstream& fout);
 
     Semester(){
         total_lecturer = 0;
