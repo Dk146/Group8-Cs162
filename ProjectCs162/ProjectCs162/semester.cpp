@@ -103,29 +103,15 @@ void Semester::addCourseToClass(string _courseID, string _className)
     int pos_Class = 0;
     int pos_Lecturer = 0;
 
-<<<<<<< HEAD
-    for (int i = 0; i < total_course; ++i)
-    {
-        if (arrCourse[i].getID() == _courseID)
-        {
-=======
     for (int i = 0; i < total_course; ++i){
         if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className){
->>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
             pos_Course = i;
             break;
         }
     }
-
-<<<<<<< HEAD
-    for (int i = 0; i < total_class; ++i)
-    {
-        if (arrClass[i].getClassName() == _className)
-        {
-=======
+   
     for (int i = 0; i < total_class; ++i){
         if (arrClass[i].getClassName() == _className ){
->>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
             pos_Class = i;
             break;
         }
@@ -148,12 +134,11 @@ void Semester::addCourseToClass(string _courseID, string _className)
     }
 
     Lecturer &_lecturer(arrLecturer[pos_Lecturer]);
-<<<<<<< HEAD
+
     if (_lecturer.L_totalCourse == _lecturer.L_maxCourse) _lecturer.resizeLecturer(); 
-=======
+
 	if (_lecturer.L_totalCourse == _lecturer.L_maxCourse)
 		_lecturer.resizeLecturer();
->>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
     _lecturer.L_ListCourse[_lecturer.L_totalCourse].courseID = _courseID;
 	_lecturer.L_ListCourse[_lecturer.L_totalCourse++].className = _className;
 
@@ -1036,18 +1021,10 @@ void Semester::loadEachClassToTxt(ofstream& fout)
                         fout << arrClass[i].student[j].s_ListCourse[z].ID << ',';
                         fout << arrClass[i].student[j].s_ListCourse[z].className << ',';
                     }
-<<<<<<< HEAD
                     fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].ID << ',';
                     fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].getNumberofCourse() - 1].className << '\n';
                 }
-=======
-					if (arrClass[i].student[j].numberofCourse >= 1) {
-						fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].ID << ",";
-						fout << arrClass[i].student[j].s_ListCourse[arrClass[i].student[j].numberofCourse - 1].className;
-					}
-                }
                 fout << endl;
->>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
             }
             fout.close();
         }
@@ -1090,7 +1067,6 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
     int number;
     bool gender, status;
 
-<<<<<<< HEAD
     for (int i = 0; i < total_class; ++i)
     {
         while (arrClass[i].totalStudent > arrClass[i].max_student)
@@ -1138,7 +1114,6 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
         }
         fin.close();
     }
-=======
 	for (int i = 0; i < total_class; ++i)
 	{
 		fin.open(arrClass[i].getClassName() + "-Students.txt");
@@ -1185,7 +1160,6 @@ void Semester::loadEachClassFromTxt(ifstream& fin)
 		}
 		fin.close();
 	}
->>>>>>> f23978b1050ad1f9275b19532ce82285d06c82d8
 }
 
 void Semester::loadLecturersToTxt(ofstream& fout)
