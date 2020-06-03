@@ -103,14 +103,14 @@ void Semester::addCourseToClass(string _courseID, string _className){
     int pos_Lecturer = 0;
 
     for (int i = 0; i < total_course; ++i){
-        if (arrCourse[i].getID() == _courseID){
+        if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className){
             pos_Course = i;
             break;
         }
     }
 
     for (int i = 0; i < total_class; ++i){
-        if (arrClass[i].getClassName() == _className){
+        if (arrClass[i].getClassName() == _className ){
             pos_Class = i;
             break;
         }
@@ -381,10 +381,10 @@ void Semester::viewListOfClasses()
 //12
 void Semester::viewListOfStudent(int _pos)
 {
-	cout << "ID           " << "Full Name             " << "Gender      " << "Day of birth" << endl;
+	cout << "ID           " <<static_cast<char>(179)<< "Full Name             " << static_cast<char>(179)<< "Gender      " << static_cast<char>(179)<< "Day of birth" << endl;
 	for (int i = 0; i < arrClass[_pos].totalStudent; i++) {
 		if (arrClass[_pos].student[i].getStatus() == true)
-			cout << setw(13) << left << arrClass[_pos].student[i].getID() << setw(22) << left << arrClass[_pos].student[i].getFullName() << setw(12) << left << arrClass[_pos].student[i].getGender() << setw(13) << left << arrClass[_pos].student[i].getDoB() << endl;
+			cout << setw(13) << left << arrClass[_pos].student[i].getID() << static_cast<char>(179) << setw(22) << left << arrClass[_pos].student[i].getFullName() << static_cast<char>(179) << setw(12) << left << arrClass[_pos].student[i].getGender() << static_cast<char>(179) << setw(13) << left << arrClass[_pos].student[i].getDoB() << endl;
 	}
 }
 
