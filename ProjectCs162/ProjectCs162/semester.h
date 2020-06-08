@@ -103,7 +103,7 @@ public:
     void CheckIn(string _studentID); 
     void viewCheckInResult(string _ID); 
     void viewScheduleOfStudent(string _ID); 
-    void viewScore(string _ID); // chua lam
+    void viewScore(string _ID); 
 	bool isCourseNow(string _courseID, string _classCourse);
 	void viewStudentCourseNow(string _studentID);
 	int rdn(int y, int m, int d);
@@ -118,8 +118,8 @@ public:
     void viewAttendanceList(string _LUsername);
 	void viewAttendanceListOfACourse(string _courseID, string _className);
     void editAnAttendance(string _courseID, string _className, string _studentID); // chua lam
-    void editGradeOfAStudent(); // chua lam
-    void viewAScoreBoard(); // chua lam
+    void editGradeOfAStudent(string _LUsername); 
+    void viewAScoreBoard(string _LUsername); 
     
     void Login();
     void StaffOption(string _username);
