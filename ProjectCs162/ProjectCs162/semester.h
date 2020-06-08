@@ -58,6 +58,8 @@ public:
     void viewProfileLecturer(string _lecturerID);
     void viewListLecturer(); //23
     
+	bool isStudentInCourse(string _studentID, string _courseID, string _className);
+	bool isStudentInClass(string _studentID, string _className);
     bool isCourseActive(string _courseID, string _classCourse); // check Course's status
     bool isStudentActive(string _studentID); // check Student's status
     string getClassOfStudent(string _studentID);

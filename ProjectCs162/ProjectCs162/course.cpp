@@ -121,7 +121,7 @@ void Course::resizeCourse() {
 	c_maxStudent += 5;
 	string* new_listStudent = new string[c_maxStudent];
 	check* new_Check = new check[c_maxStudent];
-	for (int i = 0; i < c_totalStudent; ++i) {
+	for (int i = 0; i < c_maxStudent - 5; ++i) {
 		new_Check[i] = Check[i];
 		new_listStudent[i] = c_ListStudent[i];
 	}

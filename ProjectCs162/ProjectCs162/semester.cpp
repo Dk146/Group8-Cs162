@@ -455,6 +455,10 @@ void Semester::ManuallyAddNewCourse(){
     new_course.setDoW(_DoW);
 
 	addCourseToClass(new_course.getID(), new_course.getClass());
+	if (isCourseActive(new_course.getID(), new_course.getClass()))
+		cout << "Successful!" << endl;
+	else
+		cout << "Unsuccessful! \n";
 }
 
 //16
@@ -486,30 +490,35 @@ void Semester::editAnExistingCourse(){
                         cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].setCourseName(all);
+						cout << "Successful! \n";
                         break;
                     case 2:
                         cout << "Room: " ;
                         cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].setRoom(all);
+						cout << "Successful! \n";
                         break;
                     case 3:
                         cout << "DoW: ";
                         cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].setDoW(all);
+						cout << "Successful! \n";
                         break;
                     case 4:
                         cout << "Start date: ";
                         cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].setStartDate(all);
+						cout << "Successful! \n";
                         break;
                     case 5:
                         cout << "End date: ";
                         cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].setEndDate(all);
+						cout << "Successful! \n";
                         break;
                     case 6:
                         cout << "Start hour: ";
@@ -528,6 +537,7 @@ void Semester::editAnExistingCourse(){
                         cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].seteMin(all);
+						cout << "Successful! \n";
                         break;
                     default:
                         break;
@@ -549,9 +559,14 @@ void Semester::removeACourse(){
     for (int i = 0; i < total_course; ++i){
         if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _classCourse){
             arrCourse[i].setStatus(0);
+			if (isCourseActive(arrCourse[i].getID(), arrCourse[i].getClass()) == false)
+				cout << "Removed successful! \n";
+			else
+				cout << "Removed unsuccessful! \n";
             break;
         }
     }
+	
 }
 
 //18
@@ -617,6 +632,8 @@ void Semester::removeAStudentFromACourse(){
             break;
         }
     }
+
+	cout << "Removed Successful!" << endl;
 }
 
 //19
@@ -635,6 +652,10 @@ void Semester::addStudentToCourse(){
 	cin >> _classCourse;
 	if (isCourseActive(_courseID, _classCourse) == false) {
 		cout << "This course does not exist! \n";
+		return;
+	}
+	if (isStudentInCourse(_studentID, _courseID, _classCourse) == true) {
+		cout << "This student has already in course! \n";
 		return;
 	}
     
@@ -665,6 +686,10 @@ void Semester::addStudentToCourse(){
             break;
         }
     }
+	if (isStudentInCourse(_studentID, _courseID, _classCourse) == true)
+		cout << "Added successful \n";
+	else
+		cout << "Added unsuccessful \n";
 }
 
 
@@ -973,6 +998,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
             addCourseToClass(id, _class);
         }
         fin.close();
+		cout << "Imported successful! \n";
     }
     else
         cout << "Cannot open file!" << endl;
@@ -1594,27 +1620,32 @@ void Semester::ScoreboardOption(){
     ifstream fin;
     ofstream fout;
     int choose;
-    cout << "\nScore Board: \n"
-        << "1. Import a course's scoreboard. \n"
-        << "2. Search and view the scoreboard of a course \n"
-        << "3. Export a course's scoreboard \n";
-    cout << "Choose an option: ";
-    cin >> choose;
-    switch (choose)
-    {
-    case 1:
-        loadScoreBoard(fin);
-		system("pause");
-        break;
-    case 2:
-        viewScoreOfACourse();
-		system("pause");
-        break;
-    case 3: 
-        exportScore(fout);
-        system("pause");
-        break;
-    }
+	do {
+		cout << "\nScore Board: \n"
+			<< "0. Exit \n"
+			<< "1. Import a course's scoreboard \n"
+			<< "2. Search and view the scoreboard of a course \n"
+			<< "3. Export a course's scoreboard \n";
+		cout << "Choose an option: ";
+		cin >> choose;
+		switch (choose)
+		{
+		case 1:
+			loadScoreBoard(fin);
+			system("pause");
+			break;
+		case 2:
+			viewScoreOfACourse();
+			system("pause");
+			break;
+		case 3:
+			exportScore(fout);
+			system("pause");
+			break;
+		default:
+			break;
+		}
+	} while (choose);
 }
 void Semester::AttendenceListOption(){
 	int choose;
@@ -1645,9 +1676,11 @@ void Semester::AttendenceListOption(){
 void Semester::StudentMenu(string _username){
     int choose;
     string _ID = _username;
+	system("cls");
     do{
+		system("cls");
         cout << "\nStudent Menu: \n"
-            << "0. Exit \n"
+            << "0. Log out \n"
             << "1. Check in \n"
             << "2. View check in result \n"
             << "3. View schedules \n"
@@ -1668,6 +1701,7 @@ void Semester::StudentMenu(string _username){
             case 3:
 				system("cls");
 				viewScheduleOfStudent(_ID);
+				system("pause");
                 break;
             case 4:
                 system("cls");
@@ -1733,7 +1767,7 @@ void Semester::viewCoursesofLecturer(string _LUsername) {
 		system("cls");
 		cout << "NO  " << "Course ID    " << "Class     " << "Day of week    " << "Time start    " << "Time finish" << endl;
 		for (int i = 0; i < L.L_totalCourse; ++i) {
-			Course c = getCourseOfLecturer(L.L_ListCourse[i].courseID, _LUsername);
+			Course c = getCourse(L.L_ListCourse[i].courseID, L.L_ListCourse[i].className);
 			if (c.getStatus() == true) {
 				cout << setw(4) << left << i + 1 << setw(13) << left << c.getID() << setw(10) << left << c.getClass() << setw(15) << left << c.getDoW() << c.getsHour() << ":" << setw(11) << left << c.getsMin() << c.geteHour() << ":" << c.geteMin() << endl;
 			}
@@ -1741,9 +1775,8 @@ void Semester::viewCoursesofLecturer(string _LUsername) {
 		cout << "\n0. Exit\n";
 		cout << "\nChoose a course to view list of student: ";
 		cin >> choose;
-		if(choose == 1)
 		if (choose) {
-			Course c = getCourseOfLecturer(L.L_ListCourse[choose - 1].courseID, _LUsername);
+			Course c = getCourse(L.L_ListCourse[choose-1].courseID, L.L_ListCourse[choose-1].className);
 			for (int i = 0; i < c.c_totalStudent; ++i) {
 				Student s = getStudent(c.c_ListStudent[i]);
 				if (s.getStatus() == true)
@@ -1792,7 +1825,7 @@ void Semester::viewAttendanceList(string _LUsername) {
 		system("cls");
 		cout << "No   " << "Course ID    " << "Class" << endl;
 		for (int i = 0; i < L.L_totalCourse; ++i) {
-			Course c = getCourseOfLecturer(L.L_ListCourse[i].courseID, _LUsername);
+			Course c = getCourse(L.L_ListCourse[i].courseID, L.L_ListCourse[i].className);
 			if (c.getStatus() == true)
 				cout << setw(5) << left << i + 1 << setw(13) << left << c.getID() << c.getClass() << endl;
 		}
@@ -1800,7 +1833,7 @@ void Semester::viewAttendanceList(string _LUsername) {
 		cout << "\nChoose a course to view attendance list: ";
 		cin >> choose;
 		if (choose) {
-			Course realC = getCourseOfLecturer(L.L_ListCourse[choose - 1].courseID, _LUsername);
+			Course realC = getCourse(L.L_ListCourse[choose - 1].courseID, L.L_ListCourse[choose - 1].className);
 			cout << endl;
 			viewAttendanceListOfACourse(realC.getID(), realC.getClass());
 			system("pause");
@@ -2030,8 +2063,11 @@ void Semester::changePassStaff(string _username){
                 getline(cin, _confirmPass, '\n');
                 if (_newPassword != _confirmPass)
                     cout << "Wrong confirm Password. Please try again! \n";
-                else
-                    arrStaff[i].setPass(_newPassword);
+				else {
+					arrStaff[i].setPass(_newPassword);
+					cout << "Changed password successful! \n";
+					system("pause");
+				}
                 }while(_newPassword != _confirmPass);
             return;
         }
@@ -2051,8 +2087,11 @@ void Semester::changePassStudent(string _username){
                     getline(cin, _confirmPass, '\n');
                     if (_newPassword != _confirmPass)
                         cout << "Wrong confirm Password. Please try again! \n";
-                    else
-                        arrClass[i].student[j].setPass(_newPassword);
+					else {
+						arrClass[i].student[j].setPass(_newPassword);
+						cout << "Changed password successful!\n";
+						system("pause");
+					}
                 }while(_newPassword != _confirmPass);
                 return;
             }
@@ -2072,8 +2111,11 @@ void Semester::changePassLecturer(string _username){
                 getline(cin, _confirmPass, '\n');
                 if (_newPassword != _confirmPass)
                     cout << "Wrong confirm Password. Please try again! \n";
-                else
-                    arrLecturer[i].setPassword(_newPassword);
+				else {
+					arrLecturer[i].setPassword(_newPassword);
+					cout << "Changed password successful\n";
+					system("pause");
+				}
             }while(_newPassword != _confirmPass);
             return;
         }
@@ -2124,6 +2166,7 @@ void Semester::viewProfileStudent(string _studentID){
     cout << "Class: " << getClassOfStudent(_ID) << endl;
     cout << "Day of birth: " << a.getDoB() << endl;
     cout << "Gender: " << a.getGender() << endl;
+	system("pause");
 }
 
 string Semester::getClassOfStudent(string _studentID){
@@ -2143,6 +2186,7 @@ void Semester::viewProfileLecturer(string _lecturerID){
     cout << "Degree: " << a.getDegree() << endl;
     cout << "Username: " << a.getUserName() << endl;
     cout << "Gender: " << a.getGender() << endl;
+	system("pause");
 }
 
 Lecturer Semester::getLecturer(string _LecturerUser){
@@ -2279,6 +2323,7 @@ void Semester::loadScoreBoard(ifstream& fin)
             ++ind;
         }
         fin.close();
+		cout << "Successful!\n";
     }
     else cout << "Cannot open file input! ";
     
@@ -2584,17 +2629,25 @@ void Semester::CheckIn(string _ID) {
 
 void Semester::viewCheckInResult(string _studentID) {
 	Student s = getStudent(_studentID);
-	for (int i = 0; i < s.numberofCourse; ++i) {
-		if (isCourseActive(s.s_ListCourse[i].ID, s.s_ListCourse[i].className))
-			cout << i+1 << ". " << s.s_ListCourse[i].ID << " - " << s.s_ListCourse[i].className << endl;
-		else
-			cout << i+1 << ". This course has been removed" << endl;
-	}
 	int choose;
-	cout << "Choose a course to view attendance status: ";
-	cin >> choose;
-	choose--;
-	viewAStudentAttendanceOfACourse(_studentID, s.s_ListCourse[choose].ID, s.s_ListCourse[choose].className);
+	do {
+		system("cls");
+		cout << "0. Exit\n";
+		for (int i = 0; i < s.numberofCourse; ++i) {
+			if (isCourseActive(s.s_ListCourse[i].ID, s.s_ListCourse[i].className))
+				cout << i + 1 << ". " << s.s_ListCourse[i].ID << " - " << s.s_ListCourse[i].className << endl;
+			else
+				cout << i + 1 << ". This course has been removed" << endl;
+		}
+		cout << "Choose a course to view attendance status: ";
+		cin >> choose;
+		choose--;
+		if (choose!=-1)
+			viewAStudentAttendanceOfACourse(_studentID, s.s_ListCourse[choose].ID, s.s_ListCourse[choose].className);
+		choose++;
+		if (choose)
+			system("pause");
+	} while (choose);
 }
 
 void Semester::viewAStudentAttendanceOfACourse(string _studentID, string _courseID, string _className){
@@ -2649,13 +2702,15 @@ void Semester::exportScore(ofstream& fout)
     cout << "Of which course? ";
     getline(cin, course);
     int exist = 0;
+	string link;
 
     for (int i = 0; i < total_course; ++i)
     {
         if (arrCourse[i].getID() == course && arrCourse[i].getClass() == _class && arrCourse[i].point == true)
         {
             exist = 1;
-            fout.open("Scoreboard.csv");
+			link = "ScoreBoard-" + arrCourse[i].getID() + "-" + arrCourse[i].getClass() + ".csv";
+            fout.open(link);
             if (fout.is_open())
             {
                 fout << "ID, Midterm, Final, Bonus, Total\n";
@@ -2930,4 +2985,30 @@ void Semester::viewScore(string _ID)
 
         }
     }
+}
+
+bool Semester::isStudentInCourse(string _studentID, string _courseID, string _className) {
+	for (int i = 0; i < total_course; ++i) {
+		if (arrCourse[i].getID() == _courseID && arrCourse[i].getClass() == _className) {
+			for (int j = 0; j < arrCourse[i].c_totalStudent; ++j) {
+				if (arrCourse[i].c_ListStudent[j] == _studentID)
+					return true;
+			}
+			break;
+		}
+	}
+	return false;
+}
+
+bool Semester::isStudentInClass(string _studentID, string _className) {
+	for (int i = 0; i < total_class; ++i) {
+		if (arrClass[i].getClassName() == _className) {
+			for (int j = 0; j < arrClass[i].totalStudent; ++j) {
+				if (arrClass[i].student[j].getID() == _studentID)
+					return true;
+			}
+			break;
+		}
+	}
+	return false;
 }
