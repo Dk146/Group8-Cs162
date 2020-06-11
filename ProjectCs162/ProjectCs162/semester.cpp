@@ -473,6 +473,7 @@ void Semester::editAnExistingCourse(){
     cout << "Course ID: ";
     cin >> _courseID;
 	cout << "Class of Course: ";
+	cin >> _classCourse;
     if (isCourseActive(_courseID, _classCourse) == false){
         cout << "This course does not exist! \n";
         return;
