@@ -481,6 +481,7 @@ void Semester::editAnExistingCourse(){
     for (int i = 0; i < total_course; ++i){
         if(arrCourse[i].getID() == _courseID){
             do{
+				system("cls");
                 cout << "0. Exit \n"
                      << "1. Change course's name \n"
                      << "2. Change course's room \n"
@@ -532,18 +533,16 @@ void Semester::editAnExistingCourse(){
                         getline(cin, all, '\n');
                         arrCourse[i].setsHour(all);
                         cout << "Start min: ";
-                        cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].setsMin(all);
                         cout << "End hour: ";
-                        cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].seteHour(all);
                         cout << "End minute: ";
-                        cin.ignore();
                         getline(cin, all, '\n');
                         arrCourse[i].seteMin(all);
 						cout << "Successful! \n";
+						system("pause");
                         break;
                     default:
                         break;
@@ -953,7 +952,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
     cout << "Please input the link to Courses.csv: ";
-	fin.ignore();
+	cin.ignore();
     getline(cin, link);
     fin.open(link + "Courses.csv"); // khai quat
     if (fin.is_open())
