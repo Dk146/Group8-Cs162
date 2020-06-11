@@ -952,7 +952,7 @@ void Semester::loadCoursesFromCSV(ifstream& fin)
 {
     string link;
     cout << "Please input the link to Courses.csv: ";
-	fin.ignore();
+	cin.ignore();
     getline(cin, link);
     fin.open(link + "Courses.csv"); // khai quat
     if (fin.is_open())
