@@ -182,6 +182,11 @@ void Semester::ManuallyaddStudentToClass()
     cin.ignore();
     getline(cin, _className);
 
+	if (isStudentInClass(_ID, _className) == true) {
+		cout << "This student bas been in class \n";
+		return;
+	}
+
     for (int i = 0; i < total_class; ++i){
         if (arrClass[i].getClassName() == _className){
 			if (arrClass[i].totalStudent == arrClass[i].max_student)
@@ -1562,17 +1567,16 @@ void Semester::CourseOption(){
     ifstream fin;
         do{
 		system("cls");
-        cout << "\nCOURSE: \n"
-             << "0. Exit \n"
-             << "1. Import courses from a csv file \n"
-             << "2. Manually add a new course \n"
-             << "3. Edit an existing course \n"
-             << "4. Remove a course \n"
-             << "5. Remove a specific student from a course \n"
-             << "6. Add a specific student to a course \n"
-             << "7. View list of course in current semester \n"
-             << "8. View list of lecturer \n"
-             << "9. \n\n" ;
+		cout << "\nCOURSE: \n"
+			<< "0. Exit \n"
+			<< "1. Import courses from a csv file \n"
+			<< "2. Manually add a new course \n"
+			<< "3. Edit an existing course \n"
+			<< "4. Remove a course \n"
+			<< "5. Remove a specific student from a course \n"
+			<< "6. Add a specific student to a course \n"
+			<< "7. View list of course in current semester \n"
+			<< "8. View list of lecturer \n\n";
         cout << "Choose an option: ";
         cin >> choose;
         switch (choose) {
@@ -1608,8 +1612,6 @@ void Semester::CourseOption(){
                 viewListLecturer();
 				system("pause");
 				break;
-            case 9:
-                break;
             default:
                 break;
         }
@@ -2362,7 +2364,7 @@ void Semester::viewScoreOfACourse()
 
     if (arrCourse[index].point == false)
     {
-        cout << "This course has no scoreboard yet! ";
+        cout << "This course has no scoreboard yet! \n";
         return;
     }
 
@@ -2673,7 +2675,7 @@ void Semester::viewAStudentAttendanceOfACourse(string _studentID, string _course
 			for (int j = 0; j < between; ++j)
 				getTomorow(s_Day, s_Month, s_Year);
 			for (int j = 0; j < days; ++j) {
-				cout << s_Day << "/" << s_Month << "/" << s_Year << ": " << c.Check[i].attendance[j] << endl;
+				cout << setw(2) << right << s_Day << " /" << setw(2) << right << s_Month << " /" <<setw(5) << right << s_Year << ": " << setw(4) << right << c.Check[i].attendance[j] << endl;
 				getWeekAfter(s_Day, s_Month, s_Year);
 			}
 		}
@@ -2726,7 +2728,7 @@ void Semester::exportScore(ofstream& fout)
             else cout << "Cannot open file csv to output! ";
         }
     }
-    if (exist == 0) cout << "This course has no scoreboard yet! ";
+    if (exist == 0) cout << "This course has no scoreboard yet! \n";
 }
 
 void Semester::exportAttendanceList(ofstream& fout) {
@@ -2740,7 +2742,7 @@ void Semester::exportAttendanceList(ofstream& fout) {
 		cout << "This course does not exist!" << endl;
 		return;
 	}
-	string link = _courseID + "-" + _className + "-attendance.csv";
+	string link = "Attendance-" + _courseID + "-" + _className + ".csv";
 	fout.open(link);
 	fout << " ", ",";
 	int s_Day, s_Month, s_Year;
@@ -2789,6 +2791,7 @@ void Semester::exportAttendanceList(ofstream& fout) {
 		}
 	}
 	fout.close();
+	cout << "Exported successful\n";
 }
 
 void Semester::runProgram(ifstream& fin, ofstream& fout) {
@@ -2840,7 +2843,7 @@ void Semester::editGradeOfAStudent(string _LUsername)
         if (arrLecturer[i].getUserName() == _LUsername)
             pos_l = i;
     }
-
+	cout << "0. Exit \n";
     for (int i = 0; i < arrLecturer[pos_l].L_totalCourse; ++i)
     {
         cout << i + 1 << ". " << arrLecturer[pos_l].L_ListCourse[i].courseID << " - " << arrLecturer[pos_l].L_ListCourse[i].className << endl;
@@ -2909,40 +2912,48 @@ void Semester::editGradeOfAStudent(string _LUsername)
 
 void Semester::viewAScoreBoard(string _LUsername)
 {
-    int pos_l, choose;
-    for (int i = 0; i < total_lecturer; ++i)
-    {
-        if (arrLecturer[i].getUserName() == _LUsername) pos_l = i;
-    }
+	int choose;
+	do {
+		system("cls");
+		int pos_l;
+		for (int i = 0; i < total_lecturer; ++i)
+		{
+			if (arrLecturer[i].getUserName() == _LUsername) pos_l = i;
+		}
 
-    for (int i = 0; i < arrLecturer[pos_l].L_totalCourse; ++i)
-    {
-        cout << i + 1 << ". " << arrLecturer[pos_l].L_ListCourse[i].courseID << " - " << arrLecturer[pos_l].L_ListCourse[i].className << '\n';
-    }
+		cout << "0. Exit \n";
+		for (int i = 0; i < arrLecturer[pos_l].L_totalCourse; ++i)
+		{
+			cout << i + 1 << ". " << arrLecturer[pos_l].L_ListCourse[i].courseID << " - " << arrLecturer[pos_l].L_ListCourse[i].className << '\n';
+		}
 
-    cout << "Choose a course to view scoreboard: ";
-    cin >> choose;
-    choose -= 1;
+		cout << "Choose a course to view scoreboard: ";
+		cin >> choose;
+		choose -= 1;
 
-    int pos_c = -1;
-    for (int i = 0; i < total_course; ++i)
-    {
-        if (arrCourse[i].getID() == arrLecturer[pos_l].L_ListCourse[choose].courseID && arrCourse[i].getClass() == arrLecturer[pos_l].L_ListCourse[choose].className)
-            pos_c = i;
-    }
+		int pos_c = -1;
+		for (int i = 0; i < total_course; ++i)
+		{
+			if (arrCourse[i].getID() == arrLecturer[pos_l].L_ListCourse[choose].courseID && arrCourse[i].getClass() == arrLecturer[pos_l].L_ListCourse[choose].className)
+				pos_c = i;
+		}
 
-    if (pos_c == -1)
-    {
-        cout << "There is no such course! ";
-        return;
-    }
+		if (pos_c == -1)
+		{
+			cout << "There is no such course! ";
+			return;
+		}
 
-    for (int i = 0; i < arrCourse[pos_c].c_totalStudent; ++i)
-    {
-        cout << i + 1 << ". " << arrCourse[pos_c].c_ListStudent[i] << "  " << arrCourse[pos_c].Check[i].score[0]
-            << "  " << arrCourse[pos_c].Check[i].score[1] << "  " << arrCourse[pos_c].Check[i].score[2]
-            << "  " << arrCourse[pos_c].Check[i].score[3] << '\n';
-    }
+		for (int i = 0; i < arrCourse[pos_c].c_totalStudent; ++i)
+		{
+			cout << i + 1 << ". " << arrCourse[pos_c].c_ListStudent[i] << "  " << arrCourse[pos_c].Check[i].score[0]
+				<< "  " << arrCourse[pos_c].Check[i].score[1] << "  " << arrCourse[pos_c].Check[i].score[2]
+				<< "  " << arrCourse[pos_c].Check[i].score[3] << '\n';
+		}
+		choose++;
+		if (choose)
+			system("pause");
+	} while (choose);
 }
 
 void Semester::viewScore(string _ID)
