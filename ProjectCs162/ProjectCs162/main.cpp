@@ -16,6 +16,8 @@ int main(){
 
 	semester.runProgram(fin, fout);
 
+
+
     return 0;
 }
 

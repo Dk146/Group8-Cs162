@@ -1,3 +1,0 @@
-2
-CS162,intro to cs 2,19APCS1,I42,Dinh Ba Tien,dbtien,Tien si,Male,1,20200504,20200601,7,30,11,30,MON
-MTH252,calculus 2,19APCS2,I23,Nguyen Huu Anh,nhanh,Giao su,Male,1,20200504,20200601,13,30,17,30,SAT

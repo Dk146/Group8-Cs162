@@ -1,5 +1,8 @@
-﻿Username,Pass,Fullname,Degree,Gender
-dbtien,abcdef,Dinh Ba Tien,Tien si,Male
-nmhuy,abcdef,Nguyen Minh Huy,Thac si,Female
-nhanh,abcdef,Nguyen Huu Anh,Giao su,Male
-dnvu,dnvu,Duong Nguyen Vu,Giao su,Male
+Username,Pass,Fullname,Degree,Gender
+dbtien,1,Dinh Ba Tien,Tien si,Male
+nmhuy,1,Nguyen Minh Huy,Thac si,Female
+nhanh,1,Nguyen Huu Anh,Giao su,Male
+dnvu,1,Duong Nguyen Vu,Giao su,Male
+dctrang,1,Dang Cong Trang,Giao su,Male
+nqhuy,1,Ngo Quang Huy,Tien si,Male
+nhnha,1,Nguyen Huu Nha,Tien si,Male

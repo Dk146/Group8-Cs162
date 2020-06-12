@@ -1,3 +1,41 @@
 No,Course ID,Course name,Class,Lecturer username,Lecturer name,Lecturer degree,Lecturer gender,Start date,End date,Day of week,Start hour,Start minutes,End hour,End minute,Room
-1,CS162,intro to cs 2,19APCS1,dbtien,Dinh Ba Tien,Tien si,Male,20200504,20200601,MON,7,30,11,30,I42
-2,MTH252,calculus 2,19APCS2,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,SAT,13,30,17,30,I23
+1,CS162,intro to cs 2,19APCS1,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,8,0,10,30,I42
+2,MTH252,calculus 2,19APCS1,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+3,BAA00004,Introduction to Laws,19APCS1,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+4,BAA00101,Marxism and Leninism,19APCS1,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+5,PH212,General Physics II,19APCS1,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
+6,CS162,intro to cs 2,19APCS2,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+7,MTH252,calculus 2,19APCS2,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+8,BAA00004,Introduction to Laws,19APCS2,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+9,BAA00101,Marxism and Leninism,19APCS2,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+10,PH212,General Physics II,19APCS2,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
+11,CS162,intro to cs 2,19CLC1,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+12,MTH252,calculus 2,19CLC1,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+13,BAA00004,Introduction to Laws,19CLC1,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+14,BAA00101,Marxism and Leninism,19CLC1,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+15,PH212,General Physics II,19CLC1,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
+16,CS162,intro to cs 2,19CLC2,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+17,MTH252,calculus 2,19CLC2,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+18,BAA00004,Introduction to Laws,19CLC2,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+19,BAA00101,Marxism and Leninism,19CLC2,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+20,PH212,General Physics II,19CLC2,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
+21,CS162,intro to cs 2,19CLC3,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+22,MTH252,calculus 2,19CLC3,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+23,BAA00004,Introduction to Laws,19CLC3,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+24,BAA00101,Marxism and Leninism,19CLC3,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+25,PH212,General Physics II,19CLC3,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
+26,CS162,intro to cs 2,19CLC4,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+27,MTH252,calculus 2,19CLC4,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+28,BAA00004,Introduction to Laws,19CLC4,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+29,BAA00101,Marxism and Leninism,19CLC4,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+30,PH212,General Physics II,19CLC4,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
+31,CS162,intro to cs 2,19CLC5,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+32,MTH252,calculus 2,19CLC5,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+33,BAA00004,Introduction to Laws,19CLC5,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+34,BAA00101,Marxism and Leninism,19CLC5,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+35,PH212,General Physics II,19CLC5,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
+36,CS162,intro to cs 2,19CLC6,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+37,MTH252,calculus 2,19CLC6,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+38,BAA00004,Introduction to Laws,19CLC6,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+39,BAA00101,Marxism and Leninism,19CLC6,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+40,PH212,General Physics II,19CLC6,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34

@@ -1,4 +1,0 @@
-3
-Nguyen Thi Minh Phuc,ntmphuc,123456,0
-Hoang Anh Tu,hatu,123456,0
-Le Thi Anh Thao,ltathao,654321,0

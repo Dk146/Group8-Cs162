@@ -1,0 +1,6 @@
+No,Course ID,Course name,Class,Lecturer username,Lecturer name,Lecturer degree,Lecturer gender,Start date,End date,Day of week,Start hour,Start minutes,End hour,End minute,Room
+1,CS162,intro to cs 2,19CLC7,dbtien,Dinh Ba Tien,Tien si,Male,20200511,20200622,3,13,30,15,30,I42
+2,MTH252,calculus 2,19CLC7,nhanh,Nguyen Huu Anh,Giao su,Male,20200504,20200601,2,13,30,17,30,I23
+3,BAA00004,Introduction to Laws,19CLC7,dctrang,Dang Cong Trang,Giao su,Male,20200504,20200602,3,13,30,18,30,i32
+4,BAA00101,Marxism and Leninism,19CLC7,nqhuy,Ngo Quang Huy,Tien si,Male,20200505,20200603,2,13,30,19,30,i33
+5,PH212,General Physics II,19CLC7,nhnha,Nguyen Huu Nha,Tien si,Male,20200506,20200604,2,13,30,18,30,i34
